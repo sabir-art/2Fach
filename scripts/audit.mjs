@@ -8,6 +8,7 @@ const PAGES = [
   ['commercialization.html', 'commercialization'],
   ['case-study.html?p=seeblick', 'case-study'],
   ['about.html', 'about'],
+  ['about-editorial.html', 'about-editorial'],
   ['contact.html', 'contact'],
   ['privacy.html', 'privacy'],
   ['terms.html', 'terms'],

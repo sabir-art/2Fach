@@ -89,7 +89,7 @@ labelled as such (*"Placeholder case studies — to be replaced"*).
 photography that does the talking; motion that is slow and weighted. It should feel like a printed
 monograph that happens to scroll.
 
-**Colour.** A warm **cream** background (`--bg #f5f1e5`) with near-black **ink** text
+**Colour.** A **white** background (`--bg #ffffff`) with near-black **ink** text
 (`--fg #16140f`) and exactly **one accent**: a **taupe-bronze** (`--accent #98855c`) chosen because
 it reads on cream *and* over photography. Media zones go **near-black** (`--media-dark #14130f`) with
 light **on-media** text (`--on-media #f4f0e7`). A secondary **"two strands"** palette codes the two

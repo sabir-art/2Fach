@@ -28,12 +28,12 @@
     ::-webkit-scrollbar-thumb:hover{background:var(--accent-hover,#a8946a)}
     html{scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
     em,i,cite{font-style:normal !important}
-    body{margin:0;background:#f5f1e5;color:#16140f;font-family:var(--font);-webkit-font-smoothing:antialiased}
-    ::selection{background:#98855c;color:#f5f1e5}
+    body{margin:0;background:#ffffff;color:#16140f;font-family:var(--font);-webkit-font-smoothing:antialiased}
+    ::selection{background:#98855c;color:#ffffff}
   </style>
 </helmet>
 
-<div style="background:#f5f1e5">
+<div style="background:#ffffff">
 
   <!-- header: shared site header (same on every page) -->
   <dc-import name="SiteHeader" current="Work" top-tint="light" hint-size="100%,72px" style="display:block"></dc-import>
@@ -73,7 +73,7 @@
       </section>
 
       <!-- scene 1 · context (enter: mask wipe from the left + reveal & stagger) -->
-      <section data-zone="1" data-screen-label="Context" style="position:absolute;inset:0;z-index:2;background:#f5f1e5;display:flex;align-items:center">
+      <section data-zone="1" data-screen-label="Context" style="position:absolute;inset:0;z-index:2;background:#ffffff;display:flex;align-items:center">
         <div style="width:100%;max-width:1200px;margin:0 auto;padding:0 clamp(20px,6vw,90px);box-sizing:border-box;display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,1fr);gap:clamp(28px,5vw,80px)">
           <p data-st style="margin:0;color:#98855c;font-size:11px;letter-spacing:.2em;text-transform:uppercase">(01), The site &amp; the brief</p>
           <p data-st style="margin:0;font-size:clamp(21px,2vw,30px);line-height:1.5;text-wrap:pretty">{{ context }}</p>
@@ -81,7 +81,7 @@
       </section>
 
       <!-- scene 2 · the chain (enter: reveal & stagger, row by row) -->
-      <section data-zone="2" data-screen-label="The chain" style="position:absolute;inset:0;z-index:3;background:#f5f1e5;display:flex;align-items:center">
+      <section data-zone="2" data-screen-label="The chain" style="position:absolute;inset:0;z-index:3;background:#ffffff;display:flex;align-items:center">
         <div style="width:100%;max-width:1200px;margin:0 auto;padding:0 clamp(20px,6vw,90px);box-sizing:border-box">
           <p data-st style="margin:0 0 clamp(18px,3vh,34px);color:#98855c;font-size:11px;letter-spacing:.2em;text-transform:uppercase">(02), From the plot to the last unit</p>
           <div style="display:flex;flex-direction:column">
@@ -155,7 +155,7 @@
       </section>
 
       <!-- scene 5 · the visuals (enter: mask wipe down, then scroll to pan) -->
-      <section data-zone="5" data-screen-label="Gallery" style="position:absolute;inset:0;z-index:6;overflow:hidden;background:#f5f1e5">
+      <section data-zone="5" data-screen-label="Gallery" style="position:absolute;inset:0;z-index:6;overflow:hidden;background:#ffffff">
         <div style="position:absolute;left:clamp(20px,6vw,90px);right:clamp(20px,6vw,90px);top:clamp(74px,12vh,110px);display:flex;justify-content:space-between;align-items:baseline;gap:20px">
           <p style="margin:0;color:#98855c;font-size:11px;letter-spacing:.2em;text-transform:uppercase">(05), The visuals</p>
           <p id="panHint" style="margin:0;color:rgba(22,20,15,.45);font-size:11px;letter-spacing:.2em;text-transform:uppercase">Scroll to pan <span aria-hidden="true">→</span></p>
@@ -164,7 +164,7 @@
           <div id="galTrack" style="display:flex;gap:clamp(16px,2.4vw,32px);padding:0 clamp(20px,6vw,90px);align-items:center;will-change:transform">
             <sc-for list="{{ images }}" as="im" hint-placeholder-count="4">
               <figure style="margin:0;flex:none;display:flex;flex-direction:column;gap:10px;width:clamp(420px,46vw,760px)">
-                <span style="display:block;overflow:hidden;border-radius:4px;aspect-ratio:4/3;background:#ece5d4">
+                <span style="display:block;overflow:hidden;border-radius:4px;aspect-ratio:4/3;background:#f4f2ee">
                   <img src="{{ im.src }}" alt="{{ im.cap }}" style="width:100%;height:100%;object-fit:cover;display:block">
                 </span>
                 <figcaption style="font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(22,20,15,.45)">{{ im.cap }}</figcaption>
@@ -434,7 +434,7 @@ class Component extends DCLogic {
       planSetColor: blueprint ? '#bcd6f2' : ((p.plans[idx].set === 'Technical set') ? '#2e3d4d' : '#a86547'),
       planSetBorder: blueprint ? 'rgba(188,214,242,.5)' : ((p.plans[idx].set === 'Technical set') ? 'rgba(46,61,77,.4)' : 'rgba(168,101,71,.4)'),
       planFilter: blueprint ? 'invert(1) brightness(1.5) contrast(1.05)' : 'none',
-      planCardBg: blueprint ? '#0e2f57' : '#f5f1e5',
+      planCardBg: blueprint ? '#0e2f57' : '#ffffff',
       planFg: blueprint ? '#eaf2fb' : '#16140f',
       planNoteColor: blueprint ? 'rgba(223,236,252,.68)' : 'rgba(22,20,15,.6)',
       planFootColor: blueprint ? 'rgba(223,236,252,.5)' : 'rgba(22,20,15,.45)',

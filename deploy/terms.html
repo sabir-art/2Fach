@@ -48,7 +48,7 @@
     ::selection{background:var(--accent);color:var(--bg)}
     .wrap{max-width:820px;margin:0 auto;padding-inline:var(--pad-x)}
     /* header + full-screen menu now come from the shared <SiteHeader> component */
-    html{scroll-behavior:smooth}
+    /* Lenis drives the smoothing; native smooth scrolling would fight it */
     .doc-layout{display:grid;grid-template-columns:210px minmax(0,1fr);gap:clamp(30px,6vw,90px);padding:clamp(130px,20vh,210px) 0 clamp(80px,14vh,140px);align-items:start}
     .doc-toc{position:sticky;top:96px;font-size:13px}
     .doc-toc__k{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe);margin:0 0 1em}

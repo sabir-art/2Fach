@@ -39,7 +39,7 @@ a{ color:inherit; text-decoration:none; }
 .zf-intro{
   --beige:#a59c8c; --gris:#5a5a5a; --guide-color:#9aa7b3;
   position:fixed; inset:0; z-index:9999; display:grid; place-items:center;
-  background:#f5f1e5;        /* même crème que le site → révélation sans coupure */
+  background:#ffffff;        /* même crème que le site → révélation sans coupure */
 }
 .zf-intro .zf-logo{ width:min(72vw,520px); height:auto; display:block; overflow:visible; }
 .zf-intro .cls-1{ fill:var(--beige); }
@@ -210,7 +210,7 @@ html.lenis .scrollbar{ display:block; }                 /* visible seulement qua
 .story__layer{ position:absolute; inset:0; overflow:hidden; }
 .story__img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; will-change:transform; }
 .story__a{ z-index:1; }
-.story__leftbg{ z-index:2; left:0; width:50%; background:#F5F1E5; }   /* fond crème à gauche */
+.story__leftbg{ z-index:2; left:0; width:50%; background:#ffffff; }   /* fond crème à gauche */
 .story__b{ z-index:3; left:50%; width:50%; }
 .story__content{ z-index:4; left:0; width:50%; display:flex; align-items:center; }
 .story__inner{ position:relative; width:100%; max-width:540px; margin:0 auto; padding:0 clamp(24px,4vw,72px);

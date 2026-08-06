@@ -47,11 +47,6 @@
     @keyframes zsheen{0%{-webkit-mask-position:50% -130%;mask-position:50% -130%;opacity:0}20%{opacity:1}100%{-webkit-mask-position:50% 135%;mask-position:50% 135%;opacity:0}}
     @media (prefers-reduced-motion:reduce){.zbrand__crop{transition:none}.zbrand__crop.lock .brand-sheen{animation:none;opacity:0}.zhead{transition:background .5s,border-color .5s}}
     .zright{display:flex;align-items:center;gap:clamp(12px,1.6vw,20px)}
-    .ztheme{position:relative;width:58px;height:30px;flex:none;border:1px solid color-mix(in srgb,var(--hc) 36%,transparent);background:color-mix(in srgb,var(--hc) 9%,transparent);border-radius:100px;cursor:pointer;padding:0;transition:border-color .4s var(--ease-out-expo),background .5s var(--ease-out-expo);overflow:hidden}
-    .ztheme:hover{border-color:var(--hc)}
-    .ztheme__moon{position:absolute;top:50%;left:3px;width:22px;height:22px;box-sizing:border-box;border-radius:50%;background:var(--hc);transform:translateY(-50%);box-shadow:0 2px 9px color-mix(in srgb,var(--hc) 45%,transparent);transition:transform .55s var(--ease-out-expo),background .45s ease,box-shadow .45s ease}
-    html.theme-dark .ztheme{background:color-mix(in srgb,var(--hc) 5%,transparent)}
-    html.theme-dark .ztheme__moon{transform:translateY(-50%) translateX(28px);background:transparent;border:1px solid var(--hc);box-shadow:inset -6px -3px 0 0 var(--hc),0 2px 11px rgba(0,0,0,.4)}
     /* menu toggle: label + morphing burger */
     .zmenu{display:flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:40px;gap:11px;background:none;border:0;cursor:pointer;font-family:var(--font);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--hc);padding:0 2px}
     .zmenu__lbl .l-close{display:none}
@@ -107,7 +102,6 @@
   </a>
   <div class="zh-side zh-right">
     <a class="zh-link zh-contact" href="mailto:hello@zweifach.ch"><span class="zh-mail">hello@zweifach.ch</span> Contact</a>
-    <button class="ztheme" id="zthemeBtn" type="button" aria-label="Switch dark / light" title="Dark / light"><span class="ztheme__moon"></span></button>
   </div>
 </header>
 
@@ -118,7 +112,8 @@
     <a href="Architecture.dc.html" data-key="architecture"><em>03</em> Architecture</a>
     <a href="Commercialization.dc.html" data-key="commercialisation"><em>04</em> Commercialisation</a>
     <a href="About.dc.html" data-key="studio"><em>05</em> Studio</a>
-    <a href="Contact.dc.html" data-key="contact"><em>06</em> Contact</a>
+    <a href="About Editorial.dc.html" data-key="studio-editorial"><em>06</em> Studio, editorial</a>
+    <a href="Contact.dc.html" data-key="contact"><em>07</em> Contact</a>
   </nav>
   <div class="menu-foot"><span>hello@zweifach.ch · Aargau, Switzerland</span><span><a href="Privacy.dc.html">Privacy</a> · <a href="Terms.dc.html">Terms</a></span></div>
 </div>
@@ -194,28 +189,15 @@ class Component extends DCLogic {
     this._scroll();
     window.addEventListener('scroll', this._scroll, { passive: true });
 
-    // theme toggle (site-wide, persisted)
-    const root = document.documentElement;
-    let dark = false;
-    try { dark = localStorage.getItem('zf-theme') === 'dark'; } catch (e) {}
-    root.classList.toggle('theme-dark', dark);
-    const tbtn = document.getElementById('zthemeBtn');
-    if (tbtn) {
-      this._theme = () => {
-        const next = !root.classList.contains('theme-dark');
-        root.classList.toggle('theme-dark', next);
-        try { localStorage.setItem('zf-theme', next ? 'dark' : 'light'); } catch (e) {}
-      };
-      tbtn.addEventListener('click', this._theme);
-    }
+    // the site is light only; clear any dark preference left in storage
+    document.documentElement.classList.remove('theme-dark');
+    try { localStorage.removeItem('zf-theme'); } catch (e) {}
   }
 
   componentWillUnmount() {
     if (this._esc) document.removeEventListener('keydown', this._esc);
     if (this._scroll) window.removeEventListener('scroll', this._scroll);
     if (this._measure) window.removeEventListener('resize', this._measure);
-    const tbtn = document.getElementById('zthemeBtn');
-    if (tbtn && this._theme) tbtn.removeEventListener('click', this._theme);
   }
 
   renderVals() { return {}; }

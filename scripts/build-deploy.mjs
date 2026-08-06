@@ -23,6 +23,7 @@ const PAGES = {
   'Commercialization.dc.html': 'commercialization.html',
   'Case Study.dc.html': 'case-study.html',
   'About.dc.html': 'about.html',
+  'About Editorial.dc.html': 'about-editorial.html',
   'Contact.dc.html': 'contact.html',
   'Privacy.dc.html': 'privacy.html',
   'Terms.dc.html': 'terms.html',

@@ -1,19 +1,19 @@
 /* =====================================================================
    ZweiFach — Colour tokens
    Source of truth: scroll-video-hero/styles.css :root
-   The site lives on a warm CREAM canvas with near-black INK text; a single
-   TAUPE/bronze accent reads on cream AND over photography. Media zones go
+   The site lives on a WHITE canvas with near-black INK text; a single
+   TAUPE/bronze accent reads on white AND over photography. Media zones go
    near-black. A secondary "two strands" palette codes the two crafts:
    BLUEPRINT (architecture · Esad) and CLAY (commercialisation · Dionis).
    ===================================================================== */
 
 :root{
   /* ---------- Base · canvas & ink ---------- */
-  --bg:#f5f1e5;                       /* cream — the whole site sits on this   */
-  --panel:#ece5d4;                    /* slightly deeper cream — inset surfaces */
-  --fg:#16140f;                       /* ink — primary text on cream            */
-  --muted:rgba(22,20,15,.58);         /* secondary text on cream                */
-  --line:rgba(22,20,15,.14);          /* hairline / rule on cream               */
+  --bg:#ffffff;                       /* white — the whole site sits on this    */
+  --panel:#f4f2ee;                    /* faintest warm grey — inset surfaces    */
+  --fg:#16140f;                       /* ink — primary text on white            */
+  --muted:rgba(22,20,15,.58);         /* secondary text on white                */
+  --line:rgba(22,20,15,.14);          /* hairline / rule on white               */
   --white:#ffffff;                    /* pure white — info bandeaux, exp blocks  */
 
   /* ---------- Accent ---------- */
