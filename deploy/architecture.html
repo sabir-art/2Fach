@@ -49,7 +49,7 @@
     .scenehint .ln::after{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:var(--fg);animation:hintdrop 1.9s var(--ease-out-expo) infinite}
     @keyframes hintdrop{0%{transform:translateY(-100%)}60%,100%{transform:translateY(100%)}}
     /* prominent "more sections below" cue */
-    .moreCue{position:absolute;left:50%;bottom:clamp(18px,3vh,30px);transform:translateX(-50%);z-index:40;display:flex;flex-direction:column;align-items:center;gap:9px;pointer-events:none;text-align:center}
+    .moreCue{position:absolute;right:var(--pad-x);bottom:clamp(18px,3vh,30px);z-index:40;display:flex;flex-direction:column;align-items:center;gap:9px;pointer-events:none;text-align:center}
     .moreCue__t{font-size:.66rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
     .moreCue__a{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--line);border-radius:100px;color:var(--fg);animation:moreBob 1.8s var(--ease-out-expo) infinite}
     .moreCue__a svg{width:16px;height:16px;display:block}
@@ -135,32 +135,32 @@
     .work{background:var(--ink,#16181a);color:var(--on-media)}
     .work .swrap{position:relative;z-index:1;display:flex;flex-direction:column;gap:clamp(22px,4vh,44px)}
     .work .eyebrow{color:rgba(244,240,231,.62)}
+    /* selected-work carousel, shared with the home page */
+    .workCar{position:relative;display:flex;flex-direction:column;min-height:min(60vh,600px);margin-top:clamp(18px,3vh,32px)}
+    .car__bar{display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .car__crumb{display:flex;align-items:center;gap:11px;font-weight:500;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+    .car__dot{width:8px;height:8px;border-radius:100px;background:var(--accent);display:inline-block;flex:none}
+    .car__nums{display:flex;flex-direction:column;gap:9px;min-width:clamp(170px,20vw,240px)}
+    .car__nums-row{display:flex;justify-content:space-between;gap:14px}
+    .car__nums button{font-family:var(--font);background:none;border:0;cursor:pointer;font-size:.82rem;letter-spacing:.04em;color:rgba(244,240,231,.4);transition:color .35s;padding:0}
+    .car__nums button.is-active{color:var(--on-media)}
+    .car__prog{position:relative;height:1px;width:100%;background:rgba(244,240,231,.2)}
+    .car__prog-fill{position:absolute;left:0;top:0;height:100%;background:var(--accent);width:0;transition:width .6s var(--ease-out-expo)}
+    .car__view{position:relative;flex:1;min-height:0;margin-top:14px;overflow:hidden}
+    .car__track{position:absolute;top:0;bottom:0;left:50%;display:flex;align-items:center;gap:clamp(18px,2.4vw,30px);will-change:transform}
+    .slide{position:relative;flex:0 0 auto;height:100%;aspect-ratio:1080/1350;overflow:hidden;border-radius:2px;opacity:.42;transform-origin:center;will-change:transform,opacity}
+    .slide.is-center{opacity:1}
+    .slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .slide__scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,15,13,.66),rgba(14,15,13,0) 55%)}
+    .car__title{position:absolute;left:0;right:0;top:4%;z-index:6;margin:0;text-align:center;pointer-events:none;font-weight:300;line-height:.92;letter-spacing:.01em;color:#f4f0e7;text-transform:uppercase;font-size:clamp(1.7rem,4.6vw,4rem);text-shadow:0 2px 40px rgba(0,0,0,.5);transition:opacity .5s ease}
+    .car__title em{font-style:normal;display:block}
+    .car__cap{display:flex;align-items:center;justify-content:center;padding:clamp(14px,2vw,20px) 0 0}
+    .car__cap p{margin:0;font-size:.82rem;line-height:1.5;color:var(--on-media);transition:opacity .4s;text-align:center}
+    .car__index{position:absolute;left:0;bottom:0;z-index:6;font-size:.72rem;letter-spacing:.12em;color:rgba(244,240,231,.7)}
+    @media (max-width:760px){.workCar{min-height:min(52vh,460px)}.car__nums{min-width:140px}}
     .workTop{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
     .work h2{font-weight:500;font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.02;letter-spacing:-.03em;margin:.35em 0 0}
     .workCount{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,240,231,.5);font-variant-numeric:tabular-nums;white-space:nowrap}
-    .workBody{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(30px,5vw,72px);align-items:center}
-    .workList{list-style:none;margin:0;padding:0}
-    .workRow{position:relative;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:clamp(.8em,1.6vw,1.5em);padding:clamp(14px,2.3vh,24px) 0;border-top:1px solid rgba(244,240,231,.16);cursor:pointer;will-change:opacity,transform;outline:none}
-    .workRow:last-child{border-bottom:1px solid rgba(244,240,231,.16)}
-    .workRow__idx{font-size:.72rem;letter-spacing:.2em;color:rgba(244,240,231,.46);font-variant-numeric:tabular-nums;transition:color .4s}
-    .workRow__name{font-weight:500;font-size:clamp(1.5rem,3vw,2.7rem);letter-spacing:-.025em;line-height:1;color:rgba(244,240,231,.6);transition:color .45s var(--ease-out-expo),transform .55s var(--ease-out-expo)}
-    .workRow__meta{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,240,231,.42);white-space:nowrap;transition:color .4s}
-    .workRow__go{display:inline-flex;color:var(--accent);opacity:0;transform:translateX(-8px);transition:opacity .4s,transform .55s var(--ease-out-expo)}
-    .workRow__go svg{width:20px;height:20px}
-    .workRow:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
-    .workRow.is-active .workRow__name{color:var(--on-media);transform:translateX(clamp(6px,1vw,14px))}
-    .workRow.is-active .workRow__idx{color:var(--accent)}
-    .workRow.is-active .workRow__meta{color:rgba(244,240,231,.7)}
-    .workRow.is-active .workRow__go{opacity:1;transform:translateX(0)}
-    .workPreview{position:relative;aspect-ratio:5/4;border-radius:6px;overflow:hidden;background:var(--ink,#16181a);box-shadow:0 30px 64px rgba(0,0,0,.34);clip-path:inset(100% 0 0 0);will-change:clip-path}
-    .workShot{position:absolute;inset:0;opacity:0;transition:opacity .7s var(--ease-out-expo);will-change:opacity}
-    .workShot img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.4s var(--ease-out-expo)}
-    .workShot.is-on{opacity:1;z-index:1}
-    .workShot.is-on img{transform:scale(1)}
-    .workShot::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(22,24,26,.66))}
-    .workPrev__cap{position:absolute;left:18px;right:18px;bottom:16px;z-index:2;display:flex;justify-content:space-between;align-items:baseline;gap:14px}
-    .workPrev__cap b{font-weight:500;font-size:clamp(1rem,1.4vw,1.2rem);letter-spacing:-.01em;color:var(--on-media)}
-    .workPrev__cap span{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,240,231,.66)}
 
     /* THE DRAWINGS (plans showcase) — editorial two-column, ghost index, thumbnail rail */
     .plans{background:var(--bg)}
@@ -222,7 +222,6 @@
       .plGhost{display:none}
       .pillars{grid-template-columns:1fr;gap:16px}
       .factGrid{grid-template-columns:1fr 1fr;gap:18px}
-      .workBody{grid-template-columns:1fr;gap:22px}
     }
 
     /* ---- STATIC FALLBACK (reduced-motion / no GSAP): readable normal-flow stack ---- */
@@ -237,8 +236,6 @@
     .stage--static .phPanel{position:relative;clip-path:none!important;height:72vh}
     .stage--static .phPlan:first-child{opacity:.94}
     .stage--static .pillar,.stage--static .fact,.stage--static .cta .in>*{opacity:1!important;transform:none!important}
-    .stage--static .workRow{opacity:1!important;transform:none!important}
-    .stage--static .workPreview{clip-path:none!important}
     .stage--static .scenehint{display:none}
     .stage--static .plans{min-height:auto;display:block;padding:clamp(40px,8vh,90px) 0}
     .stage--static .plGrid,.stage--static .plGhost{display:none}
@@ -444,35 +441,36 @@
               <p class="eyebrow"><span class="dot"></span>Drawn by Esad</p>
               <h2>Selected work.</h2>
             </div>
-            <span class="workCount">03 projects</span>
+            <span class="workCount">05 projects</span>
           </div>
-          <div class="workBody">
-            <ul class="workList" id="workList">
-              <li class="workRow is-active" data-i="0" data-href="case-study.html" tabindex="0" role="link" aria-label="Bellevue Wynental">
-                <span class="workRow__idx">01</span>
-                <span class="workRow__name">Bellevue Wynental</span>
-                <span class="workRow__meta">New build · 8 apartments</span>
-                <span class="workRow__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-              </li>
-              <li class="workRow" data-i="1" data-href="work.html" tabindex="0" role="link" aria-label="Seeblick">
-                <span class="workRow__idx">02</span>
-                <span class="workRow__name">Seeblick</span>
-                <span class="workRow__meta">Feasibility · lakeside</span>
-                <span class="workRow__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-              </li>
-              <li class="workRow" data-i="2" data-href="work.html" tabindex="0" role="link" aria-label="Rothrüthi">
-                <span class="workRow__idx">03</span>
-                <span class="workRow__name">Rothrüthi</span>
-                <span class="workRow__meta">Residential · permit</span>
-                <span class="workRow__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-              </li>
-            </ul>
-            <div class="workPreview" id="workPreview">
-              <div class="workShot is-on" data-shot="0"><img src="assets/projects/bellevue/ext-1.jpg" alt="Bellevue Wynental"></div>
-              <div class="workShot" data-shot="1"><img src="assets/projects/seeblick/site-1.jpg" alt="Seeblick"></div>
-              <div class="workShot" data-shot="2"><img src="assets/projects/rothruthi/ext-1.jpg" alt="Rothrüthi"></div>
-              <div class="workPrev__cap"><b id="wkName">Bellevue Wynental</b><span>View project</span></div>
+          <div class="workCar" id="workCar">
+            <div class="car__bar">
+              <span class="car__crumb"><span class="car__dot"></span>Our projects</span>
+              <div class="car__nums" id="wkNums">
+                <div class="car__nums-row">
+                  <button type="button" class="is-active">1</button>
+                  <button type="button">2</button>
+                  <button type="button">3</button>
+                  <button type="button">4</button>
+                  <button type="button">5</button>
+                </div>
+                <div class="car__prog"><span class="car__prog-fill" id="wkProg"></span></div>
+              </div>
             </div>
+            <div class="car__view">
+              <div class="car__track" id="wkTrack">
+                <a class="slide" href="case-study.html?p=bellevue"><img src="./bellevue_3_2-mr82i2g0.jpg" alt=""><div class="slide__scrim"></div></a>
+                <a class="slide" href="case-study.html?p=rothruthi"><img src="assets/projects/rothruthi/ext-1.jpg" alt=""><div class="slide__scrim"></div></a>
+                <a class="slide is-center" href="case-study.html?p=seeblick"><img src="./seeblick_04_01-mr82knwy.png" alt=""><div class="slide__scrim"></div></a>
+                <a class="slide" href="case-study.html?p=niederrohrdorf"><img src="./hiltiberg_02_01-mr82zikx.png" alt=""><div class="slide__scrim"></div></a>
+                <a class="slide" href="case-study.html?p=buero"><img src="./office-2_1-mr832em8.png" alt=""><div class="slide__scrim"></div></a>
+              </div>
+              <h2 class="car__title" id="wkTitle">Bellevue <em>Wynental</em></h2>
+            </div>
+            <div class="car__cap">
+              <p id="wkDesc" style="max-width:34ch">Four apartments above the Wynental, drawn to be sold, sold on the drawings.</p>
+            </div>
+            <span class="car__index" id="wkIndex">01 / 05</span>
           </div>
         </div>
         <div class="moreCue" aria-hidden="true"><span class="moreCue__t">More below</span><span class="moreCue__a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></div>
@@ -562,25 +560,57 @@ class Component extends DCLogic {
     ];
     this.pillars = [].slice.call(scenes.philo.querySelectorAll('[data-pillar]'));
     this.facts = [].slice.call(scenes.facts.querySelectorAll('[data-fact]'));
-    this.workRows = scenes.work ? [].slice.call(scenes.work.querySelectorAll('.workRow')) : [];
-    this.workShots = scenes.work ? [].slice.call(scenes.work.querySelectorAll('.workShot')) : [];
-    this.workPreview = scenes.work ? scenes.work.querySelector('.workPreview') : null;
-    this.wkNameEl = document.getElementById('wkName');
-    this.workMeta = ['Bellevue Wynental', 'Seeblick', 'Rothrüthi'];
-    if (this.workRows.length) {
-      const activate = (i) => {
-        this.workRows.forEach((rw, k) => rw.classList.toggle('is-active', k === i));
-        this.workShots.forEach((sh, k) => sh.classList.toggle('is-on', k === i));
-        if (this.wkNameEl) this.wkNameEl.textContent = this.workMeta[i] || '';
+    // selected work, same carousel component as the home page
+    this.WK = [
+      { t: 'Bellevue <em>Wynental</em>', d: 'Four apartments above the Wynental, drawn to be sold, sold on the drawings.' },
+      { t: 'Rothrüthi <em>Terraces</em>', d: 'Thirteen units, one repeating plan logic, efficiency a bank can read.' },
+      { t: 'Seeblick <em>Birrwil</em>', d: 'Seven apartments and a commercial floor above Lake Hallwil.' },
+      { t: 'Niederrohrdorf <em>Replacement</em>', d: 'A replacement build of five apartments, permit drawn and granted.' },
+      { t: 'Umbau <em>Büro</em>', d: 'An office conversion, resolved floor by floor.' },
+    ];
+    this.wkSlides = scenes.work ? [].slice.call(scenes.work.querySelectorAll('.slide')) : [];
+    this.wkTrack = document.getElementById('wkTrack');
+    this.wkN = this.wkSlides.length;
+    if (this.wkN && this.wkTrack) {
+      const cl = (v, a, b) => Math.max(a, Math.min(b, v));
+      const nums = [].slice.call(document.querySelectorAll('#wkNums button'));
+      const titleEl = document.getElementById('wkTitle');
+      const descEl = document.getElementById('wkDesc');
+      const idxEl = document.getElementById('wkIndex');
+      const progEl = document.getElementById('wkProg');
+      let cur = -1, centers = [];
+      const measure = () => { centers = this.wkSlides.map((sl) => -(sl.offsetLeft + sl.offsetWidth / 2)); };
+      const updateUI = (i) => {
+        nums.forEach((b, k) => b.classList.toggle('is-active', k === i));
+        if (idxEl) idxEl.textContent = '0' + (i + 1) + ' / 0' + this.wkN;
+        if (progEl) progEl.style.width = (this.wkN > 1 ? (i / (this.wkN - 1)) * 100 : 100).toFixed(2) + '%';
+        if (titleEl && descEl) {
+          titleEl.style.opacity = '0'; descEl.style.opacity = '0';
+          setTimeout(() => {
+            titleEl.innerHTML = this.WK[i].t; descEl.textContent = this.WK[i].d;
+            titleEl.style.opacity = '1'; descEl.style.opacity = '1';
+          }, 200);
+        }
       };
-      this.workRows.forEach((row, i) => {
-        row.addEventListener('mouseenter', () => activate(i));
-        row.addEventListener('focus', () => activate(i));
-        const go = () => { const h = row.getAttribute('data-href'); if (h) window.location.href = h; };
-        row.addEventListener('click', go);
-        row.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
-      });
-      activate(0);
+      this.wkRender = (fpos) => {
+        fpos = cl(fpos, 0, this.wkN - 1);
+        if (!centers.length || !centers[0]) measure();
+        const i0 = Math.floor(fpos), i1 = Math.min(i0 + 1, this.wkN - 1), f = fpos - i0;
+        const tx = centers[i0] + (centers[i1] - centers[i0]) * f;
+        this.wkTrack.style.transform = 'translateX(' + tx.toFixed(2) + 'px)';
+        this.wkSlides.forEach((sl, k) => {
+          const t = 1 - cl(Math.abs(k - fpos), 0, 1);
+          sl.style.opacity = (0.36 + 0.64 * t).toFixed(3);
+          sl.style.transform = 'scale(' + (0.74 + 0.26 * t).toFixed(3) + ')';
+          sl.style.zIndex = t > 0.5 ? '3' : '1';
+        });
+        const ri = Math.round(fpos);
+        if (ri !== cur) { cur = ri; updateUI(ri); }
+      };
+      const relayout = () => { measure(); this.wkRender(cur < 0 ? 0 : cur); };
+      window.addEventListener('resize', relayout);
+      nums.forEach((b, k) => b.addEventListener('click', () => this.wkRender(k)));
+      requestAnimationFrame(() => requestAnimationFrame(() => { measure(); this.wkRender(0); }));
     }
     this.ctaItems = [].slice.call(scenes.cta.querySelectorAll('.cta .in > *'));
     this.plItems = scenes.plans ? [].slice.call(scenes.plans.querySelectorAll('[data-plan]')) : [];
@@ -775,12 +805,7 @@ class Component extends DCLogic {
         s.style.opacity = r;
         s.style.transform = 'scale(' + (1.16 - 0.16 * r) + ')';
         const sp = C((tc - 0.42) / 0.5);
-        this.workRows.forEach((row, k) => {
-          const rr = C(sp * 3 - k * 0.7);
-          row.style.opacity = rr;
-          row.style.transform = 'translateY(' + ((1 - rr) * 26) + 'px)';
-        });
-        if (this.workPreview) this.workPreview.style.clipPath = this.up(C((sp - 0.1) / 0.7));
+        if (this.wkRender && this.wkN > 1) this.wkRender(sp * (this.wkN - 1));
         break;
       }
       case 'cta': {

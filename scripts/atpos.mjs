@@ -1,0 +1,12 @@
+import { chromium } from 'playwright';
+const [,, page_, frac, label] = process.argv;
+const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
+await p.goto('http://localhost:8099/' + page_, { waitUntil: 'networkidle', timeout: 60000 });
+await p.waitForTimeout(2500);
+const h = await p.evaluate(() => document.body.scrollHeight);
+await p.evaluate((y) => window.scrollTo(0, y), h * Number(frac));
+await p.waitForTimeout(2600);
+await p.screenshot({ path: `/tmp/shots/${label}.png` });
+console.log(`shot at ${Math.round(h*Number(frac))}px of ${h}px`);
+await b.close();
