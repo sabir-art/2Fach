@@ -1,0 +1,56 @@
+/* =====================================================================
+   ZweiFach — Motion tokens
+   The site's signature is calm, weighted, "out-expo" motion: things ease
+   IN fast and settle slowly, masks (clip-path) wipe content in, and a
+   Lenis smooth-scroll drives GSAP ScrollTrigger. These tokens capture the
+   eases and durations actually used so new work feels identical.
+   Always pair motion with the prefers-reduced-motion guard at the bottom.
+   ===================================================================== */
+
+:root{
+  /* ---------- Easing curves ---------- */
+  --ease-out-expo:cubic-bezier(.16, 1, .3, 1);   /* @kind other */ /* THE house ease */
+  --ease-reveal:cubic-bezier(.7, 0, .15, 1);     /* @kind other */ /* About duo open/close */
+  --ease-name:cubic-bezier(.16, .84, .32, 1);    /* @kind other */ /* "name behind person" rise */
+  --ease-img:cubic-bezier(.2, .7, .2, 1);        /* @kind other */ /* Works hover image scale */
+  --ease-standard:ease;                          /* @kind other */ /* simple fades */
+
+  /* GSAP eases referenced in JS (documentation — not CSS values):
+     power3.out  → reveal (fade + 42px rise)
+     power2.out / power2.inOut → captions, residence gallery wipe
+     power2.inOut → intro overlay exit
+     back.out(2) → thumbnail click bounce
+     Lenis easing → t => 1.001 - 2^(-10t) (easeOutExpo), duration 1.05s        */
+
+  /* ---------- Durations ---------- */
+  --dur-instant:.2s;        /* @kind other */
+  --dur-fast:.35s;          /* @kind other */ /* default hover/colour transition */
+  --dur-base:.5s;           /* @kind other */
+  --dur-slow:.75s;          /* @kind other */ /* info bandeau rise */
+  --dur-slower:.9s;         /* @kind other */ /* clip-path wipes, name rise */
+  --dur-reveal:.9s;         /* @kind other */ /* scroll reveal (GSAP 0.9s) */
+  --dur-lenis:1.05s;        /* @kind other */ /* smooth-scroll inertia */
+
+  /* ---------- Reveal defaults ---------- */
+  --reveal-shift:42px;      /* @kind spacing */ /* [data-reveal] translateY start */
+  --reveal-stagger:.12s;    /* @kind other */ /* batch stagger between siblings */
+
+  /* ---------- Smooth scroll ---------- */
+  --scrub:1.1;              /* @kind other */ /* ScrollTrigger scrub smoothing (s) */
+}
+
+/* Honour reduced-motion everywhere this token file is loaded. Individual
+   components still gate their own keyframe/looping animations, but this
+   neutralises the common transition tokens for users who ask for less. */
+@media (prefers-reduced-motion: reduce){
+  :root{
+    --dur-instant:0s; /* @kind other */
+    --dur-fast:0s; /* @kind other */
+    --dur-base:0s; /* @kind other */
+    --dur-slow:0s; /* @kind other */
+    --dur-slower:0s; /* @kind other */
+    --dur-reveal:0s; /* @kind other */
+    --dur-lenis:0s; /* @kind other */
+    --reveal-shift:0px; /* @kind spacing */
+  }
+}

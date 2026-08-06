@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>ZweiFach, Case study</title>
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/motion.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/base.css">
+  <script src="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/_ds_bundle.js"></script>
+  <script src="data/projects.js"></script>
+  <style>
+    html{scroll-behavior:smooth}
+    ::-webkit-scrollbar{width:9px;height:9px;background:transparent}
+    ::-webkit-scrollbar-track{background:transparent;border:0;box-shadow:none}
+    ::-webkit-scrollbar-track-piece{background:transparent}
+    ::-webkit-scrollbar-button{display:none;width:0;height:0}
+    ::-webkit-scrollbar-corner{background:transparent}
+    ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:100px;border:2px solid transparent;background-clip:content-box}
+    ::-webkit-scrollbar-thumb:hover{background:var(--accent-hover,#a8946a)}
+    html{scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
+    em,i,cite{font-style:normal !important}
+    body{margin:0;background:#f5f1e5;color:#16140f;font-family:var(--font);-webkit-font-smoothing:antialiased}
+    ::selection{background:#98855c;color:#f5f1e5}
+  </style>
+</helmet>
+
+<div style="background:#f5f1e5;min-height:100vh">
+
+  <!-- header -->
+  <header id="hdr" data-screen-label="Header" style="--hc:#f4f0e7;position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,6vw,90px);transition:background .5s cubic-bezier(.16,1,.3,1),border-color .5s;background:transparent;border-bottom:1px solid transparent">
+    <a href="Home.dc.html" style="display:flex;align-items:center;gap:12px;text-decoration:none">
+      <img id="hdrLogo" src="assets/brand/zweifach-logo-light.svg" alt="ZweiFach" style="height:30px;display:block">
+    </a>
+    <nav style="display:flex;align-items:center;gap:clamp(18px,3vw,38px)">
+      <a href="Home.dc.html#work" style="color:var(--hc);text-decoration:none;font-size:11px;letter-spacing:.2em;text-transform:uppercase;transition:opacity .35s;display:inline-flex;align-items:center;gap:8px" style-hover="opacity:.65"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All work</a>
+      <a href="Home.dc.html#contact" style="color:var(--hc);text-decoration:none;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;border:1px solid var(--hc);padding:0 18px;min-height:40px;display:inline-flex;align-items:center;box-sizing:border-box;transition:opacity .35s" style-hover="opacity:.8">Talk about your project</a>
+    </nav>
+  </header>
+
+  <!-- hero -->
+  <section data-screen-label="Case hero" style="position:relative;height:100vh;overflow:hidden;background:#14130f">
+    <img id="caseHeroImg" src="{{ hero }}" alt="{{ name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(20,19,15,.82) 0%,rgba(20,19,15,.1) 45%,rgba(20,19,15,.32) 100%)"></div>
+    <div style="position:absolute;left:clamp(20px,6vw,90px);right:clamp(20px,6vw,90px);bottom:11vh">
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <span style="color:rgba(244,240,231,.82);font-size:11px;letter-spacing:.2em;text-transform:uppercase">Case study, {{ program }}</span>
+        <span style="border:1px solid rgba(244,240,231,.5);color:#f4f0e7;border-radius:100px;padding:6px 13px;font-size:10px;letter-spacing:.16em;text-transform:uppercase">{{ status }}</span>
+      </div>
+      <h1 data-hero-title style="margin:18px 0 0;font-weight:500;font-size:clamp(52px,8vw,140px);line-height:.98;letter-spacing:-.03em;color:#f4f0e7;text-shadow:0 2px 30px rgba(0,0,0,.35)">{{ name }}</h1>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-top:26px;flex-wrap:wrap">
+        <p style="margin:0;max-width:460px;color:rgba(244,240,231,.82);font-size:16.5px;line-height:1.6;text-shadow:0 1px 12px rgba(0,0,0,.4)">{{ tagline }}</p>
+        <p style="margin:0;color:rgba(244,240,231,.6);font-size:11px;letter-spacing:.2em;text-transform:uppercase">{{ place }}, {{ year }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- facts -->
+  <section style="background:#f5f1e5;border-bottom:1px solid rgba(22,20,15,.14)">
+    <div style="max-width:1400px;margin:0 auto;padding:0 clamp(20px,6vw,90px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,50px)">
+      <sc-for list="{{ figures }}" as="f" hint-placeholder-count="3">
+        <div style="padding:clamp(28px,4.5vh,46px) 0;display:flex;flex-direction:column;gap:8px">
+          <span style="font-weight:300;font-size:clamp(34px,3.4vw,54px);line-height:1;letter-spacing:-.02em">{{ f.value }}</span>
+          <span style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(22,20,15,.5)">{{ f.label }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- (01) context -->
+  <section data-screen-label="Context" style="padding:clamp(80px,12vh,150px) 0 0;background:#f5f1e5">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,6vw,90px);display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,1fr);gap:clamp(28px,5vw,80px)">
+      <p data-rv style="margin:0;color:#98855c;font-size:11px;letter-spacing:.2em;text-transform:uppercase">(01), The site &amp; the brief</p>
+      <p data-rv data-d="100" style="margin:0;font-size:clamp(20px,1.8vw,27px);line-height:1.5;text-wrap:pretty">{{ context }}</p>
+    </div>
+  </section>
+
+  <!-- (02) the chain -->
+  <section data-screen-label="The chain" style="padding:clamp(80px,12vh,150px) 0 0;background:#f5f1e5">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,6vw,90px)">
+      <p data-rv style="margin:0 0 clamp(26px,4vh,44px);color:#98855c;font-size:11px;letter-spacing:.2em;text-transform:uppercase">(02), From the plot to the last unit</p>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ chain }}" as="c" hint-placeholder-count="6">
+          <div data-rv data-d="{{ c.d }}" style="{{ c.wrapStyle }}">
+            <div style="display:flex;align-items:baseline;gap:10px"><span style="flex:none;width:7px;height:7px;border-radius:100px;background:{{ c.dotColor }}"></span><span style="font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:{{ c.ownerColor }}">{{ c.owner }}</span></div>
+            <div><h3 style="margin:0;font-weight:500;font-size:clamp(17px,1.5vw,20px);letter-spacing:-.01em;color:{{ c.titleColor }}">{{ c.title }}</h3><p style="margin:.45em 0 0;font-size:14.5px;line-height:1.55;color:{{ c.textColor }};max-width:52ch">{{ c.text }}</p></div>
+            <p style="margin:0;text-align:right;font-size:12px;font-weight:500;color:#98855c;font-variant-numeric:tabular-nums">{{ c.proof }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <p data-rv style="margin:14px 0 0;font-size:12px;color:rgba(22,20,15,.45)">{{ chainNote }}</p>
+    </div>
+  </section>
+
+  <!-- (03) the apartments · selector with real plans -->
+  <section data-screen-label="The apartments" style="padding:clamp(80px,12vh,150px) 0;background:#f5f1e5">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,6vw,90px)">
+      <div style="display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,1fr);gap:clamp(28px,5vw,80px)">
+        <p data-rv style="margin:0;color:#2e3d4d;font-size:11px;letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:100px;background:#2e3d4d;display:inline-block"></span>(03), The apartments</p>
+        <p data-rv data-d="100" style="margin:0;font-size:clamp(20px,1.8vw,27px);line-height:1.5;text-wrap:pretty">{{ design }}</p>
+      </div>
+    </div>
+    <div data-rv data-d="150" style="position:relative;height:min(88vh,760px);overflow:hidden;background:#14130f;margin-top:clamp(44px,7vh,80px)">
+      <sc-for list="{{ planBgs }}" as="b" hint-placeholder-count="3">
+        <div style="position:absolute;inset:0;background-image:url('{{ b.src }}');background-size:cover;background-position:center;opacity:{{ b.op }};transition:opacity .9s cubic-bezier(.16,1,.3,1)"></div>
+      </sc-for>
+      <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,14,12,.82),rgba(14,14,12,.36) 44%,rgba(14,14,12,0) 66%)"></div>
+      <div style="position:absolute;left:0;top:0;width:44%;height:100%;z-index:2;display:flex;flex-direction:column;padding:clamp(24px,4vh,44px) clamp(20px,6vw,90px);color:#f4f0e7;box-sizing:border-box">
+        <div style="font-weight:500;font-size:clamp(15px,1.4vw,18px);line-height:1.05;letter-spacing:-.01em">{{ name }}<span style="display:block;margin-top:.55em;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,240,231,.6)">{{ place }}</span></div>
+        <div style="margin:auto 0 0;display:flex;flex-direction:column;align-items:flex-start">
+          <sc-for list="{{ planTabs }}" as="t" hint-placeholder-count="3">
+            <button onClick="{{ t.pick }}" style="cursor:pointer;font-family:inherit;background:none;border:0;padding:.28em 0;text-align:left;font-weight:500;font-size:clamp(21px,2.3vw,29px);letter-spacing:-.01em;color:{{ t.lcolor }};transition:color .35s ease" style-hover="color:rgba(244,240,231,.9)">{{ t.label }}<span style="font-size:.55em;vertical-align:middle;color:#c9906f"> {{ t.mark }}</span></button>
+          </sc-for>
+        </div>
+        <p style="margin:20px 0 0;font-size:11.5px;line-height:1.55;color:rgba(244,240,231,.62);max-width:34ch">The plans as filed. Every square metre accounted for, drawn by Esad, sold on plan by Dionis.</p>
+      </div>
+      <div style="position:absolute;right:clamp(18px,2.4vw,28px);top:clamp(18px,2.4vw,28px);bottom:clamp(18px,2.4vw,28px);width:min(50%,620px);z-index:3;background:#f5f1e5;border-radius:6px;display:flex;flex-direction:column;padding:clamp(18px,2.4vw,28px);box-shadow:0 26px 54px rgba(0,0,0,.22);box-sizing:border-box">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:14px">
+          <p style="margin:0;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#98855c">{{ planCap }}</p>
+          <p style="margin:0;font-weight:300;font-size:clamp(20px,2vw,28px);letter-spacing:-.02em;white-space:nowrap">{{ planM2 }}</p>
+        </div>
+        <div style="position:relative;flex:1;display:flex;align-items:center;justify-content:center;margin-top:8px;min-height:0">
+          <img id="planImg" src="{{ planSrc }}" alt="Floor plan" style="max-width:100%;max-height:100%;object-fit:contain;filter:{{ planFilter }}">
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px">
+          <span style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(22,20,15,.45)">The drawings, as sold</span>
+          <div style="display:flex;gap:7px">
+            <sc-for list="{{ planDots }}" as="dt" hint-placeholder-count="3">
+              <button onClick="{{ dt.pick }}" aria-label="{{ dt.label }}" style="cursor:pointer;border:0;padding:0;width:8px;height:8px;border-radius:50%;background:{{ dt.bg }};transform:{{ dt.tf }};transition:background .3s ease,transform .3s ease"></button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,6vw,90px)">
+      <p style="margin:14px 0 0;font-size:12.5px;color:rgba(22,20,15,.45)">Transparent plan exports, the same drawings buyers reserve on.</p>
+    </div>
+  </section>
+
+  <!-- (04) the result · panel slides in on scroll -->
+  <section id="resWrap" data-screen-label="The result" style="position:relative;height:min(80vh,700px);overflow:hidden;background:#14130f">
+    <div id="resMedia" style="position:absolute;inset:0;background-image:url('{{ resultBg }}');background-size:cover;background-position:center"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,19,15,.22),rgba(20,19,15,.58))"></div>
+    <div id="resHead" style="position:absolute;left:clamp(20px,6vw,90px);bottom:clamp(22px,4vh,38px);z-index:3">
+      <span style="display:block;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,240,231,.7);margin:0 0 .6em">(04), {{ name }}</span>
+      <h2 style="margin:0;color:#f4f0e7;font-weight:500;font-size:clamp(44px,6.4vw,96px);line-height:.95;letter-spacing:-.02em;text-shadow:0 2px 26px rgba(0,0,0,.35)">The result</h2>
+    </div>
+    <aside id="resPanel" style="position:absolute;top:0;right:0;width:min(46%,560px);height:100%;z-index:4;background:#1d241c;color:#f4f0e7;display:flex;flex-direction:column;justify-content:center;padding:clamp(24px,3.4vw,46px);box-sizing:border-box">
+      <p style="margin:0 0 1.2rem;font-size:13.5px;line-height:1.55;opacity:.8;max-width:38ch">{{ commercial }}</p>
+      <ul style="list-style:none;margin:0;padding:0">
+        <sc-for list="{{ resultFacts }}" as="f" hint-placeholder-count="4">
+          <li style="font-weight:300;font-size:clamp(15px,1.4vw,19px);letter-spacing:-.01em;padding:.6rem 0;border-top:1px solid rgba(238,240,234,.16)">{{ f }}</li>
+        </sc-for>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- gallery -->
+  <section data-screen-label="Gallery" style="padding:clamp(80px,12vh,150px) 0;background:#f5f1e5">
+    <div style="max-width:1400px;margin:0 auto;padding:0 clamp(20px,6vw,90px)">
+      <p data-rv style="margin:0 0 clamp(30px,5vh,54px);color:#98855c;font-size:11px;letter-spacing:.2em;text-transform:uppercase">(05), The visuals</p>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.4vw,32px)">
+        <sc-for list="{{ images }}" as="im" hint-placeholder-count="4">
+          <figure data-mask style="margin:0;display:flex;flex-direction:column;gap:10px">
+            <span style="display:block;overflow:hidden;border-radius:4px;aspect-ratio:4/3;background:#ece5d4">
+              <img src="{{ im.src }}" alt="{{ im.cap }}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 1s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.05)">
+            </span>
+            <figcaption style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(22,20,15,.45)">{{ im.cap }}</figcaption>
+          </figure>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- next project -->
+  <a data-screen-label="Next project" href="{{ nextHref }}" style="display:block;position:relative;overflow:hidden;background:#14130f;color:#f4f0e7;text-decoration:none;padding:clamp(90px,16vh,180px) 0">
+    <img src="{{ nextHero }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.34;transition:transform 1.4s cubic-bezier(.16,1,.3,1),opacity .8s">
+    <div style="position:relative;max-width:1200px;margin:0 auto;padding:0 clamp(20px,6vw,90px)">
+      <p style="margin:0 0 22px;color:rgba(244,240,231,.6);font-size:11px;letter-spacing:.2em;text-transform:uppercase">Next on the chain</p>
+      <p style="margin:0;font-weight:500;font-size:clamp(44px,6.4vw,104px);line-height:1;letter-spacing:-.03em">{{ nextName }} <svg width="0.68em" height="0.68em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.04em"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p>
+    </div>
+  </a>
+
+  <!-- footer -->
+  <dc-import name="SiteFooter" hint-size="100%,auto" style="display:block;width:100%"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;project&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;bellevue&quot;,&quot;rothruthi&quot;,&quot;seeblick&quot;,&quot;niederrohrdorf&quot;,&quot;buero&quot;],&quot;default&quot;:&quot;bellevue&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;blueprintMode&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Plans&quot;},&quot;heroVideo&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;line&quot;,&quot;rise&quot;,&quot;threshold&quot;,&quot;handshake&quot;],&quot;default&quot;:&quot;rise&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;}}">
+class Component extends DCLogic {
+  state = { planIdx: 0 };
+
+  getProject() {
+    const db = window.ZF_PROJECTS || { order: [], items: {} };
+    const q = new URLSearchParams(location.search);
+    const slug = q.get('p') || (this.props.project ?? 'bellevue');
+    return db.items[slug] || db.items[db.order[0]] || null;
+  }
+
+  componentDidMount() {
+    const EASE = 'cubic-bezier(.16,1,.3,1)';
+    const $$ = (s) => Array.from(document.querySelectorAll(s));
+    this.rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this._cleanups = [];
+    const on = (t, ev, fn) => { t.addEventListener(ev, fn); this._cleanups.push(() => t.removeEventListener(ev, fn)); };
+
+    document.title = 'ZweiFach, ' + ((this.getProject() || {}).name || 'Case study');
+
+    if (!this.rm) {
+      $$('[data-rv]').forEach((el) => { el.style.opacity = '0'; el.style.transform = 'translateY(42px)'; });
+      this._io = new IntersectionObserver((es) => es.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const el = e.target, d = +(el.dataset.d || 0);
+        el.style.transition = 'opacity .9s ' + EASE + ' ' + d + 'ms, transform 1.15s ' + EASE + ' ' + d + 'ms';
+        el.style.opacity = '1'; el.style.transform = 'none';
+        this._io.unobserve(el);
+      }), { threshold: 0.16 });
+      $$('[data-rv]').forEach((el) => this._io.observe(el));
+
+      $$('[data-mask]').forEach((el) => { el.style.clipPath = 'inset(100% 0 0 0)'; });
+      this._mio = new IntersectionObserver((es) => es.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        el.style.transition = 'clip-path 1.25s ' + EASE;
+        el.style.clipPath = 'inset(0 0 0 0)';
+        this._mio.unobserve(el);
+      }), { threshold: 0.2 });
+      $$('[data-mask]').forEach((el) => this._mio.observe(el));
+
+      const heroImg = document.getElementById('caseHeroImg');
+      const heroTitle = document.querySelector('[data-hero-title]');
+      if (heroTitle) {
+        heroTitle.style.opacity = '0'; heroTitle.style.transform = 'translateY(50px)';
+        setTimeout(() => {
+          heroTitle.style.transition = 'opacity 1s ' + EASE + ', transform 1.2s ' + EASE;
+          heroTitle.style.opacity = '1'; heroTitle.style.transform = 'none';
+        }, 120);
+      }
+      if (heroImg) {
+        heroImg.style.transform = 'scale(1.08)';
+        setTimeout(() => {
+          heroImg.style.transition = 'transform 2.2s ' + EASE;
+          heroImg.style.transform = 'scale(1)';
+        }, 60);
+      }
+    }
+
+    /* the result: category panel slides in on scroll, one shot */
+    const resW = document.getElementById('resWrap'), resM = document.getElementById('resMedia'), resP = document.getElementById('resPanel'), resH = document.getElementById('resHead');
+    if (resW && resM && resP && !this.rm) {
+      resM.style.transform = 'scale(1.12)';
+      resP.style.transform = 'translateX(103%)';
+      if (resH) resH.style.transformOrigin = 'left bottom';
+      this._rio = new IntersectionObserver((es) => es.forEach((e) => {
+        if (!e.isIntersecting) return;
+        resM.style.transition = 'transform 1.9s ' + EASE;
+        resP.style.transition = 'transform 1.15s ' + EASE + ' .1s';
+        resM.style.transform = 'scale(1)';
+        resP.style.transform = 'none';
+        if (resH) { resH.style.transition = 'transform 1.5s ' + EASE; resH.style.transform = 'scale(.6)'; }
+        this._rio.unobserve(resW);
+      }), { threshold: 0.32 });
+      this._rio.observe(resW);
+    }
+
+    /* header flip after hero */
+    const hdr = document.getElementById('hdr');
+    const hdrLogo = document.getElementById('hdrLogo');
+    let dark = true;
+    const onScroll = () => {
+      const over = window.scrollY < window.innerHeight - 80;
+      if (over !== dark) {
+        dark = over;
+        hdr.style.setProperty('--hc', over ? '#f4f0e7' : '#16140f');
+        hdr.style.background = over ? 'transparent' : 'rgba(245,241,229,.82)';
+        hdr.style.backdropFilter = over ? 'none' : 'blur(8px)';
+        hdr.style.borderBottomColor = over ? 'transparent' : 'rgba(22,20,15,.1)';
+        hdrLogo.src = over ? 'assets/brand/zweifach-logo-light.svg' : 'assets/brand/zweifach-logo-dark.svg';
+      }
+    };
+    on(window, 'scroll', onScroll);
+    onScroll();
+  }
+
+  componentWillUnmount() {
+    ['_io', '_mio', '_rio'].forEach((k) => { if (this[k]) this[k].disconnect(); });
+    (this._cleanups || []).forEach((fn) => fn());
+  }
+
+  pickPlan(i) {
+    this.setState({ planIdx: i }, () => {
+      const img = document.getElementById('planImg');
+      if (img && !this.rm && img.animate) {
+        img.animate(
+          [{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0 0 0 0)' }],
+          { duration: 900, easing: 'cubic-bezier(.16,1,.3,1)' }
+        );
+      }
+    });
+  }
+
+  renderVals() {
+    const p = this.getProject();
+    if (!p) return { name: 'Loading…', figures: [], images: [], planTabs: [] };
+    const db = window.ZF_PROJECTS;
+    const next = db.items[p.next] || p;
+    const idx = Math.min(this.state.planIdx, p.plans.length - 1);
+    const blueprint = this.props.blueprintMode ?? false;
+    const OWNERS = {
+      esad: { dot: '#2e3d4d', col: '#2e3d4d', label: 'Esad · Architecture' },
+      dionis: { dot: '#a86547', col: '#a86547', label: 'Dionis · Commercialisation' },
+      both: { dot: '#98855c', col: '#98855c', label: 'Esad & Dionis' },
+      gate: { dot: '#a86547', col: '#c08461', label: 'The bank gate' }
+    };
+    const rowBase = 'display:grid;grid-template-columns:minmax(130px,200px) 1fr minmax(100px,170px);gap:clamp(14px,2.6vw,28px);align-items:baseline;';
+    const chainArr = p.chain || [];
+    return {
+      name: p.name, place: p.place, year: p.year, program: p.program,
+      status: p.status, tagline: p.tagline, hero: p.hero,
+      context: p.context, design: p.design, commercial: p.commercial,
+      figures: p.figures, images: p.images,
+      chain: chainArr.map((c, i) => {
+        const k = OWNERS[c.kind] || OWNERS.esad;
+        const gate = c.kind === 'gate';
+        return {
+          d: '' + Math.min(i * 70, 350),
+          title: c.title, text: c.text, proof: c.proof,
+          owner: k.label, dotColor: k.dot, ownerColor: k.col,
+          titleColor: gate ? '#f4f0e7' : '#16140f',
+          textColor: gate ? 'rgba(244,240,231,.68)' : 'rgba(22,20,15,.62)',
+          wrapStyle: gate
+            ? rowBase + 'padding:clamp(20px,3vh,26px) clamp(16px,2.4vw,28px);margin:10px 0;background:#14130f'
+            : rowBase + 'padding:clamp(18px,2.6vh,24px) 0;border-top:1px solid rgba(22,20,15,.14)' + (i === chainArr.length - 1 ? ';border-bottom:1px solid rgba(22,20,15,.14)' : '')
+        };
+      }),
+      chainNote: p.chainNote || '',
+      resultBg: p.resultBg || p.hero,
+      resultFacts: p.result || [],
+      planSrc: p.plans[idx].src,
+      planCap: p.plans[idx].cap || p.plans[idx].label,
+      planM2: p.plans[idx].m2 || '',
+      planFilter: blueprint ? 'invert(1) opacity(.92)' : 'none',
+      planBgs: p.plans.map((pl, i) => ({ src: pl.bg || p.hero, op: i === idx ? 1 : 0 })),
+      planTabs: p.plans.map((pl, i) => ({
+        label: pl.label,
+        pick: () => this.pickPlan(i),
+        lcolor: i === idx ? '#f7f3ea' : 'rgba(244,240,231,.5)',
+        mark: i === idx ? '⊕' : ''
+      })),
+      planDots: p.plans.map((pl, i) => ({
+        label: pl.label,
+        pick: () => this.pickPlan(i),
+        bg: i === idx ? '#98855c' : 'rgba(22,20,15,.18)',
+        tf: i === idx ? 'scale(1.3)' : 'none'
+      })),
+      nextName: next.name,
+      nextHero: next.hero,
+      nextHref: 'Case Study.dc.html?p=' + next.slug
+    };
+  }
+}
+</script>
+</body>
+</html>

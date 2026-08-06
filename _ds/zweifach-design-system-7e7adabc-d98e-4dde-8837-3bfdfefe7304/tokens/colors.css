@@ -1,0 +1,67 @@
+/* =====================================================================
+   ZweiFach — Colour tokens
+   Source of truth: scroll-video-hero/styles.css :root
+   The site lives on a warm CREAM canvas with near-black INK text; a single
+   TAUPE/bronze accent reads on cream AND over photography. Media zones go
+   near-black. A secondary "two strands" palette codes the two crafts:
+   BLUEPRINT (architecture · Esad) and CLAY (commercialisation · Dionis).
+   ===================================================================== */
+
+:root{
+  /* ---------- Base · canvas & ink ---------- */
+  --bg:#f5f1e5;                       /* cream — the whole site sits on this   */
+  --panel:#ece5d4;                    /* slightly deeper cream — inset surfaces */
+  --fg:#16140f;                       /* ink — primary text on cream            */
+  --muted:rgba(22,20,15,.58);         /* secondary text on cream                */
+  --line:rgba(22,20,15,.14);          /* hairline / rule on cream               */
+  --white:#ffffff;                    /* pure white — info bandeaux, exp blocks  */
+
+  /* ---------- Accent ---------- */
+  --accent:#98855c;                   /* taupe-bronze — links, eyebrows, CTAs    */
+  --accent-2:#5a5a5a;                 /* neutral grey companion to the accent    */
+  --logo:#a59c8c;                     /* original taupe of the wordmark          */
+
+  /* ---------- Over-media (text on photos / video) ---------- */
+  --on-media:#f4f0e7;                 /* light text over a photo or the hero     */
+  --on-media-muted:rgba(244,240,231,.82);
+  --media-dark:#14130f;               /* near-black backing for media zones      */
+
+  /* ---------- "Two strands" — the two crafts ---------- */
+  --taupe:#8c857a;                    /* grey-taupe — kickers & small labels     */
+  --blueprint:#2e3d4d;                /* deep slate-blue — architecture · Esad   */
+  --blueprint-soft:#44586c;           /* lighter blueprint — owners, accents     */
+  --clay:#a86547;                     /* terracotta — commercialisation · Dionis */
+  --clay-soft:#c08461;                /* lighter clay — emphasis on dark         */
+  --ink:#16181a;                      /* near-black — through-line section bg     */
+  --graphite:#22242a;                 /* dark grey — selected-work section bg     */
+
+  /* ---------- Section background variants (used as-is in the site) ---------- */
+  --bg-dark:#16140f;                  /* "visual universe" dark section          */
+  --bg-forest:#1d241c;                /* dark green residence panel (variety)    */
+  --studio:rgb(186,183,184);          /* neutral grey behind the About duo       */
+
+  /* ---------- Frosted glass (premium overlay over imagery) ---------- */
+  --glass-fill:rgba(244,240,231,.14);     /* @kind color */ /* light glass tint */
+  --glass-fill-strong:rgba(244,240,231,.20); /* @kind color */ /* top of the glass gradient */
+  --glass-border:rgba(255,255,255,.28);   /* @kind color */ /* hairline highlight edge */
+  --glass-blur:18px;                       /* @kind other */ /* backdrop-filter blur radius */
+
+  /* ---------- Interactive states ---------- */
+  --accent-hover:#a8946a;             /* accent lifted (filter:brightness ~1.06) */
+  --fill-hover:rgba(22,20,15,.11);    /* filter pill hover on cream              */
+  --fill-rest:rgba(22,20,15,.05);     /* filter pill resting on cream            */
+  --disabled-fg:rgba(22,20,15,.32);   /* disabled text                           */
+  --focus-ring:var(--accent);         /* @kind color */ /* focus-visible outline colour */
+
+  /* ---------- Semantic aliases (prefer these in components) ---------- */
+  --surface:var(--bg);
+  --surface-inset:var(--panel);
+  --surface-dark:var(--media-dark);
+  --text-heading:var(--fg);
+  --text-body:var(--muted);
+  --text-strong:var(--fg);
+  --text-on-dark:var(--on-media);
+  --text-on-dark-muted:var(--on-media-muted);
+  --border-hairline:var(--line);
+  --link:var(--accent);
+}

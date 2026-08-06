@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Architecture &amp; feasibility · Esad Mujanović · ZweiFach</title>
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/motion.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/base.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/styles.css">
+  <script src="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/_ds_bundle.js"></script>
+  <script>try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('zf-arming');}document.documentElement.setAttribute('data-zf-manual','');}catch(e){}</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="motion.js"></script>
+  <script src="plan-zoom.js"></script>
+  <style>
+    em,i,cite{font-style:normal}
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--accent);color:var(--bg)}
+    a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-hover)}
+    /* NB: no overflow on .page — an overflow value here becomes a scroll container and breaks position:sticky on .stageVP. Scenes clip their own content instead. */
+    .page{--bp:var(--blueprint);--pad:clamp(20px,6vw,90px);--maxw:1380px}
+    .swrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);box-sizing:border-box}
+    .eyebrow{display:inline-flex;align-items:center;gap:.7em;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0}
+    .eyebrow .dot{width:7px;height:7px;border-radius:100px;background:var(--bp);flex:0 0 auto}
+
+    /* arming: hide non-hero scenes until JS takes control (never under reduced-motion / no-JS) */
+    html.zf-arming .scene:not(.scene--hero){opacity:0}
+
+    /* ---- PINNED STAGE ---- */
+    .archStage{position:relative}
+    .stageVP{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--bg)}
+    .scene{position:absolute;inset:0;overflow:hidden;display:flex;align-items:center;background:var(--bg);will-change:clip-path,transform,opacity}
+    .scene--dark{background:var(--ink,#16181a);color:var(--on-media)}
+    .scene--dark .eyebrow{color:rgba(244,240,231,.62)}
+    .scenehint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:40;display:flex;flex-direction:column;align-items:center;gap:.85em;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);pointer-events:none}
+    .scenehint .ln{width:1px;height:48px;background:currentColor;position:relative;overflow:hidden;opacity:.32}
+    .scenehint .ln::after{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:var(--fg);animation:hintdrop 1.9s var(--ease-out-expo) infinite}
+    @keyframes hintdrop{0%{transform:translateY(-100%)}60%,100%{transform:translateY(100%)}}
+    /* prominent "more sections below" cue */
+    .moreCue{position:absolute;left:50%;bottom:clamp(18px,3vh,30px);transform:translateX(-50%);z-index:40;display:flex;flex-direction:column;align-items:center;gap:9px;pointer-events:none;text-align:center}
+    .moreCue__t{font-size:.66rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+    .moreCue__a{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--line);border-radius:100px;color:var(--fg);animation:moreBob 1.8s var(--ease-out-expo) infinite}
+    .moreCue__a svg{width:16px;height:16px;display:block}
+    @keyframes moreBob{0%,100%{transform:translateY(0);opacity:.7}50%{transform:translateY(6px);opacity:1}}
+    @media (prefers-reduced-motion:reduce){.moreCue__a{animation:none}}
+
+    /* HERO scene — bright drawing sheet (a plan, not a render) */
+    .hero{display:grid;grid-template-columns:1fr 1.16fr;gap:clamp(28px,4vw,60px);align-items:center;width:100%}
+    .hero__ghost{position:absolute;left:calc(var(--pad) - .06em);top:clamp(64px,13vh,120px);font-size:clamp(9rem,24vw,24rem);font-weight:200;letter-spacing:-.05em;line-height:.8;color:var(--fg);opacity:.05;z-index:0;pointer-events:none;will-change:transform}
+    .hero__grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(120% 90% at 18% 34%,#000,transparent 62%);mask-image:radial-gradient(120% 90% at 18% 34%,#000,transparent 62%);opacity:.5}
+    .hero__text{position:relative;z-index:1}
+    .hero h1{font-weight:500;font-size:clamp(2.5rem,5.4vw,5rem);line-height:.94;letter-spacing:-.035em;margin:.4em 0 clamp(20px,3vh,30px)}
+    .hero h1 em{color:var(--bp)}
+    .hero__lead{font-size:clamp(1.04rem,1.4vw,1.28rem);line-height:1.6;color:var(--muted);max-width:30em;margin:0 0 clamp(24px,3.5vh,38px)}
+    .hero__meta{display:flex;flex-wrap:wrap;gap:clamp(18px,3vw,42px)}
+    .hero__meta .m{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.5}
+    .hero__meta .m b{display:block;color:var(--fg);font-weight:500;letter-spacing:.04em;font-size:.92rem;text-transform:none;margin-bottom:.25em}
+    .hero__fig{position:relative;height:min(92vh,900px);background:transparent;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .hero__figgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(46,61,77,.11) 1px,transparent 1px),linear-gradient(90deg,rgba(46,61,77,.11) 1px,transparent 1px);background-size:34px 34px;opacity:.7}
+    .hero__fig img{display:block;width:90%;height:90%;object-fit:contain;object-position:center;mix-blend-mode:multiply}
+
+    /* BIO scene (split) — wrapper transparent so the hero shows through until the two halves wipe in */
+    .scene[data-scene="bio"]{background:transparent}
+    .bio{position:absolute;inset:0;display:grid;grid-template-columns:.92fr 1.08fr}
+    .bioL{position:relative;overflow:hidden;background:var(--ink,#16181a);clip-path:inset(100% 0 0 0);will-change:clip-path}
+    .bioL img{width:100%;height:100%;object-fit:cover;object-position:50% 26%}
+    .bioR{position:relative;overflow:hidden;background:var(--bg);display:flex;align-items:center;clip-path:inset(0 0 100% 0);will-change:clip-path}
+    .bioR .in{padding:clamp(30px,5vw,86px);max-width:600px}
+    .bioR .klabel{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 1.4em}
+    .bioR p{font-size:clamp(1.1rem,1.6vw,1.5rem);line-height:1.5;letter-spacing:-.01em;margin:0 0 .8em;color:var(--fg)}
+    .bioR p.sub{font-size:1.02rem;line-height:1.66;color:var(--muted)}
+    .bioR .sig{display:flex;align-items:center;gap:.7em;margin-top:clamp(20px,3vh,30px);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+    .bioR .sig b{color:var(--fg);font-weight:500}
+
+    /* PROCESS scene — through-line: text steps scroll one at a time (left), plan panel cross-fades (right) */
+    .phScene{background:transparent}
+    .phLeft{position:absolute;top:0;bottom:0;left:0;right:51.2%;overflow:hidden;background:var(--bg);clip-path:inset(100% 0 0 0);will-change:clip-path}
+    .phKicker{position:absolute;top:clamp(84px,13vh,120px);left:clamp(28px,5vw,84px);z-index:3;display:inline-flex;align-items:center;gap:.7em;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);font-weight:600}
+    .phKicker .dot{width:7px;height:7px;border-radius:100px;background:var(--bp)}
+    .phTrack{position:absolute;top:0;left:0;right:0;will-change:transform}
+    .phStep{height:100vh;display:flex;align-items:center;padding:0 clamp(28px,5vw,84px);box-sizing:border-box}
+    .phBody{position:relative;max-width:26em}
+    .phBody .step{display:flex;align-items:baseline;gap:1em;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 1em}
+    .phBody .step .of{color:var(--bp)}
+    .phNum{font-weight:200;font-size:clamp(3.4rem,8vw,7rem);line-height:.82;letter-spacing:-.05em;color:var(--bp);margin:0 0 .05em}
+    .phBody h3{font-weight:500;font-size:clamp(1.6rem,2.8vw,2.5rem);letter-spacing:-.025em;margin:.15em 0 0;max-width:15em}
+    .phBody .de{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bp);font-weight:600;margin:.7em 0 0}
+    .phBody p{font-size:clamp(1rem,1.2vw,1.15rem);line-height:1.62;color:var(--muted);margin:1em 0 0;max-width:32em}
+    .phPanel{position:absolute;top:0;bottom:0;left:48.8%;right:0;overflow:hidden;background:var(--ink,#16181a);color:var(--on-media);clip-path:inset(0 0 0 100%);will-change:clip-path}
+    .phPanel__grid{position:absolute;inset:0;background-image:linear-gradient(rgba(244,240,231,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(244,240,231,.07) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(130% 120% at 50% 42%,#000,transparent 82%);mask-image:radial-gradient(130% 120% at 50% 42%,#000,transparent 82%)}
+    .phStack{position:absolute;inset:0}
+    .phPlan{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:clamp(64px,11vh,128px) clamp(28px,4vw,72px);box-sizing:border-box;filter:brightness(0) invert(1);opacity:0;transition:opacity .7s var(--ease-out-expo)}
+    .phPlan.is-on{opacity:.94}
+    .phPlan--gen{filter:none;mix-blend-mode:screen;padding:clamp(26px,4.5vh,64px) clamp(20px,3vw,52px)}
+    .phPlan--gen.is-on{opacity:1}
+    .phPanel__top{position:absolute;top:clamp(22px,4vh,40px);left:clamp(22px,3vw,44px);right:clamp(22px,3vw,44px);display:flex;justify-content:space-between;gap:12px;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,240,231,.72)}
+    .phPanel__tag{position:absolute;bottom:clamp(58px,9vh,86px);left:clamp(22px,3vw,44px);right:clamp(22px,3vw,44px);font-size:.82rem;letter-spacing:.01em;color:rgba(244,240,231,.86);max-width:26em;line-height:1.5}
+    .phPanel__foot{position:absolute;bottom:clamp(22px,4vh,40px);left:clamp(22px,3vw,44px);right:clamp(22px,3vw,44px);display:flex;align-items:center;gap:14px}
+    .phPanel__foot .phIdx{font-size:.72rem;letter-spacing:.16em;color:var(--on-media);font-variant-numeric:tabular-nums}
+    .phPanel__foot .phTot{font-size:.72rem;letter-spacing:.16em;color:rgba(244,240,231,.5);font-variant-numeric:tabular-nums}
+    .phRail{position:relative;flex:1;height:1px;background:rgba(244,240,231,.28)}
+    .phRail i{position:absolute;left:0;top:0;height:100%;width:100%;background:var(--on-media);transform:scaleX(.16);transform-origin:left;will-change:transform}
+
+    /* PHILOSOPHY scene */
+    .philo .eyebrow{margin-bottom:1.4em}
+    .philo h2{font-weight:500;font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.04;letter-spacing:-.03em;margin:0;max-width:15em}
+    .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3vw,48px);margin-top:clamp(40px,7vh,80px)}
+    .pillar{border-top:1px solid rgba(244,240,231,.22);padding-top:20px;will-change:opacity,transform}
+    .pillar .pn{display:flex;align-items:center;gap:.6em;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,240,231,.6);font-weight:600}
+    .pillar .pn .dot{width:7px;height:7px;border-radius:100px;background:var(--bp)}
+    .pillar h3{font-weight:500;font-size:clamp(1.3rem,2vw,1.7rem);letter-spacing:-.02em;margin:.7em 0 0}
+    .pillar p{margin:.7em 0 0;line-height:1.62;color:rgba(244,240,231,.72);font-size:1rem}
+
+    /* FACTS scene (zoom) */
+    .facts .eyebrow{margin-bottom:clamp(28px,4vh,44px)}
+    .factGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,40px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(30px,5vh,54px) 0}
+    .fact{will-change:opacity,transform}
+    .fact .v{font-weight:300;font-size:clamp(2.2rem,4.2vw,3.6rem);letter-spacing:-.03em;line-height:1;color:var(--fg)}
+    .fact .k{margin-top:.6em;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);line-height:1.5}
+    .facts__note{margin:clamp(18px,2.5vh,26px) 0 0;font-size:.8rem;color:var(--muted)}
+
+    /* WORK scene — editorial index × hover preview */
+    .work{background:var(--ink,#16181a);color:var(--on-media)}
+    .work .swrap{position:relative;z-index:1;display:flex;flex-direction:column;gap:clamp(22px,4vh,44px)}
+    .work .eyebrow{color:rgba(244,240,231,.62)}
+    .workTop{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+    .work h2{font-weight:500;font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.02;letter-spacing:-.03em;margin:.35em 0 0}
+    .workCount{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,240,231,.5);font-variant-numeric:tabular-nums;white-space:nowrap}
+    .workBody{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(30px,5vw,72px);align-items:center}
+    .workList{list-style:none;margin:0;padding:0}
+    .workRow{position:relative;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:clamp(.8em,1.6vw,1.5em);padding:clamp(14px,2.3vh,24px) 0;border-top:1px solid rgba(244,240,231,.16);cursor:pointer;will-change:opacity,transform;outline:none}
+    .workRow:last-child{border-bottom:1px solid rgba(244,240,231,.16)}
+    .workRow__idx{font-size:.72rem;letter-spacing:.2em;color:rgba(244,240,231,.46);font-variant-numeric:tabular-nums;transition:color .4s}
+    .workRow__name{font-weight:500;font-size:clamp(1.5rem,3vw,2.7rem);letter-spacing:-.025em;line-height:1;color:rgba(244,240,231,.6);transition:color .45s var(--ease-out-expo),transform .55s var(--ease-out-expo)}
+    .workRow__meta{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,240,231,.42);white-space:nowrap;transition:color .4s}
+    .workRow__go{display:inline-flex;color:var(--accent);opacity:0;transform:translateX(-8px);transition:opacity .4s,transform .55s var(--ease-out-expo)}
+    .workRow__go svg{width:20px;height:20px}
+    .workRow:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+    .workRow.is-active .workRow__name{color:var(--on-media);transform:translateX(clamp(6px,1vw,14px))}
+    .workRow.is-active .workRow__idx{color:var(--accent)}
+    .workRow.is-active .workRow__meta{color:rgba(244,240,231,.7)}
+    .workRow.is-active .workRow__go{opacity:1;transform:translateX(0)}
+    .workPreview{position:relative;aspect-ratio:5/4;border-radius:6px;overflow:hidden;background:var(--ink,#16181a);box-shadow:0 30px 64px rgba(0,0,0,.34);clip-path:inset(100% 0 0 0);will-change:clip-path}
+    .workShot{position:absolute;inset:0;opacity:0;transition:opacity .7s var(--ease-out-expo);will-change:opacity}
+    .workShot img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.4s var(--ease-out-expo)}
+    .workShot.is-on{opacity:1;z-index:1}
+    .workShot.is-on img{transform:scale(1)}
+    .workShot::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(22,24,26,.66))}
+    .workPrev__cap{position:absolute;left:18px;right:18px;bottom:16px;z-index:2;display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+    .workPrev__cap b{font-weight:500;font-size:clamp(1rem,1.4vw,1.2rem);letter-spacing:-.01em;color:var(--on-media)}
+    .workPrev__cap span{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,240,231,.66)}
+
+    /* THE DRAWINGS (plans showcase) — editorial two-column, ghost index, thumbnail rail */
+    .plans{background:var(--bg)}
+    .plGrid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:40px 40px;opacity:.4;-webkit-mask-image:radial-gradient(120% 100% at 62% 42%,#000,transparent 74%);mask-image:radial-gradient(120% 100% at 62% 42%,#000,transparent 74%)}
+    .plGhost{position:absolute;right:calc(var(--pad) - .04em);top:clamp(34px,6vh,84px);font-size:clamp(9rem,22vw,20rem);font-weight:200;line-height:.8;letter-spacing:-.05em;color:var(--bp);opacity:.06;z-index:0;pointer-events:none;font-variant-numeric:tabular-nums}
+    .plWrap{position:relative;z-index:2;display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(28px,5vw,72px);align-items:center;width:100%}
+    .plSide{max-width:25em}
+    .plSide .eyebrow{margin-bottom:1em}
+    .plSide h2{font-weight:500;font-size:clamp(1.7rem,3vw,2.6rem);line-height:1.04;letter-spacing:-.025em;margin:0 0 .5em}
+    .plLead{font-size:.98rem;line-height:1.6;color:var(--muted);margin:0 0 clamp(22px,3vh,32px);max-width:30em}
+    .plCap{margin:0 0 8px}
+    .plCap b{font-weight:500;font-size:clamp(1.05rem,1.5vw,1.35rem);letter-spacing:-.01em;color:var(--fg)}
+    .plCap span{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+    .plData{margin:0 0 18px;border-top:1px solid var(--line)}
+    .plData > div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:9px 0;border-bottom:1px solid var(--line)}
+    .plData dt{margin:0;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+    .plData dd{margin:0;font-size:.86rem;font-weight:500;color:var(--fg);text-align:right}
+    .plIndex{font-size:.75rem;letter-spacing:.12em;color:var(--muted);font-variant-numeric:tabular-nums;margin:0 0 16px}
+    .plIndex b{color:var(--bp);font-weight:500}
+    .plThumbs{display:flex;gap:10px}
+    .plDot{width:54px;height:54px;padding:5px;border:1px solid var(--line);border-radius:4px;background:#fcfbf6;overflow:hidden;opacity:.5;transition:border-color .35s ease,opacity .35s ease,box-shadow .35s ease}
+    .plDot img{width:100%;height:100%;object-fit:contain}
+    .plDot.on{border-color:var(--bp);opacity:1;box-shadow:0 6px 18px rgba(0,0,0,.1)}
+    .plSheet{position:relative;height:min(66vh,640px);background:#fcfbf6;border:1px solid var(--line);border-radius:6px;box-shadow:0 30px 64px rgba(0,0,0,.1);overflow:hidden}
+    .plSheet__grid{position:absolute;inset:0;background-image:linear-gradient(rgba(46,61,77,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(46,61,77,.08) 1px,transparent 1px);background-size:30px 30px}
+    .plSheet__tb{position:absolute;right:0;bottom:0;z-index:3;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);border-left:1px solid var(--line);background:rgba(252,251,246,.9)}
+    .plSheet__top{position:absolute;top:0;left:0;z-index:3;display:flex;flex-direction:column;gap:.15em;padding:10px 14px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);background:rgba(252,251,246,.9)}
+    .plSheet__top span:first-child{font-weight:500;font-size:.82rem;color:var(--fg)}
+    .plSheet__top span:last-child{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+    .plItem{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:clamp(20px,3vw,52px);opacity:0;will-change:opacity}
+    .plItem img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+
+    /* CTA scene — dark, wide, flows straight into the footer (Home-style) */
+    .cta{text-align:center;background:var(--ink,#16181a);color:var(--on-media)}
+    .cta .in{max-width:940px;margin:0 auto}
+    .cta .eyebrow{justify-content:center;margin-bottom:1.1em;color:rgba(244,240,231,.66)}
+    .cta h2{font-weight:500;font-size:clamp(2.4rem,5.4vw,4.2rem);line-height:1.03;letter-spacing:-.03em;margin:0 auto;max-width:none;color:var(--on-media)}
+    .cta__row{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:clamp(30px,5vh,48px)}
+    .cta .in>*{will-change:opacity,transform}
+    .btn{display:inline-flex;align-items:center;gap:.7em;padding:16px 28px;border-radius:0;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;transition:transform .35s ease,filter .35s ease,border-color .35s ease,color .35s ease}
+    .btn svg{width:17px;height:17px}
+    .btn--solid{background:var(--on-media);color:var(--ink,#16181a)}
+    .btn--solid:hover{filter:brightness(1.06);transform:translateY(-2px);color:var(--ink,#16181a)}
+    .btn--ghost{border:1px solid rgba(244,240,231,.4);color:var(--on-media)}
+    .btn--ghost:hover{border-color:var(--on-media);color:var(--on-media)}
+
+    @media (max-width:820px){
+      .hero{grid-template-columns:1fr;gap:22px}
+      .hero__fig{height:38vh;order:-1}
+      .hero__ghost{display:none}
+      .bio{grid-template-columns:1fr}
+      .bioL{display:none}
+      .phLeft{right:0}
+      .phPanel{display:none}
+      .phStep{padding:clamp(18px,5vw,28px)}
+      .phNum{font-size:clamp(3rem,15vw,5rem)}
+      .plWrap{grid-template-columns:1fr;gap:20px}
+      .plSheet{height:44vh}
+      .plGhost{display:none}
+      .pillars{grid-template-columns:1fr;gap:16px}
+      .factGrid{grid-template-columns:1fr 1fr;gap:18px}
+      .workBody{grid-template-columns:1fr;gap:22px}
+    }
+
+    /* ---- STATIC FALLBACK (reduced-motion / no GSAP): readable normal-flow stack ---- */
+    .stage--static .stageVP{position:static;height:auto;overflow:visible}
+    .stage--static .scene{position:relative;inset:auto;min-height:100vh;opacity:1!important;transform:none!important;clip-path:none!important}
+    .stage--static .bioL,.stage--static .bioR{clip-path:none!important}
+    .stage--static .phScene{min-height:auto;display:block}
+    .stage--static .phLeft{position:static;height:auto;overflow:visible;clip-path:none!important}
+    .stage--static .phKicker{position:relative;top:auto;left:auto;margin:0 clamp(28px,5vw,84px) 18px}
+    .stage--static .phTrack{position:static;transform:none!important}
+    .stage--static .phStep{height:auto;min-height:58vh;border-top:1px solid var(--line)}
+    .stage--static .phPanel{position:relative;clip-path:none!important;height:72vh}
+    .stage--static .phPlan:first-child{opacity:.94}
+    .stage--static .pillar,.stage--static .fact,.stage--static .cta .in>*{opacity:1!important;transform:none!important}
+    .stage--static .workRow{opacity:1!important;transform:none!important}
+    .stage--static .workPreview{clip-path:none!important}
+    .stage--static .scenehint{display:none}
+    .stage--static .plans{min-height:auto;display:block;padding:clamp(40px,8vh,90px) 0}
+    .stage--static .plGrid,.stage--static .plGhost{display:none}
+    .stage--static .plWrap{grid-template-columns:1fr;align-items:start}
+    .stage--static .plSheet{height:auto}
+    .stage--static .plItem{position:relative;opacity:1!important;height:60vh;border-top:1px solid var(--line)}
+  </style>
+</helmet>
+
+<dc-import name="SiteHeader" current="Architecture" hint-size="100%,72px" style="display:block"></dc-import>
+
+<main class="page" id="archPage" data-screen-label="Architecture — Esad">
+
+  <div class="archStage" id="archStage">
+    <div class="stageVP" id="stageVP">
+
+      <!-- 1 · HERO -->
+      <section class="scene scene--hero" data-scene="hero" style="z-index:1" data-screen-label="Architecture hero">
+        <div class="hero__grid" aria-hidden="true"></div>
+        <span class="hero__ghost" id="heroGhost" aria-hidden="true">01</span>
+        <div class="swrap">
+          <div class="hero">
+            <div class="hero__text">
+              <p class="eyebrow"><span class="dot"></span>Architecture &amp; feasibility</p>
+              <h1>The plan<br><em>comes first.</em></h1>
+              <p class="hero__lead">Esad takes a plot from the first feasibility study through the design, the building permit and the execution drawings. He reads what the site allows and what a bank will fund, then draws a project that stands up on both counts.</p>
+              <div class="hero__meta">
+                <div class="m"><b>Esad Mujanović</b>Architect B.Sc. ETH · Owner</div>
+                <div class="m"><b>Blueprint</b>The design strand</div>
+                <div class="m"><b>SIA 1 to 6</b>Feasibility to execution</div>
+              </div>
+            </div>
+            <figure class="hero__fig" data-plan-zoom>
+              <img id="heroImg" src="assets/plans/niederrohrdorf/whg3.png" alt="A ZweiFach floor plan, drawn to the Swiss norm">
+            </figure>
+          </div>
+        </div>
+        <div class="scenehint">Scroll<span class="ln"></span></div>
+      </section>
+
+      <!-- 2 · BIO (split: portrait wipes up, text wipes down) -->
+      <section class="scene" data-scene="bio" style="z-index:2" data-screen-label="Who is Esad">
+        <div class="bio">
+          <div class="bioL" id="bioL"><img src="assets/brand/team-esad.jpg" alt="Esad Mujanović"></div>
+          <div class="bioR" id="bioR">
+            <div class="in">
+              <p class="klabel">Who draws it</p>
+              <p>Esad is the architect and owner of the studio, a B.Sc. from ETH Zürich and the hand behind every line ZweiFach delivers.</p>
+              <p class="sub">He carries a project through strategic planning, the design, the building permit and the execution plans. He weighs what the plot allows, what it will cost and what a bank will fund, so the drawing is sound long before anyone breaks ground.</p>
+              <div class="sig"><span class="eyebrow"><span class="dot"></span></span><b>Esad Mujanović</b> · Aargau &amp; Zürich</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 · PROCESS — through-line: text steps scroll one at a time (left), plan panel cross-fades (right) -->
+      <section class="scene phScene" data-scene="phases" style="z-index:3" data-screen-label="The process">
+        <div class="phLeft">
+          <span class="phKicker"><span class="dot"></span>The process</span>
+          <div class="phTrack" id="phTrack">
+            <article class="phStep"><div class="phBody">
+              <p class="step"><span class="of">Phase 01</span> · of 06</p>
+              <div class="phNum">01</div>
+              <h3>Strategic planning &amp; feasibility</h3>
+              <p class="de">Strategische Planung</p>
+              <p>Can the plot carry the idea? Zoning, permitted use and first massing are tested against what a bank will fund, so the financing is part of the drawing from day one.</p>
+            </div></article>
+            <article class="phStep"><div class="phBody">
+              <p class="step"><span class="of">Phase 02</span> · of 06</p>
+              <div class="phNum">02</div>
+              <h3>Preliminary study</h3>
+              <p class="de">Vorstudien</p>
+              <p>The concept takes volume: layouts, orientation and a first cost frame that keeps the numbers honest before anything is committed.</p>
+            </div></article>
+            <article class="phStep"><div class="phBody">
+              <p class="step"><span class="of">Phase 03</span> · of 06</p>
+              <div class="phNum">03</div>
+              <h3>Design / building project</h3>
+              <p class="de">Bauprojekt</p>
+              <p>The design is developed to permit depth: plans, sections and materials resolved into a coherent, buildable whole.</p>
+            </div></article>
+            <article class="phStep"><div class="phBody">
+              <p class="step"><span class="of">Phase 04</span> · of 06</p>
+              <div class="phNum">04</div>
+              <h3>Building permit</h3>
+              <p class="de">Baugesuch</p>
+              <p>The dossier is assembled and submitted; the dialogue with the authority is carried through to a granted permit.</p>
+            </div></article>
+            <article class="phStep"><div class="phBody">
+              <p class="step"><span class="of">Phase 05</span> · of 06</p>
+              <div class="phNum">05</div>
+              <h3>Tender &amp; procurement</h3>
+              <p class="de">Ausschreibung</p>
+              <p>Specifications go out to trades; tenders are compared and awarded, turning the design into cost certainty.</p>
+            </div></article>
+            <article class="phStep"><div class="phBody">
+              <p class="step"><span class="of">Phase 06</span> · of 06</p>
+              <div class="phNum">06</div>
+              <h3>Execution &amp; detail plans</h3>
+              <p class="de">Ausführungsplanung</p>
+              <p>The working drawings: the precise, dimensioned plans, resolved down to the last junction.</p>
+            </div></article>
+          </div>
+        </div>
+        <div class="phPanel" id="phPanel">
+          <span class="phPanel__grid" aria-hidden="true"></span>
+          <div class="phPanel__top"><span id="phProj">Feasibility study</span><span id="phType">Site plan &amp; massing</span></div>
+          <div class="phStack" data-plan-zoom data-plan-bar="cr">
+            <img class="phPlan phPlan--gen is-on" src="assets/plans/_gen/feasibility-strategic.png" alt="Feasibility site plan and massing study">
+            <img class="phPlan" src="assets/plans/buero/grundriss-6og.png" alt="Floor layout plan">
+            <img class="phPlan" src="assets/plans/rothruthi/whg1.png" alt="Apartment layout plan">
+            <img class="phPlan" src="assets/plans/niederrohrdorf/whg1.png" alt="Permit plan">
+            <img class="phPlan" src="assets/plans/seeblick/wg03.png" alt="Tender set plan">
+            <img class="phPlan" src="assets/plans/rothruthi/whg2.png" alt="Execution and detail plan">
+          </div>
+          <p class="phPanel__tag" id="phTag">Volume, setbacks and terrain tested against what the plot allows.</p>
+          <div class="phPanel__foot"><span class="phIdx" id="phIdx">01</span><span class="phRail"><i id="phBar"></i></span><span class="phTot">06</span></div>
+        </div>
+      </section>
+
+      <!-- THE DRAWINGS (plans showcase, editorial + cross-fade) -->
+      <section class="scene plans" data-scene="plans" style="z-index:4" data-screen-label="The drawings">
+        <span class="plGhost" id="plGhost" aria-hidden="true">01</span>
+        <div class="swrap">
+          <div class="plWrap">
+            <div class="plSide">
+              <p class="eyebrow"><span class="dot"></span>The drawings</p>
+              <h2>Every unit, drawn to scale.</h2>
+              <p class="plLead">Floor plans from live ZweiFach projects, each drawn by Esad to the Swiss norm.</p>
+              <div class="plCap"><b id="plProject">Rothrüthi</b></div>
+              <dl class="plData">
+                <div><dt>Unit</dt><dd id="plType">4.5-room attic</dd></div>
+                <div><dt>Drawing</dt><dd>Floor plan</dd></div>
+                <div><dt>Scale</dt><dd>1:100</dd></div>
+                <div><dt>Norm</dt><dd>SIA</dd></div>
+              </dl>
+              <p class="plIndex"><b id="plIdx">01</b> / 05</p>
+              <div class="plThumbs" id="plDots">
+                <span class="plDot on"><img src="assets/plans/rothruthi/whg12.png" alt=""></span>
+                <span class="plDot"><img src="assets/plans/bellevue/obergeschoss.png" alt=""></span>
+                <span class="plDot"><img src="assets/plans/seeblick/wg01.png" alt=""></span>
+                <span class="plDot"><img src="assets/plans/bellevue/erdgeschoss.png" alt=""></span>
+                <span class="plDot"><img src="assets/plans/niederrohrdorf/whg5.png" alt=""></span>
+              </div>
+            </div>
+            <div class="plSheet" data-plan-zoom data-plan-bar="tr">
+              <div class="plSheet__top"><span id="plShProj">Rothrüthi</span><span id="plShUnit">4.5-room attic</span></div>
+              <div class="plItem" data-plan><img src="assets/plans/rothruthi/whg12.png" alt="Rothrüthi, 4.5-room attic plan"></div>
+              <div class="plItem" data-plan><img src="assets/plans/bellevue/obergeschoss.png" alt="Bellevue Wynental, upper floor plan"></div>
+              <div class="plItem" data-plan><img src="assets/plans/seeblick/wg01.png" alt="Seeblick, apartment 01 plan"></div>
+              <div class="plItem" data-plan><img src="assets/plans/bellevue/erdgeschoss.png" alt="Bellevue Wynental, ground floor plan"></div>
+              <div class="plItem" data-plan><img src="assets/plans/niederrohrdorf/whg5.png" alt="Niederrohrdorf, apartment 5 plan"></div>
+              <span class="plSheet__tb">ZweiFach · SIA plan</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 · PHILOSOPHY (left wipe) -->
+      <section class="scene scene--dark philo" data-scene="philo" style="z-index:5" data-screen-label="Philosophy">
+        <div class="swrap">
+          <p class="eyebrow"><span class="dot"></span>How Esad draws</p>
+          <h2>A line is only good if it can be financed and built.</h2>
+          <div class="pillars">
+            <div class="pillar" data-pillar>
+              <div class="pn"><span class="dot"></span>01</div>
+              <h3>Drawn to be financeable</h3>
+              <p>Every plan is made with the sale in mind. A bank releases credit once units pre-sell off-plan, so the design is shaped to be fundable from the first sketch.</p>
+            </div>
+            <div class="pillar" data-pillar>
+              <div class="pn"><span class="dot"></span>02</div>
+              <h3>Buildable from day one</h3>
+              <p>No fantasy geometry. Permit-ready, execution-grade drawings that a site can build without guesswork.</p>
+            </div>
+            <div class="pillar" data-pillar>
+              <div class="pn"><span class="dot"></span>03</div>
+              <h3>One hand, both ends</h3>
+              <p>Esad draws beside commercialisation, so the design and the way it will sell never drift apart.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 · FACTS (zoom in) -->
+      <section class="scene facts" data-scene="facts" style="z-index:6" data-screen-label="Facts">
+        <div class="swrap">
+          <p class="eyebrow"><span class="dot"></span>In short</p>
+          <div class="factGrid">
+            <div class="fact" data-fact><div class="v">ETH</div><div class="k">B.Sc. architecture,<br>Zürich</div></div>
+            <div class="fact" data-fact><div class="v">1 to 6</div><div class="k">SIA phases<br>owned in-house</div></div>
+            <div class="fact" data-fact><div class="v">AG · ZH</div><div class="k">Aargau &amp;<br>Zürich region</div></div>
+            <div class="fact" data-fact><div class="v">&gt; 40%</div><div class="k">Pre-sale rate before<br>credit (indicative)</div></div>
+          </div>
+          <p class="facts__note">Figures are indicative and vary by bank and project. Placeholder facts, to be confirmed.</p>
+        </div>
+      </section>
+
+      <!-- 6 · SELECTED WORK — editorial index × hover preview -->
+      <section class="scene work" data-scene="work" style="z-index:7" data-screen-label="Selected work">
+        <div class="swrap">
+          <div class="workTop">
+            <div>
+              <p class="eyebrow"><span class="dot"></span>Drawn by Esad</p>
+              <h2>Selected work.</h2>
+            </div>
+            <span class="workCount">03 projects</span>
+          </div>
+          <div class="workBody">
+            <ul class="workList" id="workList">
+              <li class="workRow is-active" data-i="0" data-href="Case Study.dc.html" tabindex="0" role="link" aria-label="Bellevue Wynental">
+                <span class="workRow__idx">01</span>
+                <span class="workRow__name">Bellevue Wynental</span>
+                <span class="workRow__meta">New build · 8 apartments</span>
+                <span class="workRow__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+              </li>
+              <li class="workRow" data-i="1" data-href="Our Work.dc.html" tabindex="0" role="link" aria-label="Seeblick">
+                <span class="workRow__idx">02</span>
+                <span class="workRow__name">Seeblick</span>
+                <span class="workRow__meta">Feasibility · lakeside</span>
+                <span class="workRow__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+              </li>
+              <li class="workRow" data-i="2" data-href="Our Work.dc.html" tabindex="0" role="link" aria-label="Rothrüthi">
+                <span class="workRow__idx">03</span>
+                <span class="workRow__name">Rothrüthi</span>
+                <span class="workRow__meta">Residential · permit</span>
+                <span class="workRow__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+              </li>
+            </ul>
+            <div class="workPreview" id="workPreview">
+              <div class="workShot is-on" data-shot="0"><img src="assets/projects/bellevue/ext-1.jpg" alt="Bellevue Wynental"></div>
+              <div class="workShot" data-shot="1"><img src="assets/projects/seeblick/site-1.jpg" alt="Seeblick"></div>
+              <div class="workShot" data-shot="2"><img src="assets/projects/rothruthi/ext-1.jpg" alt="Rothrüthi"></div>
+              <div class="workPrev__cap"><b id="wkName">Bellevue Wynental</b><span>View project</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="moreCue" aria-hidden="true"><span class="moreCue__t">More below</span><span class="moreCue__a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></div>
+      </section>
+
+      <!-- 7 · CTA (wipe up) -->
+      <section class="scene cta" data-scene="cta" style="z-index:8" data-screen-label="CTA">
+        <div class="swrap">
+          <div class="in">
+            <p class="eyebrow"><span class="dot"></span>Start the chain</p>
+            <h2>A plot. An idea. Let's draw it so it can be sold.</h2>
+            <div class="cta__row">
+              <a class="btn btn--solid" href="Contact.dc.html">Talk to Esad <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+              <a class="btn btn--ghost" href="Commercialization.dc.html">Meet the other half <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+</main>
+
+<dc-import name="SiteFooter" hint-size="100%,540px" style="display:block"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;planScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.4,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;unit&quot;:&quot;×&quot;,&quot;section&quot;:&quot;Hero&quot;,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    this.rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this._cleanups = [];
+    this.applyPlan();
+    const html = document.documentElement;
+    const stage = document.getElementById('archStage');
+    const staticFallback = () => {
+      if (stage) stage.classList.add('stage--static');
+      html.classList.remove('zf-arming');
+      html.classList.add('zf-ready');
+    };
+    if (this.rm) { staticFallback(); return; }
+    let tries = 0;
+    const ready = () => window.gsap && window.ScrollTrigger && window.ZF && window.ZF.motion;
+    const boot = () => {
+      if (!ready()) { if (tries++ > 200) { staticFallback(); return; } this._t = setTimeout(boot, 40); return; }
+      this.start();
+    };
+    boot();
+  }
+
+  start() {
+    const html = document.documentElement;
+    const gsap = window.gsap, ST = window.ScrollTrigger;
+    try { gsap.registerPlugin(ST); } catch (e) {}
+
+    // smooth scroll (the stage owns the scene motion)
+    try { window.ZF.motion._parts.initLenis(); } catch (e) {}
+
+    const stage = document.getElementById('archStage');
+    const vp = document.getElementById('stageVP');
+    if (!stage || !vp) { html.classList.remove('zf-arming'); html.classList.add('zf-ready'); return; }
+
+    const scenes = {};
+    stage.querySelectorAll('[data-scene]').forEach((el) => { scenes[el.getAttribute('data-scene')] = el; });
+    this.scenes = scenes;
+    this.vp = vp;
+    this.bioL = document.getElementById('bioL');
+    this.bioR = document.getElementById('bioR');
+    this.heroGhost = document.getElementById('heroGhost');
+    this.heroImg = document.getElementById('heroImg');
+    this.phTrack = document.getElementById('phTrack');
+    this.phLeft = scenes.phases ? scenes.phases.querySelector('.phLeft') : null;
+    this.phPanel = scenes.phases ? scenes.phases.querySelector('.phPanel') : null;
+    this.phPlans = scenes.phases ? [].slice.call(scenes.phases.querySelectorAll('.phPlan')) : [];
+    this.phSteps = scenes.phases ? [].slice.call(scenes.phases.querySelectorAll('.phStep')) : [];
+    this.phProjEl = document.getElementById('phProj');
+    this.phTypeEl = document.getElementById('phType');
+    this.phTagEl = document.getElementById('phTag');
+    this.phIdxEl = document.getElementById('phIdx');
+    this.phBar = document.getElementById('phBar');
+    this.phMeta = [
+      { p: 'Feasibility study', t: 'Site plan & massing', tag: 'Volume, setbacks and terrain tested against what the plot allows.' },
+      { p: 'Bürohaus', t: 'Floor layout', tag: 'First layouts and orientation take shape.' },
+      { p: 'Rothrüthi', t: 'Apartment layout', tag: 'The layout resolved to permit depth.' },
+      { p: 'Niederrohrdorf', t: 'Permit plan', tag: 'The plan drawn for approval.' },
+      { p: 'Seeblick', t: 'Tender set', tag: 'Priced and awarded to the trades.' },
+      { p: 'Rothrüthi', t: 'Execution plan', tag: 'The working drawings, dimensioned to the last junction.' },
+    ];
+    this.pillars = [].slice.call(scenes.philo.querySelectorAll('[data-pillar]'));
+    this.facts = [].slice.call(scenes.facts.querySelectorAll('[data-fact]'));
+    this.workRows = scenes.work ? [].slice.call(scenes.work.querySelectorAll('.workRow')) : [];
+    this.workShots = scenes.work ? [].slice.call(scenes.work.querySelectorAll('.workShot')) : [];
+    this.workPreview = scenes.work ? scenes.work.querySelector('.workPreview') : null;
+    this.wkNameEl = document.getElementById('wkName');
+    this.workMeta = ['Bellevue Wynental', 'Seeblick', 'Rothrüthi'];
+    if (this.workRows.length) {
+      const activate = (i) => {
+        this.workRows.forEach((rw, k) => rw.classList.toggle('is-active', k === i));
+        this.workShots.forEach((sh, k) => sh.classList.toggle('is-on', k === i));
+        if (this.wkNameEl) this.wkNameEl.textContent = this.workMeta[i] || '';
+      };
+      this.workRows.forEach((row, i) => {
+        row.addEventListener('mouseenter', () => activate(i));
+        row.addEventListener('focus', () => activate(i));
+        const go = () => { const h = row.getAttribute('data-href'); if (h) window.location.href = h; };
+        row.addEventListener('click', go);
+        row.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+      });
+      activate(0);
+    }
+    this.ctaItems = [].slice.call(scenes.cta.querySelectorAll('.cta .in > *'));
+    this.plItems = scenes.plans ? [].slice.call(scenes.plans.querySelectorAll('[data-plan]')) : [];
+    this.plDots = scenes.plans ? [].slice.call(scenes.plans.querySelectorAll('.plDot')) : [];
+    this.plIdxEl = document.getElementById('plIdx');
+    this.plProjEl = document.getElementById('plProject');
+    this.plTypeEl = document.getElementById('plType');
+    this.plGhostEl = document.getElementById('plGhost');
+    this.plShProjEl = document.getElementById('plShProj');
+    this.plShUnitEl = document.getElementById('plShUnit');
+    this.plMeta = [
+      { p: 'Rothrüthi', t: '4.5-room attic' },
+      { p: 'Bellevue Wynental', t: 'Upper floor' },
+      { p: 'Seeblick', t: 'Apartment 01' },
+      { p: 'Bellevue Wynental', t: 'Ground floor' },
+      { p: 'Niederrohrdorf', t: 'Apartment 5' },
+    ];
+
+    // pick a drawing directly (works alongside the scroll-driven crossfade)
+    this.showPlan = (active) => {
+      const N = this.plItems.length || 1;
+      active = Math.max(0, Math.min(N - 1, active));
+      this.plItems.forEach((it, i) => { it.style.opacity = (i === active ? 1 : 0); });
+      if (this.plDots.length) this.plDots.forEach((d, i) => d.classList.toggle('on', i === active));
+      if (this.plIdxEl) this.plIdxEl.textContent = ('0' + (active + 1)).slice(-2);
+      if (this.plGhostEl) this.plGhostEl.textContent = ('0' + (active + 1)).slice(-2);
+      const m = this.plMeta[active];
+      if (m) { if (this.plProjEl) this.plProjEl.textContent = m.p; if (this.plTypeEl) this.plTypeEl.textContent = m.t; if (this.plShProjEl) this.plShProjEl.textContent = m.p; if (this.plShUnitEl) this.plShUnitEl.textContent = m.t; }
+    };
+    if (this.plDots && this.plDots.length) {
+      this.plDots.forEach((d, i) => {
+        d.style.cursor = 'pointer';
+        d.setAttribute('role', 'button');
+        d.setAttribute('tabindex', '0');
+        d.setAttribute('aria-label', 'Show plan ' + (i + 1) + (this.plMeta[i] ? ', ' + this.plMeta[i].p : ''));
+        const go = () => this.showPlan(i);
+        d.addEventListener('click', go);
+        d.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+      });
+    }
+
+    // scene weights → normalised bands; stage height = sum * 100vh
+    const defs = [
+      { key: 'hero',   w: 1.3 },
+      { key: 'bio',    w: 1.8 },
+      { key: 'phases', w: 4.6 },
+      { key: 'plans',  w: 3.4 },
+      { key: 'philo',  w: 2.0 },
+      { key: 'facts',  w: 1.7 },
+      { key: 'work',   w: 2.1 },
+      { key: 'cta',    w: 1.7 },
+    ];
+    const total = defs.reduce((s, d) => s + d.w, 0);
+    let acc = 0;
+    defs.forEach((d) => { d.start = acc / total; acc += d.w; d.end = acc / total; });
+    this.defs = defs;
+    stage.style.height = (total * 100).toFixed(2) + 'vh';
+
+    this.render(0);
+    html.classList.remove('zf-arming');
+    html.classList.add('zf-ready');
+
+    const st = ST.create({
+      trigger: stage, start: 'top top', end: 'bottom bottom', scrub: 1,
+      onUpdate: (s) => this.render(s.progress),
+      onRefresh: (s) => this.render(s.progress),
+    });
+    this._cleanups.push(() => st.kill());
+    setTimeout(() => { try { ST.refresh(); } catch (e) {} }, 320);
+  }
+
+  clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+  up(r) { return 'inset(' + ((1 - r) * 100).toFixed(2) + '% 0 0 0)'; }        // wipe bottom→top
+  down(r) { return 'inset(0 0 ' + ((1 - r) * 100).toFixed(2) + '% 0)'; }      // wipe top→bottom
+  left(r) { return 'inset(0 ' + ((1 - r) * 100).toFixed(2) + '% 0 0)'; }      // wipe left→right
+  fromRight(r) { return 'inset(0 0 0 ' + ((1 - r) * 100).toFixed(2) + '%)'; }  // reveal from the right edge, leftward
+
+  render(p) {
+    const C = (v) => this.clamp(v);
+    const ENTER = 0.30;   // fraction of a scene's band spent on its entrance
+    this.defs.forEach((d, i) => {
+      const span = d.end - d.start || 1;
+      const tc = C((p - d.start) / span);
+      const r = C(tc / ENTER);                       // entrance, then a long hold
+      const next = this.defs[i + 1];
+      const nextSpan = next ? (next.end - next.start) : 0;
+      // how far the NEXT scene has entered: 0 until this band ends, then 0..1 as the next scene wipes over this one
+      const ext = next ? C((p - d.end) / (ENTER * nextSpan)) : 0;
+      this.applyScene(d.key, r, tc, ext);
+      // continuous rise: keep moving from the rise-start until the NEXT scene has fully covered this one (never stops while still visible)
+      const riseStartFrac = (d.key === 'plans') ? 0.80 : 0;   // drawings holds through its cross-fades, then rises out
+      const rs = d.start + riseStartFrac * span;
+      const riseEnd = next ? (d.end + ENTER * nextSpan) : 1;
+      const riseP = C((p - rs) / (riseEnd - rs));
+      this.rise(d.key, riseP, r);
+      if (d.key !== 'hero') this.scenes[d.key].style.pointerEvents = r > 0.02 ? 'auto' : 'none';
+    });
+  }
+
+  rise(key, riseP, enter) {
+    if (key === 'work' || key === 'cta') {   // Selected Work & the CTA keep their own entrance — no continuous rise
+      const inner = this.scenes[key] && this.scenes[key].querySelector(key === 'work' ? '.swrap' : '.cta .in');
+      if (inner) { inner.style.transform = 'none'; inner.style.clipPath = 'none'; }
+      return;
+    }
+    const sel = { hero: '.hero__text', bio: '.bioR .in', plans: '.plSide', philo: '.swrap', facts: '.swrap' }[key];
+    if (!sel || !this.scenes[key]) return;
+    const el = this.scenes[key].querySelector(sel);
+    if (!el) return;
+    const AMP = 230;   // px of continuous upward drift while the text is still on screen
+    el.style.transform = 'translateY(' + (-riseP * AMP).toFixed(1) + 'px)';   // keeps rising until the next scene has fully covered this one
+    if (key !== 'hero') el.style.clipPath = 'inset(' + ((1 - this.clamp(enter)) * 100).toFixed(1) + '% 0 0 0)';   // content arrives bottom-up
+  }
+
+  applyScene(key, r, tc, ext) {
+    const C = (v) => this.clamp(v);
+    switch (key) {
+      case 'hero': {
+        if (this.heroGhost) this.heroGhost.style.transform = 'translateY(' + (-tc * 60) + 'px)';
+        break;
+      }
+      case 'bio': {
+        if (this.bioL) this.bioL.style.clipPath = this.up(r);
+        if (this.bioR) this.bioR.style.clipPath = this.down(r);
+        break;
+      }
+      case 'phases': {
+        // scene enters as a split: left text column wipes up, right plan panel enters from the right
+        if (this.phLeft) this.phLeft.style.clipPath = this.up(r);
+        if (this.phPanel) this.phPanel.style.clipPath = this.fromRight(r);
+        const N = this.phPlans.length || 1;
+        const sub = C((tc - 0.36) / 0.52);              // hold phase 1 through the entrance + a beat, THEN step 1..6, then hold phase 6
+        const seg = sub * (N - 1) + (ext || 0) * 1.15;   // keep scrolling past phase 6 as The Drawings wipes over, so phase 6 keeps rising
+        const stepH = (this.phSteps && this.phSteps[0]) ? this.phSteps[0].getBoundingClientRect().height : ((this.vp ? this.vp.getBoundingClientRect().height : window.innerHeight) || 800);
+        if (this.phTrack) this.phTrack.style.transform = 'translateY(' + (-seg * stepH).toFixed(1) + 'px)';
+        // active = the phase step actually centred on screen (robust to any pin offset), so the plan always matches the visible text
+        let active = 0, best = Infinity;
+        const vpr = this.vp ? this.vp.getBoundingClientRect() : { top: 0, height: window.innerHeight };
+        const cyp = vpr.top + vpr.height / 2;
+        this.phSteps.forEach((s, i) => { const r = s.getBoundingClientRect(); const m = (r.top + r.bottom) / 2; const d = Math.abs(m - cyp); if (d < best) { best = d; active = i; } });
+        this.phPlans.forEach((im, i) => im.classList.toggle('is-on', i === active));
+        if (this.phBar) this.phBar.style.transform = 'scaleX(' + ((active + 1) / N).toFixed(3) + ')';
+        if (this.phIdxEl) this.phIdxEl.textContent = ('0' + (active + 1)).slice(-2);
+        const meta = this.phMeta[active];
+        if (meta) {
+          if (this.phProjEl) this.phProjEl.textContent = meta.p;
+          if (this.phTypeEl) this.phTypeEl.textContent = meta.t;
+          if (this.phTagEl) this.phTagEl.textContent = meta.tag;
+        }
+        break;
+      }
+      case 'plans': {
+        this.scenes.plans.style.clipPath = this.up(r);
+        const N = this.plItems.length || 1;
+        const sub = C((tc - 0.32) / 0.64);
+        const af = sub * (N - 1);
+        const active = Math.round(af);
+        // hold each plan solo, then a short clean crossfade near the boundary (no long continuous overlap)
+        this.plItems.forEach((it, i) => { it.style.opacity = C(1 - (Math.abs(af - i) - 0.40) / 0.20); });
+        if (this.plDots.length) this.plDots.forEach((d, i) => d.classList.toggle('on', i === active));
+        if (this.plIdxEl) this.plIdxEl.textContent = ('0' + (active + 1)).slice(-2);
+        if (this.plGhostEl) this.plGhostEl.textContent = ('0' + (active + 1)).slice(-2);
+        const m = this.plMeta[active];
+        if (m) { if (this.plProjEl) this.plProjEl.textContent = m.p; if (this.plTypeEl) this.plTypeEl.textContent = m.t; }
+        if (m) { if (this.plShProjEl) this.plShProjEl.textContent = m.p; if (this.plShUnitEl) this.plShUnitEl.textContent = m.t; }
+        break;
+      }
+      case 'philo': {
+        this.scenes.philo.style.clipPath = this.left(r);
+        const sp = C((tc - 0.42) / 0.42);
+        this.pillars.forEach((pl, k) => {
+          const pr = C(sp * 3 - k);
+          pl.style.opacity = pr;
+          pl.style.transform = 'translateY(' + ((1 - pr) * 30) + 'px)';
+        });
+        break;
+      }
+      case 'facts': {
+        const s = this.scenes.facts;
+        s.style.opacity = r;
+        s.style.transform = 'scale(' + (1.14 - 0.14 * r) + ')';
+        const sp = C((tc - 0.42) / 0.42);
+        this.facts.forEach((f, k) => {
+          const fr = C(sp * 4 - k);
+          f.style.opacity = fr;
+          f.style.transform = 'translateY(' + ((1 - fr) * 26) + 'px)';
+        });
+        break;
+      }
+      case 'work': {
+        const s = this.scenes.work;
+        s.style.opacity = r;
+        s.style.transform = 'scale(' + (1.16 - 0.16 * r) + ')';
+        const sp = C((tc - 0.42) / 0.5);
+        this.workRows.forEach((row, k) => {
+          const rr = C(sp * 3 - k * 0.7);
+          row.style.opacity = rr;
+          row.style.transform = 'translateY(' + ((1 - rr) * 26) + 'px)';
+        });
+        if (this.workPreview) this.workPreview.style.clipPath = this.up(C((sp - 0.1) / 0.7));
+        break;
+      }
+      case 'cta': {
+        this.scenes.cta.style.clipPath = this.down(r);   // panel wipes DOWN over Selected Work, like the Home CTA
+        const q = C((tc - 0.30) / 0.52);
+        this.ctaItems.forEach((it, i) => {
+          const rr = C((q - 0.04 - i * 0.12) / 0.4);
+          it.style.opacity = rr;
+          it.style.transform = 'translateY(' + ((1 - rr) * 34).toFixed(1) + 'px)';
+          it.style.clipPath = 'inset(' + (100 - rr * 100).toFixed(1) + '% 0 0 0)';
+        });
+        break;
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._t) clearTimeout(this._t);
+    (this._cleanups || []).forEach((fn) => { try { fn(); } catch (e) {} });
+  }
+
+  applyPlan() {
+    const img = document.getElementById('heroImg');
+    if (!img) return;
+    let s = (this.props && this.props.planScale != null) ? this.props.planScale : 0.9;
+    s = Math.max(0.4, Math.min(1, s));          // cap at 1 so the plan always fits its container (never clipped)
+    img.style.width = (s * 100).toFixed(1) + '%';
+    img.style.height = (s * 100).toFixed(1) + '%';
+  }
+
+  componentDidUpdate() { this.applyPlan(); }
+
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

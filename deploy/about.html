@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>window.__resources={"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"vendor/react.production.min.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"vendor/react-dom.production.min.js","https://unpkg.com/@babel/standalone@7.29.0/babel.min.js":"vendor/babel.min.js","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js":"vendor/gsap.min.js","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js":"vendor/ScrollTrigger.min.js","https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js":"vendor/lenis.min.js","https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js":"vendor/three.min.js","https://unpkg.com/leaflet@1.9.4/dist/leaflet.js":"vendor/leaflet.js","https://unpkg.com/leaflet@1.9.4/dist/leaflet.css":"vendor/leaflet.css"};</script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>ZweiFach, The studio, two specialists</title>
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/motion.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/base.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/styles.css">
+  <script src="vendor/lenis.min.js"></script>
+  <script>
+  (function(){
+    try{ if(matchMedia('(prefers-reduced-motion: reduce)').matches) return; }catch(e){}
+    if(window.__lenisBooted) return; window.__lenisBooted = true;
+    var tries = 0;
+    (function boot(){
+      if(window.__lenis) return;
+      if(!window.Lenis){ if(tries++>150) return; return setTimeout(boot, 40); }
+      var l = new Lenis({ duration: 1.05, smoothWheel: true, touchMultiplier: 1.6 });
+      window.__lenis = l;
+      function raf(t){ l.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+      if(window.ScrollTrigger){ l.on('scroll', window.ScrollTrigger.update); }
+    })();
+  })();
+  </script>
+  <script src="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/_ds_bundle.js"></script>
+  <style>
+    em,i,cite{font-style:normal !important}
+    body{margin:0;background:var(--studio);color:var(--fg);font-family:var(--font);-webkit-font-smoothing:antialiased;overflow:hidden}
+    ::selection{background:var(--accent);color:var(--bg)}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{color:var(--accent-hover)}
+    html.theme-dark body{background:#040403}
+    html.theme-dark .duoWrap{background:#040403}
+    html.theme-dark .duo{background:radial-gradient(120% 92% at 50% 40%, #232019 0%, #0e0c08 48%, #040403 100%)}
+    html.theme-dark .cut img{filter:contrast(1.09) brightness(.88) saturate(1.06)}
+    html.theme-dark .name--fill{color:#f4f0e7}
+    html.theme-dark .name--line{-webkit-text-stroke-color:#f4f0e7}
+
+    /* ---- full-screen duo ---- */
+    .duoWrap{position:relative;width:100vw;height:100vh;min-height:600px;background:var(--studio);overflow:hidden}
+    .duo{--rev:cubic-bezier(.7,0,.15,1);--ease-name:cubic-bezier(.16,1,.3,1);position:absolute;inset:0;display:flex;height:100%;width:100%;overflow:hidden;background:radial-gradient(120% 110% at 50% 24%, #c8c6c5 0%, #b7b5b4 55%, #a8a6a5 100%)}
+    .person{position:relative;flex:1 1 0%;min-width:0;display:flex;overflow:hidden;background:transparent;transition:flex-grow .8s var(--rev);color:inherit;text-decoration:none}
+    .person--a{--strand:var(--blueprint)}
+    .person--b{--strand:var(--clay);flex-direction:row-reverse}
+    .media{position:relative;flex:1 1 auto;min-width:0;overflow:hidden}
+    .photo,.cut{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+    .photo{z-index:1;display:none}.cut{z-index:3}
+    .photo img,.cut img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 8%;transition:filter .6s ease,opacity .6s ease}
+    .name{position:absolute;left:0;right:0;top:41%;margin:0;pointer-events:none;white-space:nowrap;text-align:center;font-weight:600;line-height:.85;letter-spacing:-.045em;font-size:clamp(3.5rem,14vw,15rem);opacity:0;transform:translateY(20%);clip-path:inset(0 0 100% 0);transition:opacity .55s ease,transform .9s var(--ease-name),clip-path .9s var(--ease-name)}
+    .name--fill{z-index:2;color:#15140f}
+    .name--line{z-index:4;color:transparent;-webkit-text-stroke:1.6px #15140f}
+    .info{position:absolute;left:0;right:0;bottom:0;z-index:6;background:#fff;border-top:1px solid rgba(22,20,15,.2);padding:clamp(20px,2.4vw,30px) clamp(22px,2.6vw,34px) clamp(22px,2.6vw,32px);display:flex;align-items:flex-end;justify-content:space-between;gap:clamp(18px,2vw,30px);transform:translateY(101%);transition:transform .75s var(--rev)}
+    .info__text{min-width:0}
+    .info__btn{flex:none;display:inline-flex;align-items:center;justify-content:center;width:clamp(50px,3.4vw,62px);height:clamp(50px,3.4vw,62px);border:1px solid var(--strand);border-radius:0;color:var(--strand);background:transparent;cursor:pointer;transition:background .4s var(--ease-out-expo),color .4s var(--ease-out-expo),transform .4s var(--ease-out-expo)}
+    .info__btn:hover{background:var(--strand);color:#fff;transform:translateY(-3px)}
+    .info__btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+    .info__btn svg{width:20px;height:20px;display:block}
+    .info .role{display:block;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--strand);font-weight:600;margin:0 0 .8em}
+    .info h4{font-weight:500;font-size:clamp(1.15rem,1.7vw,1.6rem);line-height:1.1;letter-spacing:-.02em;margin:0;color:var(--fg);max-width:22ch}
+    .info .pname{display:none;margin:0 0 .55em;font-weight:500;font-size:clamp(1.5rem,2.3vw,2.4rem);line-height:1;letter-spacing:-.02em;color:#f6f2e9}
+    .info__go{display:inline-flex;align-items:center;gap:9px;margin-top:1.1em;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--strand);font-weight:600}
+    .info__go .arw{transition:transform .4s var(--ease-out-expo)}
+    .person:hover .info__go .arw{transform:translateX(5px)}
+    .exp{flex:0 0 0%;overflow:hidden;background:#fff;display:flex;align-items:center;opacity:0;transition:flex-basis .8s var(--rev),opacity .5s ease .12s}
+    .exp-list{list-style:none;margin:0;padding:clamp(16px,2vw,26px) clamp(20px,2.4vw,32px);width:clamp(216px,24vw,340px)}
+    .exp-list li{padding:clamp(9px,1.1vw,14px) 0 clamp(9px,1.1vw,14px) 14px;border-left:2px solid var(--strand);border-top:1px solid var(--line)}
+    .exp-list li:first-child{border-top:0}
+    .exp-list li span{display:block;font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:var(--strand);font-weight:600;margin-bottom:.4em}
+    .exp-list li b{font-weight:500;font-size:clamp(.95rem,1.15vw,1.08rem);letter-spacing:-.01em;color:var(--fg)}
+    .duo.is-a .person--a,.duo.is-b .person--b{flex-grow:2.6}
+    .duo.is-a .person--b,.duo.is-b .person--a{flex-grow:.55}
+    .duo.is-a .person--b .photo img,.duo.is-a .person--b .cut img,.duo.is-b .person--a .photo img,.duo.is-b .person--a .cut img{filter:grayscale(1) brightness(.86);opacity:.42}
+    .duo.is-a .person--a .name,.duo.is-b .person--b .name{opacity:1;transform:translateY(0);clip-path:inset(-40% 0 0 0)}
+    .duo.is-a .person--a .info,.duo.is-b .person--b .info{transform:translateY(0)}
+    .duo.is-a .person--a .exp,.duo.is-b .person--b .exp{flex-basis:40%;opacity:1}
+    .duo.is-a .person--a .exp{border-left:1px solid rgba(22,20,15,.2)}
+    .duo.is-b .person--b .exp{border-right:1px solid rgba(22,20,15,.2)}
+    .person:focus-visible{outline:2px solid var(--accent);outline-offset:-4px}
+    .duoOverlay{position:absolute;left:0;right:0;bottom:clamp(24px,4.5vh,46px);z-index:8;pointer-events:none;text-align:center;padding:0 var(--pad-x);transition:opacity .55s var(--ease-out-expo)}
+    .duoWrap.duo-active .duoOverlay{opacity:0}
+    .duoOverlay__hint{margin:0;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:#4f4636}
+    .duoOverlay__hint span{color:var(--accent);margin:0 .35em}
+    @media (max-width:760px){
+      .duo{flex-direction:column}
+      .person,.person--b{flex-direction:column;flex:1 1 50%;height:50vh}
+      .name{font-size:26vw;top:26%}
+      .name--fill{opacity:.28;transform:none;clip-path:none}
+      .name--line{opacity:0}
+      .exp{display:none}
+      .info{position:absolute}
+    }
+  </style>
+</helmet>
+
+<dc-import name="SiteHeader" current="Studio" hint-size="100%,72px" style="display:block"></dc-import>
+
+<!-- FULL-SCREEN DUO -->
+<section class="duoWrap" id="duoWrap" data-screen-label="The pair">
+  <div class="duo" id="duo">
+    <div class="person person--a" data-k="a" aria-label="Esad Mujanović, architecture &amp; feasibility">
+      <div class="media">
+        <div class="photo"><img src="assets/brand/team-esad-black.png" alt="Esad Mujanović, architect"></div>
+        <span class="name name--fill" aria-hidden="true">Esad</span>
+        <div class="cut"><img src="assets/brand/team-esad-cut.png" alt=""></div>
+        <span class="name name--line" aria-hidden="true">Esad</span>
+        <div class="info">
+          <div class="info__text">
+            <span class="role">Architecture &amp; feasibility</span>
+            <span class="pname">Esad Mujanović</span>
+            <h4>He draws the plans, feasibility to execution.</h4>
+          </div>
+          <a class="info__btn" href="architecture.html" aria-label="Open Architecture &amp; feasibility"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+      </div>
+      <aside class="exp" aria-hidden="true"><ul class="exp-list">
+        <li><span>Feasibility</span><b>Massing &amp; ratios</b></li>
+        <li><span>Design</span><b>Permit-ready plans</b></li>
+        <li><span>Permit</span><b>Authority dialogue</b></li>
+        <li><span>Tender</span><b>Execution plans</b></li>
+      </ul></aside>
+    </div>
+    <div class="person person--b" data-k="b" aria-label="Dionis Fetahaj, commercialisation &amp; financing">
+      <div class="media">
+        <div class="photo"><img src="assets/brand/team-dionis-black.png" alt="Dionis Fetahaj, commercialisation lead"></div>
+        <span class="name name--fill" aria-hidden="true">Dionis</span>
+        <div class="cut"><img src="assets/brand/team-dionis-cut.png" alt=""></div>
+        <span class="name name--line" aria-hidden="true">Dionis</span>
+        <div class="info">
+          <div class="info__text">
+            <span class="role">Commercialisation &amp; financing</span>
+            <span class="pname">Dionis Fetahaj</span>
+            <h4>He finds the right financing, and pre-sells the units.</h4>
+          </div>
+          <a class="info__btn" href="commercialization.html" aria-label="Open Commercialisation &amp; financing"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+      </div>
+      <aside class="exp" aria-hidden="true"><ul class="exp-list">
+        <li><span>Sales</span><b>Off-plan pre-sales</b></li>
+        <li><span>Mortgage</span><b>Model comparison</b></li>
+        <li><span>Affordability</span><b>Checked, free</b></li>
+        <li><span>Banks</span><b>Best terms</b></li>
+      </ul></aside>
+    </div>
+  </div>
+</section>
+
+<dc-import name="SiteFooter" hint-size="100%,540px" style="display:block"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;duoOpen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Neutral&quot;,&quot;Esad&quot;,&quot;Dionis&quot;],&quot;default&quot;:&quot;Neutral&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Duo reveal&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    const duo = document.getElementById('duo');
+    const duoWrap = document.getElementById('duoWrap');
+    if (!duo) return;
+    const persons = [].slice.call(duo.querySelectorAll('.person'));
+    const canHover = window.matchMedia('(hover:hover)').matches;
+    const open = this.props.duoOpen ?? 'Neutral';
+    const defKey = open === 'Esad' ? 'a' : open === 'Dionis' ? 'b' : null;
+    const set = (k) => {
+      duo.classList.remove('is-a', 'is-b');
+      if (k) duo.classList.add('is-' + k);
+      if (duoWrap) duoWrap.classList.toggle('duo-active', !!k);
+    };
+    persons.forEach((p) => {
+      p.addEventListener('pointerenter', () => { if (canHover) set(p.dataset.k); });
+      // tap reveals the panel (no navigation); the corner arrow is the only link
+      p.addEventListener('click', () => { if (!canHover) set(p.dataset.k); });
+      // reveal when the corner arrow (the focusable link inside) gains focus
+      p.addEventListener('focusin', () => set(p.dataset.k));
+    });
+    duo.addEventListener('pointerleave', () => { if (canHover) set(defKey); });
+    duo.addEventListener('focusout', (e) => { if (!duo.contains(e.relatedTarget)) set(defKey); });
+    set(defKey);
+  }
+
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>window.__resources={"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"vendor/react.production.min.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"vendor/react-dom.production.min.js","https://unpkg.com/@babel/standalone@7.29.0/babel.min.js":"vendor/babel.min.js","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js":"vendor/gsap.min.js","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js":"vendor/ScrollTrigger.min.js","https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js":"vendor/lenis.min.js","https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js":"vendor/three.min.js","https://unpkg.com/leaflet@1.9.4/dist/leaflet.js":"vendor/leaflet.js","https://unpkg.com/leaflet@1.9.4/dist/leaflet.css":"vendor/leaflet.css"};</script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Commercialisation &amp; financing · Dionis Fetahaj · ZweiFach</title>
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/motion.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/base.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/styles.css">
+  <script src="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/_ds_bundle.js"></script>
+  <link rel="stylesheet" href="vendor/leaflet.css" crossorigin="">
+  <script src="vendor/leaflet.js" crossorigin=""></script>
+  <script>try{if(window.L&&window.L.map){window.__LEAFLET=window.L;}}catch(e){}</script>
+  <script>try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('zf-arming');}document.documentElement.setAttribute('data-zf-manual','');}catch(e){}</script>
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/ScrollTrigger.min.js"></script>
+  <script src="vendor/lenis.min.js"></script>
+  <script src="motion.js"></script>
+  <style>
+    em,i,cite{font-style:normal}
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--accent);color:var(--bg)}
+    a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-hover)}
+    /* NB: no overflow on .page — an overflow value here becomes a scroll container and breaks position:sticky on .stageVP. Scenes clip their own content instead. */
+    .page{--bp:var(--clay,var(--accent));--pad:clamp(20px,6vw,90px);--maxw:1380px}
+    .swrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);box-sizing:border-box}
+    .eyebrow{display:inline-flex;align-items:center;gap:.7em;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0}
+    .eyebrow .dot{width:7px;height:7px;border-radius:100px;background:var(--bp);flex:0 0 auto}
+
+    /* arming: hide non-hero scenes until JS takes control (never under reduced-motion / no-JS) */
+    html.zf-arming .scene:not(.scene--hero){opacity:0}
+
+    /* ---- PINNED STAGE ---- */
+    .archStage{position:relative}
+    .stageVP{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--bg)}
+    .scene{position:absolute;inset:0;overflow:hidden;display:flex;align-items:center;background:var(--bg);will-change:clip-path,transform,opacity}
+    .scene--dark{background:var(--ink,#16181a);color:var(--on-media)}
+    .scene--dark .eyebrow{color:rgba(244,240,231,.62)}
+    .scenehint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:40;display:flex;flex-direction:column;align-items:center;gap:.85em;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);pointer-events:none}
+    .scenehint .ln{width:1px;height:48px;background:currentColor;position:relative;overflow:hidden;opacity:.32}
+    .scenehint .ln::after{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:var(--fg);animation:hintdrop 1.9s var(--ease-out-expo) infinite}
+    @keyframes hintdrop{0%{transform:translateY(-100%)}60%,100%{transform:translateY(100%)}}
+
+    /* ---- NORMAL-FLOW SECTIONS (3 onward): no pin, no mask, standard scroll ---- */
+    /* cream band so the dark section below never butts against the buy/sell/financing block above */
+    .flow{position:relative;background:var(--bg);padding-top:clamp(40px,7vh,84px)}
+    .flow .scene{position:relative;inset:auto;min-height:0;display:block;overflow:visible;opacity:1;transform:none;clip-path:none;will-change:auto;contain:none;padding:clamp(84px,13vh,160px) 0}
+    .flow .bsScene{padding:0}
+    .flow .bsWrap{position:relative;inset:auto;clip-path:none!important;height:auto;min-height:calc(100vh - 72px);overflow:visible;display:flex;flex-direction:column;justify-content:center;will-change:auto;box-sizing:border-box;padding:clamp(48px,7vh,90px) clamp(28px,6vw,90px)}
+    .bsOverlays{display:contents}
+    .flow [data-reveal]{transition:opacity .8s var(--ease-out-expo),transform .8s var(--ease-out-expo)}
+    .flow [data-reveal].will-reveal{opacity:0;transform:translateY(26px)}
+    .flow [data-reveal].in{opacity:1;transform:none}
+
+    /* HERO scene — bright drawing sheet (a plan, not a render) */
+    .hero{display:grid;grid-template-columns:1fr 1.16fr;gap:clamp(28px,4vw,60px);align-items:center;width:100%}
+    .hero__ghost{position:absolute;left:calc(var(--pad) - .06em);top:clamp(64px,13vh,120px);font-size:clamp(9rem,24vw,24rem);font-weight:200;letter-spacing:-.05em;line-height:.8;color:var(--fg);opacity:.05;z-index:0;pointer-events:none;will-change:transform}
+    .hero__grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(120% 90% at 18% 34%,#000,transparent 62%);mask-image:radial-gradient(120% 90% at 18% 34%,#000,transparent 62%);opacity:.5}
+    .hero__text{position:relative;z-index:1}
+    .hero h1{font-weight:500;font-size:clamp(2.5rem,5.4vw,5rem);line-height:.94;letter-spacing:-.035em;margin:.4em 0 clamp(20px,3vh,30px)}
+    .hero h1 em{color:var(--bp)}
+    .hero__lead{font-size:clamp(1.04rem,1.4vw,1.28rem);line-height:1.6;color:var(--muted);max-width:30em;margin:0 0 clamp(24px,3.5vh,38px)}
+    .hero__meta{display:flex;flex-wrap:wrap;gap:clamp(18px,3vw,42px)}
+    .hero__meta .m{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.5}
+    .hero__meta .m b{display:block;color:var(--fg);font-weight:500;letter-spacing:.04em;font-size:.92rem;text-transform:none;margin-bottom:.25em}
+    .hero__fig{position:relative;height:min(92vh,900px);background:transparent;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .hero__figgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(46,61,77,.11) 1px,transparent 1px),linear-gradient(90deg,rgba(46,61,77,.11) 1px,transparent 1px);background-size:34px 34px;opacity:.7}
+    .hero__fig img{display:block;width:90%;height:90%;object-fit:contain;object-position:center;mix-blend-mode:multiply}
+    .hero__chart{width:100%;height:auto;max-height:84%;overflow:visible}
+    .hero__chart text{font-family:var(--font)}
+
+    /* BIO scene (split) — wrapper transparent so the hero shows through until the two halves wipe in */
+    .scene[data-scene="bio"]{background:transparent}
+    .bio{position:absolute;inset:0;display:grid;grid-template-columns:.92fr 1.08fr}
+    .bioL{position:relative;overflow:hidden;background:var(--ink,#16181a);clip-path:inset(100% 0 0 0);will-change:clip-path}
+    .bioL img{width:100%;height:100%;object-fit:cover;object-position:50% 26%}
+    .bioR{position:relative;overflow:hidden;background:var(--bg);display:flex;align-items:center;clip-path:inset(0 0 100% 0);will-change:clip-path}
+    .bioR .in{padding:clamp(30px,5vw,86px);max-width:600px}
+    .bioR .klabel{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 1.4em}
+    .bioR p{font-size:clamp(1.1rem,1.6vw,1.5rem);line-height:1.5;letter-spacing:-.01em;margin:0 0 .8em;color:var(--fg)}
+    .bioR p.sub{font-size:1.02rem;line-height:1.66;color:var(--muted)}
+    .bioR .sig{display:flex;align-items:center;gap:.7em;margin-top:clamp(20px,3vh,30px);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+    .bioR .sig b{color:var(--fg);font-weight:500}
+
+    /* PROCESS scene — through-line: text steps scroll one at a time (left), plan panel cross-fades (right) */
+    /* BUY / SELL + detail drawer (design-system section) */
+    .bsScene{background:transparent}
+    .bsWrap{position:absolute;inset:0;overflow:hidden;background:var(--bg);clip-path:inset(100% 0 0 0);will-change:clip-path;display:flex;flex-direction:column;justify-content:center;padding:clamp(96px,15vh,150px) clamp(28px,6vw,90px) clamp(56px,9vh,90px);box-sizing:border-box}
+    .bsInner{width:100%;max-width:1180px;margin:0 auto}
+    .bsTop{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+    .bsKicker{display:inline-flex;align-items:center;gap:.7em;margin:0;font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--taupe)}
+    .bsKicker .dot{width:7px;height:7px;border-radius:100px;background:var(--clay)}
+    .bsCorner{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe)}
+    .bsH{margin:.5em 0 0;font-weight:500;font-size:clamp(2rem,4vw,3.2rem);line-height:1.02;letter-spacing:-.03em;max-width:18em}
+    .bsSwitch{position:relative;display:inline-flex;margin-top:26px;border:1px solid rgba(22,20,15,.28);background:rgba(255,255,255,.3)}
+    .bsTab{position:relative;z-index:1;display:inline-flex;align-items:center;gap:.7em;font-family:inherit;font-weight:500;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;line-height:1;color:var(--muted);background:none;border:0;padding:1.15em 1.9em;cursor:pointer;transition:color .4s ease,background .4s ease}
+    .bsTab + .bsTab{border-left:1px solid var(--line)}
+    .bsTab::before{content:"";width:5px;height:5px;border-radius:100px;border:1px solid currentColor;background:transparent;transition:background .3s ease,border-color .3s ease}
+    .bsTab:not(.is-active):hover{color:var(--fg);background:rgba(22,20,15,.05)}
+    .bsTab:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+    .bsTab.is-active{color:var(--bg)}
+    .bsTab.is-active::before{background:var(--clay);border-color:var(--clay)}
+    .bsInd{position:absolute;z-index:0;top:0;left:0;height:100%;width:50%;background:var(--ink);transition:transform .5s var(--ease-out-expo),width .5s var(--ease-out-expo)}
+    .bsPanel{display:none;margin-top:30px}
+    .bsPanel.is-active{display:block}
+    .bsLead{max-width:56ch;margin:0 0 22px;color:var(--muted);font-size:clamp(.98rem,1.1vw,1.1rem);line-height:1.55}
+    .bsGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2vw,28px)}
+    .bsCard{position:relative;display:block;text-align:left;font-family:inherit;color:var(--on-media,#f4f0e7);background:var(--ink,#16181a);border:0;padding:0;cursor:pointer;overflow:hidden;border-radius:4px;aspect-ratio:4/5;transition:transform .55s var(--ease-out-expo),box-shadow .55s var(--ease-out-expo)}
+    .bsCard:hover{transform:translateY(-6px);box-shadow:0 30px 64px rgba(16,18,20,.22)}
+    .bsCard:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+    .bsCard .ph{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .9s var(--ease-out-expo)}
+    .bsCard:hover .ph{transform:scale(1.06)}
+    .bsCard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,19,15,0) 32%,rgba(20,19,15,.34) 58%,rgba(20,19,15,.86) 100%);opacity:.92;transition:opacity .5s ease}
+    .bsCard:hover::after{opacity:1}
+    .bsCard__tag{position:absolute;z-index:2;left:14px;top:14px;background:var(--clay);color:#fff;font-weight:600;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;padding:.6em 1.25em;border-radius:100px}
+    .bsCard__fav{position:absolute;z-index:2;right:14px;top:14px;display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:100px;color:var(--on-media,#f4f0e7);background:rgba(20,19,15,.42);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(244,240,231,.38);box-shadow:0 2px 12px rgba(0,0,0,.22);cursor:pointer;transition:background .4s ease,border-color .4s ease}
+    .bsCard__fav svg{width:17px;height:17px}
+    .bsCard:hover .bsCard__fav{background:rgba(20,19,15,.58);border-color:rgba(244,240,231,.55)}
+    .bsCard__fav:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    .bsCard__fav.is-liked{background:var(--bg,#f5f1e5);border-color:transparent}
+    .bsCard__fav.is-liked svg{fill:var(--clay);stroke:var(--clay)}
+    .bsCard__titlerow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:.5em 0 0}
+    .bsCard__arrow{display:inline-flex;flex:0 0 auto;margin-right:8px;color:var(--on-media,#f4f0e7);opacity:.85;transition:opacity .4s ease,transform .55s var(--ease-out-expo)}
+    .bsCard:hover .bsCard__arrow{opacity:1;transform:rotate(-45deg)}
+    .bsCard__ov{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:14px 16px 16px;text-shadow:0 1px 22px rgba(0,0,0,.4)}
+    .bsCard__ov::before{content:"";position:absolute;left:0;right:0;top:-46px;bottom:0;z-index:-1;backdrop-filter:blur(16px) saturate(1.15);-webkit-backdrop-filter:blur(16px) saturate(1.15);mask-image:linear-gradient(180deg,transparent 0,#000 46%);-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 46%);pointer-events:none}
+    .bsCard__from{margin:0;font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,240,231,.75)}
+    .bsCard__price{margin:.12em 0 0;font-weight:300;font-size:clamp(1.5rem,1.9vw,1.85rem);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+    .bsCard__price b{font-weight:600}
+    .bsCard__title{margin:0;font-weight:500;font-size:clamp(1.12rem,1.4vw,1.3rem);letter-spacing:-.015em;line-height:1.1}
+    .bsCard__loc{margin:.35em 0 0;font-size:.78rem;color:rgba(244,240,231,.75);letter-spacing:.02em}
+    .bsCard__specs{display:flex;flex-wrap:wrap;gap:.5em 1.4em;margin-top:14px;padding-top:12px;border-top:1px solid rgba(244,240,231,.22);font-size:.64rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,240,231,.85)}
+    .bsCard__specs span{white-space:nowrap}
+    @media (max-height:840px){.bsCard{aspect-ratio:1/1}.bsH{font-size:clamp(1.8rem,3.4vw,2.7rem)}.bsSwitch{margin-top:18px}.bsPanel{margin-top:22px}}
+    @media (max-height:700px){.bsCard{aspect-ratio:4/3}.bsLead{margin-bottom:14px}}
+    .bsSteps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:22px 44px;max-width:62em}
+    .bsStep{display:flex;gap:16px}
+    .bsStep b{font-weight:500;font-size:.82rem;color:var(--clay);font-variant-numeric:tabular-nums}
+    .bsStep h3{margin:0 0 .25em;font-weight:500;font-size:1.08rem;letter-spacing:-.01em}
+    .bsStep p{margin:0;font-size:.86rem;line-height:1.5;color:var(--muted);max-width:34ch}
+    .bsFinList{list-style:none;margin:0;padding:0;display:grid;gap:.7rem;max-width:56ch}
+    .bsFinList li{position:relative;padding-left:1.2rem;font-size:.92rem;line-height:1.55}
+    .bsFinList li::before{content:"";position:absolute;left:0;top:.6em;width:5px;height:5px;background:var(--clay)}
+    .bsFin__h{margin:34px 0 1.1rem;font-size:.64rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe)}
+    .bsFin__ctaRow{margin-top:34px}
+    .bsFin__cta{display:inline-flex;align-items:center;gap:.7em;font-size:.82rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;line-height:1;color:var(--fg);background:none;border:1px solid var(--fg);border-radius:0;padding:16px 28px;text-decoration:none;white-space:nowrap;transition:background .35s ease,color .35s ease}
+    .bsFin__cta:hover{background:var(--ink);color:var(--bg)}
+    .bsFin__cta svg{width:17px;height:17px}
+    .bsSplit{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,80px);align-items:start}
+    .bsIntro .bsLead{margin-bottom:20px}
+    .bsIntro__stat{display:flex;align-items:baseline;gap:16px;margin-top:30px;padding-top:22px;border-top:1px solid var(--line)}
+    .bsIntro__stat b{font-weight:300;font-size:clamp(2rem,3vw,2.6rem);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+    .bsIntro__stat span{font-size:.78rem;line-height:1.5;color:var(--muted);max-width:30ch}
+    .bsChain{list-style:none;margin:0;padding:0}
+    .bsRow{position:relative;display:flex;gap:clamp(16px,2vw,28px);align-items:baseline;padding:clamp(14px,2.2vh,22px) 4px clamp(14px,2.2vh,22px) 16px;border-top:1px solid var(--line);transition:padding-left .5s var(--ease-out-expo)}
+    .bsRow:last-child{border-bottom:1px solid var(--line)}
+    .bsRow::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--clay);transform:scaleY(0);transform-origin:top;transition:transform .55s var(--ease-out-expo)}
+    .bsRow:hover{padding-left:28px}
+    .bsRow:hover::before{transform:scaleY(1)}
+    .bsRow__n{font-weight:200;font-size:clamp(1.6rem,2.4vw,2.2rem);line-height:1;color:var(--clay);opacity:.55;font-variant-numeric:tabular-nums;flex:none;transition:opacity .4s ease}
+    .bsRow:hover .bsRow__n{opacity:1}
+    .bsRow>div{flex:1}
+    .bsRow h3{margin:0 0 .3em;font-weight:500;font-size:1.05rem;letter-spacing:-.01em}
+    .bsRow p{margin:0;font-size:.86rem;line-height:1.5;color:var(--muted);max-width:46ch}
+    .bsChain__h{margin:0 0 6px;font-size:.64rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe)}
+    .bsCalc{background:var(--media-dark,#14130f);color:var(--on-media,#f4f0e7);padding:clamp(22px,3vw,36px);border-radius:6px;display:grid;gap:clamp(14px,2vh,20px)}
+    .bsCalc__h{margin:0 0 2px;font-size:.64rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+    .bsCalc__row{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+    .bsCalc__lab{font-size:.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,240,231,.58)}
+    .bsCalc__val{font-weight:300;font-size:clamp(1.05rem,1.4vw,1.3rem);letter-spacing:-.01em;font-variant-numeric:tabular-nums;white-space:nowrap}
+    .bsCalc input[type=range]{-webkit-appearance:none;appearance:none;display:block;width:100%;height:2px;background:rgba(244,240,231,.22);border:0;border-radius:0;outline:none;margin:12px 0 2px;cursor:pointer}
+    .bsCalc input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--clay);border:1px solid rgba(244,240,231,.75);border-radius:0;cursor:grab;transition:transform .25s ease}
+    .bsCalc input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.12)}
+    .bsCalc input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--clay);border:1px solid rgba(244,240,231,.75);border-radius:0;cursor:grab}
+    .bsCalc input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+    .bsCalc__out{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding-top:16px;border-top:1px solid rgba(244,240,231,.16)}
+    .bsCalc__stat{display:grid;gap:7px}
+    .bsCalc__stat b{font-weight:300;font-size:clamp(1.4rem,2vw,1.9rem);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+    .bsCalc__bd{margin:0;padding:0;list-style:none}
+    .bsCalc__bd li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:6px 0;border-top:1px solid rgba(244,240,231,.1);font-size:.76rem;color:rgba(244,240,231,.66)}
+    .bsCalc__bd li b{font-weight:500;font-variant-numeric:tabular-nums;color:rgba(244,240,231,.9);white-space:nowrap}
+    .bsCalc__bd li.is-total{color:rgba(244,240,231,.85)}
+    .bsCalc__bd li.is-total b{font-weight:600;color:var(--on-media,#f4f0e7)}
+    @media (max-height:740px){.bsCalc__bd{display:none}}
+    .bsCalc__verdict{display:flex;align-items:baseline;gap:10px;margin:0;font-size:.9rem;line-height:1.5;color:rgba(244,240,231,.92)}
+    .bsCalc__dot{flex:none;width:6px;height:6px;border-radius:100px;background:var(--accent);transform:translateY(-2px)}
+    .bsCalc__dot.is-warn{background:var(--clay)}
+    .bsCalc__note{margin:0;font-size:.7rem;line-height:1.55;color:rgba(244,240,231,.45);max-width:52ch}
+    @media (prefers-reduced-motion: no-preference){
+      .bsPanel.is-active>*{animation:bsIn .65s var(--ease-out-expo) both}
+      .bsPanel.is-active>*:nth-child(2){animation-delay:.09s}
+      .bsPanel.is-active>*:nth-child(3){animation-delay:.18s}
+      .bsPanel.is-active .bsSplit>*:nth-child(2){animation:bsIn .65s var(--ease-out-expo) .12s both}
+      @keyframes bsIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+    }
+    @media (max-width:860px){.bsSplit{grid-template-columns:1fr;gap:24px}.bsIntro__stat{margin-top:20px}}
+    .bsBackdrop{position:fixed;inset:0;z-index:9998;background:rgba(14,15,17,.5);opacity:0;pointer-events:none;transition:opacity .4s ease}
+    .bsBackdrop.is-open{opacity:1;pointer-events:auto}
+    /* detail drawer — full-height modal, internal scroll (matches the reference) */
+    .bsDrawer{position:fixed;top:0;right:0;bottom:0;z-index:9999;display:flex;flex-direction:column;width:min(720px,94vw);height:100vh;background:var(--bg);transform:translateX(100%);transition:transform .55s var(--ease-out-expo);box-shadow:-30px 0 80px rgba(0,0,0,.3)}
+    .bsDrawer.is-open{transform:translateX(0)}
+    .bsDrawer__scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+    .bsDrawer__close{position:absolute;top:16px;right:16px;z-index:6;display:inline-flex;align-items:center;gap:.5em;font-family:inherit;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg);background:var(--bg);border:1px solid var(--line);padding:.6em 1em;cursor:pointer}
+    .bsDrawer__close:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+    .bsGallery{display:grid;grid-template-columns:1fr;gap:6px;background:var(--ink)}
+    .bsGallery__main{position:relative;aspect-ratio:16/10;background-size:cover;background-position:center;cursor:zoom-in}
+    .bsGallery__thumbs{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px}
+    .bsGallery__thumb{aspect-ratio:4/3;background-size:cover;background-position:center;cursor:pointer;opacity:.72;transition:opacity .3s ease}
+    .bsGallery__thumb:hover,.bsGallery__thumb.is-active{opacity:1}
+    .bsDrawer__body{padding:26px clamp(24px,4vw,40px) 40px}
+    .bsDrawer__headrow{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .bsDrawer__status{display:inline-block;background:var(--clay);color:#fff;font-weight:600;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.45em .9em}
+    .bsDrawer__price{margin:.7rem 0 0;font-weight:500;font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:-.02em}
+    .bsDrawer__metaline{margin:.3rem 0 0;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe)}
+    .bsDrawer__title{margin:1.1rem 0 0;font-weight:500;font-size:clamp(1.5rem,2.6vw,2rem);line-height:1.05;letter-spacing:-.02em}
+    .bsDrawer__sub{margin:.7rem 0 0;color:var(--muted);font-size:.94rem;line-height:1.55;max-width:52ch}
+    .bsDrawer__loc{margin:.6rem 0 0;color:var(--accent);font-size:.78rem;letter-spacing:.04em}
+    .bsFacts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:24px 0 0}
+    .bsFacts div{background:var(--bg);padding:.9rem 1rem}
+    .bsFacts dt{margin:0 0 .35em;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe)}
+    .bsFacts dd{margin:0;font-size:.92rem}
+    .bsDrawer__h{margin:26px 0 .8rem;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--taupe)}
+    .bsFeatures{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:.55rem 1.4rem}
+    .bsFeatures li{position:relative;padding-left:1.1rem;font-size:.86rem}
+    .bsFeatures li::before{content:"";position:absolute;left:0;top:.55em;width:5px;height:5px;background:var(--clay)}
+    .bsDesc p{margin:0 0 .8em;font-size:.9rem;line-height:1.65;color:var(--muted);max-width:58ch}
+    .bsDrawer__addr{margin:0 0 12px;font-size:.86rem;color:var(--fg)}
+    .bsMap{height:240px;background:var(--panel,#efe9dc);border:1px solid var(--line)}
+    .bsMap .leaflet-container{height:100%;width:100%;background:var(--panel,#efe9dc)}
+    .bsForm{display:grid;gap:10px}
+    .bsForm .bsDrawer__cta{justify-self:start}
+    @media (max-width:560px){.bsDrawer__cta,.bsFin__cta{padding:14px 20px}.bsForm .bsDrawer__cta{width:100%;justify-content:center}}
+    .bsForm__row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .bsForm input,.bsForm textarea{font-family:inherit;font-size:.9rem;line-height:1.4;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-button,0);padding:.85em .95em;min-height:44px;width:100%;box-sizing:border-box}
+    .bsForm input:focus,.bsForm textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+    .bsForm__fine{margin:.2rem 0 0;font-size:.72rem;color:var(--taupe)}
+    .bsDrawer__cta{display:inline-flex;align-items:center;justify-content:center;gap:.7em;font-family:var(--font,inherit);font-size:.82rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;line-height:1;color:#fff;background:var(--accent);padding:16px 28px;border:1px solid transparent;border-radius:0;text-decoration:none;cursor:pointer;white-space:nowrap;transition:all .35s ease}
+    .bsDrawer__cta:hover{filter:brightness(1.06);transform:translateY(-2px)}
+    .bsDrawer__foot{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:28px;padding-top:18px;border-top:1px solid var(--line)}
+    .bsFootLink{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fg);border-bottom:1px solid var(--accent);padding-bottom:2px;text-decoration:none}
+    .bsRef{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe)}
+    .bsLightbox{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;background:rgba(12,13,15,.92)}
+    .bsLightbox.is-open{display:flex}
+    .bsLightbox__img{max-width:92vw;max-height:88vh;object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+    .bsLightbox__close{position:absolute;top:20px;right:24px;background:none;border:0;color:#fff;font-size:1.4rem;cursor:pointer;line-height:1}
+    @media (max-width:860px){.bsGrid{grid-template-columns:1fr;gap:14px}.bsCard{aspect-ratio:4/3}.bsSteps{grid-template-columns:1fr}.bsDrawer{width:100%}.bsFacts{grid-template-columns:1fr 1fr}.bsForm__row{grid-template-columns:1fr}}
+
+    /* PHILOSOPHY scene */
+    .philo .eyebrow{margin-bottom:1.4em}
+    .philo h2{font-weight:500;font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.04;letter-spacing:-.03em;margin:0;max-width:15em}
+    .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3vw,48px);margin-top:clamp(40px,7vh,80px)}
+    .pillar{border-top:1px solid rgba(244,240,231,.22);padding-top:20px;will-change:opacity,transform}
+    .pillar .pn{display:flex;align-items:center;gap:.6em;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,240,231,.6);font-weight:600}
+    .pillar .pn .dot{width:7px;height:7px;border-radius:100px;background:var(--bp)}
+    .pillar h3{font-weight:500;font-size:clamp(1.3rem,2vw,1.7rem);letter-spacing:-.02em;margin:.7em 0 0}
+    .pillar p{margin:.7em 0 0;line-height:1.62;color:rgba(244,240,231,.72);font-size:1rem}
+
+    /* FACTS scene (zoom) */
+    .facts .eyebrow{margin-bottom:clamp(28px,4vh,44px)}
+    .factGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,40px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(30px,5vh,54px) 0}
+    .fact{will-change:opacity,transform}
+    .fact .v{font-weight:300;font-size:clamp(2.2rem,4.2vw,3.6rem);letter-spacing:-.03em;line-height:1;color:var(--fg)}
+    .fact .k{margin-top:.6em;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);line-height:1.5}
+    .facts__note{margin:clamp(18px,2.5vh,26px) 0 0;font-size:.8rem;color:var(--muted)}
+
+
+    /* THE DRAWINGS (plans showcase) — editorial two-column, ghost index, thumbnail rail */
+    .plans{background:var(--bg)}
+    .plGrid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:40px 40px;opacity:.4;-webkit-mask-image:radial-gradient(120% 100% at 62% 42%,#000,transparent 74%);mask-image:radial-gradient(120% 100% at 62% 42%,#000,transparent 74%)}
+    .plGhost{position:absolute;right:calc(var(--pad) - .04em);top:clamp(34px,6vh,84px);font-size:clamp(9rem,22vw,20rem);font-weight:200;line-height:.8;letter-spacing:-.05em;color:var(--bp);opacity:.06;z-index:0;pointer-events:none;font-variant-numeric:tabular-nums}
+    .plWrap{position:relative;z-index:2;display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(28px,5vw,72px);align-items:center;width:100%}
+    .plSide{max-width:25em}
+    .plSide .eyebrow{margin-bottom:1em}
+    .plSide h2{font-weight:500;font-size:clamp(1.7rem,3vw,2.6rem);line-height:1.04;letter-spacing:-.025em;margin:0 0 .5em}
+    .plLead{font-size:.98rem;line-height:1.6;color:var(--muted);margin:0 0 clamp(22px,3vh,32px);max-width:30em}
+    .plCap{margin:0 0 8px}
+    .plCap b{font-weight:500;font-size:clamp(1.05rem,1.5vw,1.35rem);letter-spacing:-.01em;color:var(--fg)}
+    .plCap span{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+    .plData{margin:0 0 18px;border-top:1px solid var(--line)}
+    .plData > div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:9px 0;border-bottom:1px solid var(--line)}
+    .plData dt{margin:0;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+    .plData dd{margin:0;font-size:.86rem;font-weight:500;color:var(--fg);text-align:right}
+    .plIndex{font-size:.75rem;letter-spacing:.12em;color:var(--muted);font-variant-numeric:tabular-nums;margin:0 0 16px}
+    .plIndex b{color:var(--bp);font-weight:500}
+    .plThumbs{display:flex;gap:10px}
+    .plDot{width:54px;height:54px;padding:5px;border:1px solid var(--line);border-radius:4px;background:#fcfbf6;overflow:hidden;opacity:.5;transition:border-color .35s ease,opacity .35s ease,box-shadow .35s ease}
+    .plDot img{width:100%;height:100%;object-fit:contain}
+    .plDot.on{border-color:var(--bp);opacity:1;box-shadow:0 6px 18px rgba(0,0,0,.1)}
+    .plSheet{position:relative;height:min(66vh,640px);background:#fcfbf6;border:1px solid var(--line);border-radius:6px;box-shadow:0 30px 64px rgba(0,0,0,.1);overflow:hidden}
+    .plSheet__grid{position:absolute;inset:0;background-image:linear-gradient(rgba(46,61,77,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(46,61,77,.08) 1px,transparent 1px);background-size:30px 30px}
+    .plSheet__tb{position:absolute;right:0;bottom:0;z-index:3;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);border-left:1px solid var(--line);background:rgba(252,251,246,.9)}
+    .plSheet__top{position:absolute;top:0;left:0;z-index:3;display:flex;flex-direction:column;gap:.15em;padding:10px 14px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);background:rgba(252,251,246,.9)}
+    .plSheet__top span:first-child{font-weight:500;font-size:.82rem;color:var(--fg)}
+    .plSheet__top span:last-child{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+    .plItem{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:clamp(20px,3vw,52px);opacity:0;will-change:opacity}
+    .plItem img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+
+    /* CTA scene — dark, wide, flows straight into the footer (Home-style) */
+    .cta{text-align:center;background:var(--ink,#16181a);color:var(--on-media)}
+    .cta .in{max-width:940px;margin:0 auto}
+    .cta .eyebrow{justify-content:center;margin-bottom:1.1em;color:rgba(244,240,231,.66)}
+    .cta h2{font-weight:500;font-size:clamp(2.4rem,5.4vw,4.2rem);line-height:1.03;letter-spacing:-.03em;margin:0 auto;max-width:none;color:var(--on-media)}
+    .cta__row{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:clamp(30px,5vh,48px)}
+    .cta .in>*{will-change:opacity,transform}
+    .btn{display:inline-flex;align-items:center;gap:.7em;padding:16px 28px;border-radius:0;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;transition:transform .35s ease,filter .35s ease,border-color .35s ease,color .35s ease}
+    .btn svg{width:17px;height:17px}
+    .btn--solid{background:var(--on-media);color:var(--ink,#16181a)}
+    .btn--solid:hover{filter:brightness(1.06);transform:translateY(-2px);color:var(--ink,#16181a)}
+    .btn--ghost{border:1px solid rgba(244,240,231,.4);color:var(--on-media)}
+    .btn--ghost:hover{border-color:var(--on-media);color:var(--on-media)}
+
+    @media (max-width:820px){
+      .hero{grid-template-columns:1fr;gap:22px}
+      .hero__fig{height:38vh;order:-1}
+      .hero__ghost{display:none}
+      .bio{grid-template-columns:1fr}
+      .bioL{display:none}
+      .phLeft{right:0}
+      .phPanel{display:none}
+      .phStep{padding:clamp(18px,5vw,28px)}
+      .phNum{font-size:clamp(3rem,15vw,5rem)}
+      .plWrap{grid-template-columns:1fr;gap:20px}
+      .plSheet{height:44vh}
+      .plGhost{display:none}
+      .pillars{grid-template-columns:1fr;gap:16px}
+      .factGrid{grid-template-columns:1fr 1fr;gap:18px}
+    }
+
+    /* ---- STATIC FALLBACK (reduced-motion / no GSAP): readable normal-flow stack ---- */
+    .stage--static .stageVP{position:static;height:auto;overflow:visible}
+    .stage--static .scene{position:relative;inset:auto;min-height:100vh;opacity:1!important;transform:none!important;clip-path:none!important}
+    .stage--static .bioL,.stage--static .bioR{clip-path:none!important}
+    .stage--static .bsScene{min-height:auto;display:block}
+    .stage--static .bsWrap{position:relative;clip-path:none!important;overflow:visible;height:auto;padding:clamp(40px,8vh,80px) clamp(28px,6vw,90px)}
+    .stage--static .bsDrawer,.stage--static .bsBackdrop{display:none}
+    .stage--static .pillar,.stage--static .fact,.stage--static .cta .in>*{opacity:1!important;transform:none!important}
+    .stage--static .scenehint{display:none}
+    .stage--static .plans{min-height:auto;display:block;padding:clamp(40px,8vh,90px) 0}
+    .stage--static .plGrid,.stage--static .plGhost{display:none}
+    .stage--static .plWrap{grid-template-columns:1fr;align-items:start}
+    .stage--static .plSheet{height:auto}
+    .stage--static .plItem{position:relative;opacity:1!important;height:60vh;border-top:1px solid var(--line)}
+  </style>
+</helmet>
+
+<dc-import name="SiteHeader" current="Commercialisation" hint-size="100%,72px" style="display:block"></dc-import>
+
+<main class="page" id="archPage" data-screen-label="Commercialisation — Dionis">
+
+  <div class="archStage" id="archStage">
+    <div class="stageVP" id="stageVP">
+
+      <!-- 1 · HERO -->
+      <section class="scene scene--hero" data-scene="hero" style="z-index:1" data-screen-label="Commercialisation hero">
+        <div class="hero__grid" aria-hidden="true"></div>
+        <span class="hero__ghost" id="heroGhost" aria-hidden="true">02</span>
+        <div class="swrap">
+          <div class="hero">
+            <div class="hero__text">
+              <p class="eyebrow"><span class="dot"></span>Commercialisation &amp; financing</p>
+              <h1>Sold<br><em>before it's built.</em></h1>
+              <p class="hero__lead">Dionis takes a finished design to market: the right positioning, a price the area will carry, and financing that fits the buyer. Units pre-sell off-plan, the bank releases credit, and the project can begin.</p>
+              <div class="hero__meta">
+                <div class="m"><b>Dionis Fetahaj</b>Commercialisation &amp; financing · Partner</div>
+                <div class="m"><b>Clay</b>The market strand</div>
+                <div class="m"><b>Idea to sold</b>Positioning to close</div>
+              </div>
+            </div>
+            <figure class="hero__fig">
+              <svg class="hero__chart" viewBox="0 0 640 480" role="img" aria-label="Pre-sale sell-through: cumulative off-plan sales rise and cross the bank pre-sale threshold, credit is released, then the project sells out">
+                <g stroke="var(--fg)" stroke-width="1" opacity=".2"><line x1="64" y1="40" x2="64" y2="420"/><line x1="64" y1="420" x2="600" y2="420"/></g>
+                <g stroke="var(--fg)" stroke-width="1" opacity=".1"><line x1="64" y1="40" x2="600" y2="40"/></g>
+                <path d="M64,420 C150,418 205,410 268,300 C320,208 372,120 440,86 C502,58 560,46 600,42 L600,420 Z" fill="var(--bp)" opacity=".06"/>
+                <line x1="64" y1="268" x2="600" y2="268" stroke="var(--bp)" stroke-width="1.5" stroke-dasharray="2 6" opacity=".85"/>
+                <path d="M64,420 C150,418 205,410 268,300 C320,208 372,120 440,86 C502,58 560,46 600,42" fill="none" stroke="var(--bp)" stroke-width="2.4" stroke-linecap="round"/>
+                <line x1="286" y1="420" x2="286" y2="262" stroke="var(--fg)" stroke-width="1" stroke-dasharray="2 5" opacity=".5"/>
+                <circle cx="286" cy="262" r="5" fill="var(--bg)" stroke="var(--bp)" stroke-width="2.4"/>
+                <circle cx="600" cy="42" r="5" fill="var(--bp)"/>
+                <text x="72" y="288" font-size="12" letter-spacing="1.4" fill="var(--fg)" opacity=".72">BANK PRE-SALE THRESHOLD · ~40%</text>
+                <text x="300" y="250" font-size="13" letter-spacing=".4" fill="var(--fg)" opacity=".92">Credit released, build starts</text>
+                <text x="452" y="34" font-size="13" letter-spacing=".4" fill="var(--fg)" opacity=".92">100% · sold out</text>
+                <text x="60" y="442" font-size="11" letter-spacing="1.5" fill="var(--fg)" opacity=".55">MONTH 0</text>
+                <text x="548" y="442" font-size="11" letter-spacing="1.5" fill="var(--fg)" opacity=".55">MONTH 12</text>
+                <text transform="rotate(-90 24 250)" x="24" y="250" font-size="11" letter-spacing="1.5" fill="var(--fg)" opacity=".55">UNITS SOLD</text>
+                <text x="64" y="468" font-size="11" letter-spacing="2" fill="var(--fg)" opacity=".5">PRE-SALE SELL-THROUGH · OFF-PLAN (INDICATIVE)</text>
+              </svg>
+            </figure>
+          </div>
+        </div>
+        <div class="scenehint">Scroll<span class="ln"></span></div>
+      </section>
+
+      <!-- 2 · BIO (split: portrait wipes up, text wipes down) -->
+      <section class="scene" data-scene="bio" style="z-index:2" data-screen-label="Who is Dionis">
+        <div class="bio">
+          <div class="bioL" id="bioL"><img src="assets/brand/team-dionis.jpg" alt="Dionis Fetahaj"></div>
+          <div class="bioR" id="bioR">
+            <div class="in">
+              <p class="klabel">Who sells it</p>
+              <p>Dionis is the studio's commercialisation and financing lead, the one who takes a finished design to market and turns drawings into signed sales.</p>
+              <p class="sub">He positions the project, sets a price the area will carry, and guides buyers to the financing that fits them, comparing mortgage models and checking what each household can comfortably afford. When enough units pre-sell off-plan, the bank releases credit and the build can begin.</p>
+              <div class="sig"><span class="eyebrow"><span class="dot"></span></span><b>Dionis Fetahaj</b> · Aargau &amp; Zürich</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 · BUY / SELL + detail drawer (design-system section) -->
+      <section class="scene bsScene" data-scene="buysell" style="z-index:3" data-screen-label="Buy or sell">
+        <div class="bsWrap" id="bsWrap">
+          <div class="bsInner" data-reveal>
+            <div class="bsTop">
+              <p class="bsKicker"><span class="dot"></span>Buy or sell</p>
+              <span class="bsCorner">(03)</span>
+            </div>
+            <h2 class="bsH">Start here: buy, sell, or finance.</h2>
+
+            <div class="bsSwitch" role="tablist" aria-label="Buy, sell or financing">
+              <button class="bsTab is-active" type="button" role="tab" data-tab="buy" aria-selected="true">Buy</button>
+              <button class="bsTab" type="button" role="tab" data-tab="sell" aria-selected="false">Sell</button>
+              <button class="bsTab" type="button" role="tab" data-tab="financing" aria-selected="false">Financing</button>
+              <span class="bsInd" aria-hidden="true"></span>
+            </div>
+
+            <div class="bsPanel is-active" data-panel="buy">
+              <p class="bsLead">Residences currently in commercialisation with ZweiFach. Open one for the full detail. Figures are indicative.</p>
+              <div class="bsGrid">
+                <button class="bsCard" type="button" data-listing="0">
+                  <div class="ph" style="background-image:url('assets/projects/bellevue/ext-5.jpg')"></div>
+                  <span class="bsCard__tag">In pre-sale</span>
+                  <span class="bsCard__fav" role="button" tabindex="0" aria-pressed="false" aria-label="Save this residence"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span>
+                  <div class="bsCard__ov">
+                    <p class="bsCard__from">From</p>
+                    <p class="bsCard__price">CHF <b>740,000</b></p>
+                    <div class="bsCard__titlerow"><h3 class="bsCard__title">Bellevue Wynental</h3><span class="bsCard__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>
+                    <p class="bsCard__loc">Wynentalstrasse, Menziken · Aargau</p>
+                    <div class="bsCard__specs"><span>2.5 to 4.5 rooms</span><span>64 to 142 m²</span><span>2027</span></div>
+                  </div>
+                </button>
+                <button class="bsCard" type="button" data-listing="1">
+                  <div class="ph" style="background-image:url('assets/projects/seeblick/ext-1.jpg')"></div>
+                  <span class="bsCard__tag">In pre-sale</span>
+                  <span class="bsCard__fav" role="button" tabindex="0" aria-pressed="false" aria-label="Save this residence"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span>
+                  <div class="bsCard__ov">
+                    <p class="bsCard__from">From</p>
+                    <p class="bsCard__price">CHF <b>890,000</b></p>
+                    <div class="bsCard__titlerow"><h3 class="bsCard__title">Seeblick</h3><span class="bsCard__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>
+                    <p class="bsCard__loc">Seeweg, Birrwil · Lake Hallwil</p>
+                    <div class="bsCard__specs"><span>3.5 to 5.5 rooms</span><span>98 to 180 m²</span><span>2028</span></div>
+                  </div>
+                </button>
+                <button class="bsCard" type="button" data-listing="2">
+                  <div class="ph" style="background-image:url('assets/projects/rothruthi/ext-1.jpg')"></div>
+                  <span class="bsCard__tag">In planning</span>
+                  <span class="bsCard__fav" role="button" tabindex="0" aria-pressed="false" aria-label="Save this residence"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span>
+                  <div class="bsCard__ov">
+                    <p class="bsCard__from">From</p>
+                    <p class="bsCard__price">CHF <b>615,000</b></p>
+                    <div class="bsCard__titlerow"><h3 class="bsCard__title">Rothrüthi</h3><span class="bsCard__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>
+                    <p class="bsCard__loc">Rothrüthiweg, Aarau · Aargau</p>
+                    <div class="bsCard__specs"><span>2.5 to 5.5 rooms</span><span>62 to 168 m²</span><span>2026</span></div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div class="bsPanel" data-panel="sell">
+              <div class="bsSplit">
+                <div class="bsIntro">
+                  <p class="bsLead">Selling a development, a building, or a single apartment? One partner from valuation to the last signature.</p>
+                  <a class="bsFin__cta" href="contact.html">Request a valuation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+                  <div class="bsIntro__stat"><b>&gt; 40%</b><span>pre-sale rate banks often expect before releasing construction credit. Indicative, varies by bank and project.</span></div>
+                </div>
+                <div>
+                  <h3 class="bsChain__h">How it goes</h3>
+                  <ol class="bsChain">
+                    <li class="bsRow"><span class="bsRow__n">01</span><div><h3>Valuation &amp; positioning</h3><p>An honest read of what your asset is worth today.</p></div></li>
+                    <li class="bsRow"><span class="bsRow__n">02</span><div><h3>Pricing strategy</h3><p>A price ladder and lot schedule built to sell.</p></div></li>
+                    <li class="bsRow"><span class="bsRow__n">03</span><div><h3>Dossier &amp; renders</h3><p>The story and visuals that make it desirable on paper.</p></div></li>
+                    <li class="bsRow"><span class="bsRow__n">04</span><div><h3>Off-plan pre-sale</h3><p>Reservations driven to unlock construction credit.</p></div></li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="bsPanel" data-panel="financing">
+              <div class="bsSplit">
+                <div class="bsIntro">
+                  <p class="bsLead">Buying or selling, solid financing is the foundation of every property decision. Dionis helps you find the right solution and checks your affordability, free of charge. The consultation goes further:</p>
+                  <ul class="bsFinList">
+                    <li>Fixed-rate, SARON and variable-rate mortgages compared, with the opportunities and risks of each.</li>
+                    <li>A financing framework that stays sustainable for your situation over the long term.</li>
+                    <li>Support in your dealings with banks and financing partners, so you close on the best terms.</li>
+                  </ul>
+                  <div class="bsFin__ctaRow"><a class="bsFin__cta" href="contact.html">Request a free financing check <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
+                </div>
+                <div class="bsCalc" aria-label="Affordability check">
+                  <h3 class="bsCalc__h">Check your affordability</h3>
+                  <div>
+                    <div class="bsCalc__row"><span class="bsCalc__lab">Purchase price</span><span class="bsCalc__val" id="finPriceV">CHF 900,000</span></div>
+                    <input type="range" id="finPrice" min="400000" max="3000000" step="10000" default-value="900000" aria-label="Purchase price">
+                  </div>
+                  <div>
+                    <div class="bsCalc__row"><span class="bsCalc__lab">Own funds</span><span class="bsCalc__val" id="finEqV">25%, CHF 225,000</span></div>
+                    <input type="range" id="finEq" min="20" max="60" step="1" default-value="25" aria-label="Own funds share">
+                  </div>
+                  <div>
+                    <div class="bsCalc__row"><span class="bsCalc__lab">Household income, yearly</span><span class="bsCalc__val" id="finIncV">CHF 180,000</span></div>
+                    <input type="range" id="finInc" min="80000" max="500000" step="5000" default-value="180000" aria-label="Yearly household income">
+                  </div>
+                  <div class="bsCalc__out">
+                    <div class="bsCalc__stat"><span class="bsCalc__lab">Mortgage needed</span><b id="finLoan">CHF 675,000</b></div>
+                    <div class="bsCalc__stat"><span class="bsCalc__lab">Costs vs income</span><b id="finRatio">27%</b></div>
+                  </div>
+                  <ul class="bsCalc__bd">
+                    <li><span>Interest at the 5% stress rate</span><b id="finInt">CHF 33,750</b></li>
+                    <li><span>Amortisation, second mortgage</span><b id="finAm">CHF 5,000</b></li>
+                    <li><span>Upkeep and running costs, 1%</span><b id="finUp">CHF 9,000</b></li>
+                    <li class="is-total"><span>Theoretical cost per month</span><b id="finMon">CHF 3,980</b></li>
+                  </ul>
+                  <p class="bsCalc__verdict"><span class="bsCalc__dot" id="finDot"></span><span id="finVerdict">Within the usual affordability guideline.</span></p>
+                  <p class="bsCalc__note">The standard Swiss check: 5% imputed rate on the mortgage, 1% of the price for upkeep, the part above two thirds amortised over 15 years, capped at 33% of gross income. Banks also expect 20% own funds, of which 10% of the price outside the second pillar. Not a credit decision, Dionis checks the real case free of charge.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="flow" id="archFlow">
+
+      <!-- 4 · PHILOSOPHY (left wipe) -->
+      <section class="scene scene--dark philo" data-scene="philo" style="z-index:5" data-screen-label="Philosophy">
+        <div class="swrap" data-reveal>
+          <p class="eyebrow"><span class="dot"></span>How Dionis sells</p>
+          <h2>A design only sells if the price, the buyer and the bank agree.</h2>
+          <div class="pillars">
+            <div class="pillar" data-pillar>
+              <div class="pn"><span class="dot"></span>01</div>
+              <h3>Sold before it's built</h3>
+              <p>The bank releases credit once enough units pre-sell off-plan. Selling early is what lets the project start at all.</p>
+            </div>
+            <div class="pillar" data-pillar>
+              <div class="pn"><span class="dot"></span>02</div>
+              <h3>The right financing, not ours</h3>
+              <p>Buyers are guided to the mortgage that fits them, models compared and affordability checked. ZweiFach advises on financing, it does not provide it.</p>
+            </div>
+            <div class="pillar" data-pillar>
+              <div class="pn"><span class="dot"></span>03</div>
+              <h3>One hand with the architect</h3>
+              <p>Dionis works beside the design, so what gets drawn is what the market and the bank will actually back.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 · FACTS (zoom in) -->
+      <section class="scene facts" data-scene="facts" style="z-index:6" data-screen-label="Facts">
+        <div class="swrap" data-reveal>
+          <p class="eyebrow"><span class="dot"></span>In short</p>
+          <div class="factGrid">
+            <div class="fact" data-fact><div class="v">&gt; 40%</div><div class="k">Pre-sold before<br>credit (indicative)</div></div>
+            <div class="fact" data-fact><div class="v">Off-plan</div><div class="k">Sold from the<br>drawings</div></div>
+            <div class="fact" data-fact><div class="v">3+</div><div class="k">Mortgage models<br>compared per buyer</div></div>
+            <div class="fact" data-fact><div class="v">AG · ZH</div><div class="k">Aargau &amp;<br>Zürich region</div></div>
+          </div>
+          <p class="facts__note">Figures are indicative and vary by bank and project. Placeholder facts, to be confirmed.</p>
+        </div>
+      </section>
+
+      <!-- 7 · CTA (wipe up) -->
+      <section class="scene cta" data-scene="cta" style="z-index:8" data-screen-label="CTA">
+        <div class="swrap">
+          <div class="in" data-reveal>
+            <p class="eyebrow"><span class="dot"></span>Start the chain</p>
+            <h2>A finished design. Let's get it sold before it's built.</h2>
+            <div class="cta__row">
+              <a class="btn btn--solid" href="contact.html">Talk to Dionis <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+              <a class="btn btn--ghost" href="architecture.html">Meet the other half <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+  </div>
+
+</main>
+
+<!-- Residence detail overlay: top-level siblings of <main> so no transformed/clipped ancestor can trap position:fixed -->
+<div class="bsOverlays" id="bsOverlays">
+  <div class="bsBackdrop" data-backdrop aria-hidden="true"></div>
+          <aside class="bsDrawer" data-drawer aria-hidden="true" aria-label="Residence detail">
+            <button class="bsDrawer__close" type="button" data-close aria-label="Close">Close <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+            <div class="bsDrawer__scroll" data-lenis-prevent>
+              <div class="bsGallery" data-d-gallery></div>
+              <div class="bsDrawer__body">
+                <div class="bsDrawer__headrow">
+                  <div>
+                    <span class="bsDrawer__status" data-d-status>In pre-sale</span>
+                    <p class="bsDrawer__price" data-d-price>from CHF 740,000</p>
+                    <p class="bsDrawer__metaline" data-d-metaline>8 apartments · 2.5 to 4.5 rooms</p>
+                  </div>
+                  <a class="bsDrawer__cta" href="contact.html">Request information</a>
+                </div>
+                <h2 class="bsDrawer__title" data-d-title>Bellevue Wynental</h2>
+                <p class="bsDrawer__sub" data-d-sub></p>
+                <p class="bsDrawer__loc" data-d-loc></p>
+                <div class="bsFacts" data-d-facts></div>
+                <h3 class="bsDrawer__h">Features</h3>
+                <ul class="bsFeatures" data-d-features></ul>
+                <h3 class="bsDrawer__h">Description</h3>
+                <div class="bsDesc" data-d-desc></div>
+                <h3 class="bsDrawer__h">Location</h3>
+                <p class="bsDrawer__addr" data-d-addr></p>
+                <div class="bsMap" data-d-map></div>
+                <h3 class="bsDrawer__h">Interested? Message Dionis</h3>
+                <form class="bsForm" data-drawer-form>
+                  <div class="bsForm__row"><input type="text" name="firstname" placeholder="First name" autocomplete="given-name"><input type="text" name="name" placeholder="Name" autocomplete="family-name"></div>
+                  <input type="email" name="email" placeholder="Email" required autocomplete="email">
+                  <input type="tel" name="phone" placeholder="Phone (optional)" autocomplete="tel">
+                  <textarea name="message" rows="3" data-d-formmsg></textarea>
+                  <button class="bsDrawer__cta" type="submit">Send enquiry</button>
+                  <p class="bsForm__fine">Sends straight to Dionis, he replies personally.</p>
+                </form>
+                <div class="bsDrawer__foot">
+                  <a class="bsFootLink" href="mailto:dionis@zweifach.ch">Email Dionis</a>
+                  <span class="bsRef" data-d-ref>Ref. ZF-BW-08</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+          <div class="bsLightbox" data-lightbox aria-hidden="true">
+            <button class="bsLightbox__close" type="button" data-lightbox-close aria-label="Close"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+            <img class="bsLightbox__img" data-lightbox-img alt="Residence photo">
+          </div>
+</div>
+
+<dc-import name="SiteFooter" hint-size="100%,540px" style="display:block"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this._cleanups = [];
+    this.applyPlan();
+    const html = document.documentElement;
+    const stage = document.getElementById('archStage');
+    const staticFallback = () => {
+      if (stage) stage.classList.add('stage--static');
+      html.classList.remove('zf-arming');
+      html.classList.add('zf-ready');
+    };
+    if (this.rm) { staticFallback(); return; }
+    let tries = 0;
+    const ready = () => window.gsap && window.ScrollTrigger && window.ZF && window.ZF.motion;
+    const boot = () => {
+      if (!ready()) { if (tries++ > 200) { staticFallback(); return; } this._t = setTimeout(boot, 40); return; }
+      this.start();
+    };
+    boot();
+  }
+
+  start() {
+    const html = document.documentElement;
+    const gsap = window.gsap, ST = window.ScrollTrigger;
+    try { gsap.registerPlugin(ST); } catch (e) {}
+
+    // smooth scroll (the stage owns the scene motion)
+    try { window.ZF.motion._parts.initLenis(); } catch (e) {}
+
+    const stage = document.getElementById('archStage');
+    const vp = document.getElementById('stageVP');
+    if (!stage || !vp) { html.classList.remove('zf-arming'); html.classList.add('zf-ready'); return; }
+
+    const scenes = {};
+    document.querySelectorAll('[data-scene]').forEach((el) => { scenes[el.getAttribute('data-scene')] = el; });
+    this.scenes = scenes;
+    this.vp = vp;
+    this.bioL = document.getElementById('bioL');
+    this.bioR = document.getElementById('bioR');
+    this.heroGhost = document.getElementById('heroGhost');
+    this.heroImg = document.getElementById('heroImg');
+    // ---- Buy / Sell + detail drawer (section 3) ----
+    const bs = scenes.buysell || null;
+    this.bsWrap = bs ? bs.querySelector('.bsWrap') : null;
+    if (bs) {
+      const fP = bs.querySelector('#finPrice'), fE = bs.querySelector('#finEq'), fI = bs.querySelector('#finInc');
+      if (fP && fE && fI) {
+        fP.value = 900000; fE.value = 25; fI.value = 180000;
+        const fmt = (n) => 'CHF ' + Math.round(n).toLocaleString('en-GB');
+        const fill = (s) => { const p = (s.value - s.min) / (s.max - s.min) * 100; s.style.background = 'linear-gradient(90deg, var(--clay) ' + p + '%, rgba(244,240,231,.22) ' + p + '%)'; };
+        const upd = () => {
+          const price = +fP.value, eq = +fE.value / 100, inc = +fI.value;
+          const loan = price * (1 - eq);
+          const interest = loan * 0.05;
+          const upkeep = price * 0.01;
+          const amort = (1 - eq) > 2 / 3 ? (loan - price * 2 / 3) / 15 : 0;
+          const cost = interest + upkeep + amort;
+          const ratio = cost / inc;
+          const put = (id, txt) => { const el = bs.querySelector(id); if (el) el.textContent = txt; };
+          put('#finPriceV', fmt(price));
+          put('#finEqV', fE.value + '%, ' + fmt(price * eq));
+          put('#finIncV', fmt(inc));
+          put('#finLoan', fmt(loan));
+          put('#finRatio', Math.round(ratio * 100) + '%');
+          put('#finInt', fmt(interest));
+          put('#finAm', amort > 0 ? fmt(amort) : 'None needed');
+          put('#finUp', fmt(upkeep));
+          put('#finMon', fmt(cost / 12));
+          const needed = Math.ceil(cost / 0.33 / 1000) * 1000;
+          const v = bs.querySelector('#finVerdict'), d = bs.querySelector('#finDot');
+          if (v) v.textContent = ratio <= 0.33 ? 'Within the usual affordability guideline.' : (ratio <= 0.38 ? 'Slightly above the usual guideline. This purchase would call for about ' + fmt(needed) + ' of yearly income, structure matters.' : 'Above the usual guideline. This purchase would call for about ' + fmt(needed) + ' of yearly income. Dionis will look at equity and structure with you.');
+          if (d) d.classList.toggle('is-warn', ratio > 0.33);
+          [fP, fE, fI].forEach(fill);
+        };
+        [fP, fE, fI].forEach((s) => s.addEventListener('input', upd));
+        upd();
+      }
+
+      const tabs = [].slice.call(bs.querySelectorAll('.bsTab'));
+      const ind = bs.querySelector('.bsInd');
+      const panels = [].slice.call(bs.querySelectorAll('.bsPanel'));
+      const moveInd = (t) => { if (ind && t) { ind.style.width = t.offsetWidth + 'px'; ind.style.transform = 'translateX(' + t.offsetLeft + 'px)'; } };
+      const setTab = (name) => {
+        tabs.forEach((t) => { const on = t.dataset.tab === name; t.classList.toggle('is-active', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); if (on) moveInd(t); });
+        panels.forEach((p) => p.classList.toggle('is-active', p.dataset.panel === name));
+      };
+      tabs.forEach((t) => t.addEventListener('click', () => setTab(t.dataset.tab)));
+      requestAnimationFrame(() => moveInd(tabs[0]));
+      const DATA = [
+        { status:'In pre-sale', price:'from CHF 740,000', metaline:'8 apartments · 2.5 to 4.5 rooms', title:'Bellevue Wynental', sub:'A new build of eight apartments in the Wynental valley: calm materials, generous loggias, delivered ready for finishing.', loc:'Wynental · Aargau', ref:'Ref. ZF-BW-08',
+          gallery:['assets/projects/bellevue/ext-5.jpg','assets/projects/bellevue/night-1.jpg','assets/projects/bellevue/ext-2.jpg','assets/projects/bellevue/int-1.jpg'],
+          facts:[['Type','New build'],['Rooms','2.5 to 4.5'],['Surface','64 to 142 m²'],['Storeys','3 + attic'],['Delivery','2027'],['Price/m²','approx. CHF 9,200']],
+          feat:['South loggia','Underfloor heating','Cellar and parking','Air-source heat pump','Triple glazing','Lift to every floor'],
+          desc:['Eight apartments arranged around a calm, south-facing garden court, a short walk from the Menziken line into Aarau.','Interiors are delivered ready for finishing, so buyers choose their own kitchen and bathroom specification within a set budget.'],
+          addr:'Wynentalstrasse, 5737 Menziken · Aargau', lat:47.2815, lng:8.1122 },
+        { status:'In pre-sale', price:'from CHF 890,000', metaline:'Lakeside residences · 3.5 to 5.5 rooms', title:'Seeblick', sub:'Lakeside residences above Lake Hallwil, with long water views and ceilings up to three metres on the upper floors.', loc:'Birrwil · Lake Hallwil', ref:'Ref. ZF-SB-06',
+          gallery:['assets/projects/seeblick/ext-1.jpg','assets/projects/seeblick/ext-2.jpg','assets/projects/seeblick/ext-3.jpg'],
+          facts:[['Type','New build'],['Rooms','3.5 to 5.5'],['Surface','98 to 180 m²'],['Storeys','4'],['Delivery','2028'],['Price/m²','approx. CHF 11,400']],
+          feat:['Lake view','Wrap-around terrace','Triple glazing','Double garage','Minergie standard','Private lift access'],
+          desc:['A small collection of residences stepped up the slope above Lake Hallwil, each oriented to hold the water view from the main living space.','The upper apartments reach ceiling heights of three metres and open onto deep, wrap-around terraces.'],
+          addr:'Seeweg, 5708 Birrwil · Lake Hallwil', lat:47.2790, lng:8.1880 },
+        { status:'In planning', price:'from CHF 615,000', metaline:'Courtyard homes · 2.5 to 5.5 rooms', title:'Rothrüthi', sub:'A quiet courtyard development of family homes a few minutes from the station, with deep balconies and a shared garden.', loc:'Rothrüthi · Aargau', ref:'Ref. ZF-RR-12',
+          gallery:['assets/projects/rothruthi/ext-1.jpg','assets/projects/rothruthi/panorama.jpg','assets/projects/rothruthi/ext-2.jpg','assets/projects/rothruthi/int-1.jpg'],
+          facts:[['Type','New build'],['Rooms','2.5 to 5.5'],['Surface','62 to 168 m²'],['Storeys','3'],['Delivery','2026'],['Price/m²','approx. CHF 8,600']],
+          feat:['Courtyard garden','South balcony','EV-ready parking','Storage room','Heat pump','Bike room'],
+          desc:['Family homes set around a planted courtyard, a few minutes on foot from the station and the village centre.','Each home has a deep south balcony; ground-floor units open directly onto the shared garden.'],
+          addr:'Rothrüthiweg, 5000 Aarau · Aargau', lat:47.3910, lng:8.0450 },
+      ];
+      const ov = document.getElementById('bsOverlays') || bs;
+      const drawer = ov.querySelector('.bsDrawer'), backdrop = ov.querySelector('.bsBackdrop');
+      const q = (s) => ov.querySelector(s);
+      let map = null, marker = null;
+      const openLightbox = (src) => { const lb = q('[data-lightbox]'), im = q('[data-lightbox-img]'); if (im && src) im.src = src; if (lb) lb.classList.add('is-open'); };
+      const closeLightbox = () => { const lb = q('[data-lightbox]'); if (lb) lb.classList.remove('is-open'); };
+      const buildGallery = (d) => {
+        const g = q('[data-d-gallery]'); if (!g) return;
+        const thumbs = d.gallery.length > 1 ? '<div class="bsGallery__thumbs">' + d.gallery.map((src, i) => '<div class="bsGallery__thumb' + (i === 0 ? ' is-active' : '') + '" data-gthumb="' + i + '" style="background-image:url(\'' + src + '\')"></div>').join('') + '</div>' : '';
+        g.innerHTML = '<div class="bsGallery__main" data-gmain style="background-image:url(\'' + d.gallery[0] + '\')"></div>' + thumbs;
+        const main = g.querySelector('[data-gmain]');
+        g.querySelectorAll('[data-gthumb]').forEach((t) => t.addEventListener('click', () => {
+          const src = d.gallery[+t.dataset.gthumb]; if (main) main.style.backgroundImage = 'url(' + src + ')';
+          g.querySelectorAll('[data-gthumb]').forEach((x) => x.classList.remove('is-active')); t.classList.add('is-active');
+        }));
+        if (main) main.addEventListener('click', () => openLightbox(d.gallery[[].indexOf.call(g.querySelectorAll('[data-gthumb]'), g.querySelector('[data-gthumb].is-active')) < 0 ? 0 : +g.querySelector('[data-gthumb].is-active').dataset.gthumb]));
+      };
+      const openL = (i) => {
+        const d = DATA[i]; if (!d) return;
+        buildGallery(d);
+        const set = (sel, v) => { const el = q(sel); if (el) el.textContent = v; };
+        set('[data-d-status]', d.status); set('[data-d-price]', d.price); set('[data-d-metaline]', d.metaline); set('[data-d-title]', d.title); set('[data-d-sub]', d.sub); set('[data-d-loc]', d.loc); set('[data-d-addr]', d.addr); set('[data-d-ref]', d.ref);
+        const facts = q('[data-d-facts]'); if (facts) facts.innerHTML = d.facts.map((r) => '<div><dt>' + r[0] + '</dt><dd>' + r[1] + '</dd></div>').join('');
+        const fl = q('[data-d-features]'); if (fl) fl.innerHTML = d.feat.map((x) => '<li>' + x + '</li>').join('');
+        const de = q('[data-d-desc]'); if (de) de.innerHTML = d.desc.map((p) => '<p>' + p + '</p>').join('');
+        const fm = q('[data-d-formmsg]'); if (fm) fm.value = 'Hello Dionis, I am interested in ' + d.title + '.';
+        const sc = q('.bsDrawer__scroll'); if (sc) sc.scrollTop = 0;
+        if (drawer) { drawer.classList.add('is-open'); drawer.setAttribute('aria-hidden', 'false'); }
+        if (backdrop) backdrop.classList.add('is-open');
+        if (window.__lenis && window.__lenis.stop) window.__lenis.stop();
+        document.documentElement.style.overflow = 'hidden';
+        setTimeout(() => { try {
+          var LF = window.__LEAFLET || (window.L && window.L.map ? window.L : null);
+          if (LF) {
+            const mapEl = q('[data-d-map]');
+            if (mapEl) {
+              if (!map) { map = LF.map(mapEl, { scrollWheelZoom: false, attributionControl: false, zoomControl: true }); LF.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(map); }
+              map.setView([d.lat, d.lng], 14);
+              if (marker) marker.remove();
+              marker = LF.circleMarker([d.lat, d.lng], { radius: 9, color: '#a86547', fillColor: '#a86547', fillOpacity: .85, weight: 2 }).addTo(map);
+              map.invalidateSize();
+            }
+          }
+        } catch (e) {} }, 580);
+      };
+      const closeL = () => {
+        if (drawer) { drawer.classList.remove('is-open'); drawer.setAttribute('aria-hidden', 'true'); }
+        if (backdrop) backdrop.classList.remove('is-open');
+        closeLightbox();
+        if (window.__lenis && window.__lenis.start) window.__lenis.start();
+        document.documentElement.style.overflow = '';
+      };
+      bs.querySelectorAll('[data-listing]').forEach((c) => c.addEventListener('click', () => openL(+c.dataset.listing)));
+      bs.querySelectorAll('.bsCard__fav').forEach((f) => {
+        const toggle = (e) => { e.stopPropagation(); e.preventDefault(); f.classList.toggle('is-liked'); f.setAttribute('aria-pressed', f.classList.contains('is-liked') ? 'true' : 'false'); };
+        f.addEventListener('click', toggle);
+        f.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') toggle(e); });
+      });
+      ov.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', (e) => { e.preventDefault(); closeL(); }));
+      if (backdrop) backdrop.addEventListener('click', closeL);
+      const lbc = q('[data-lightbox-close]'); if (lbc) lbc.addEventListener('click', closeLightbox);
+      const lbx = q('[data-lightbox]'); if (lbx) lbx.addEventListener('click', (e) => { if (e.target === lbx) closeLightbox(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { const lb = q('[data-lightbox]'); if (lb && lb.classList.contains('is-open')) closeLightbox(); else if (drawer && drawer.classList.contains('is-open')) closeL(); } });
+      const df = q('[data-drawer-form]'); if (df) df.addEventListener('submit', (e) => { e.preventDefault(); });
+    }
+    this.pillars = [].slice.call(scenes.philo.querySelectorAll('[data-pillar]'));
+    this.facts = [].slice.call(scenes.facts.querySelectorAll('[data-fact]'));
+    this.ctaItems = [].slice.call(scenes.cta.querySelectorAll('.cta .in > *'));
+    this.plItems = scenes.plans ? [].slice.call(scenes.plans.querySelectorAll('[data-plan]')) : [];
+    this.plDots = scenes.plans ? [].slice.call(scenes.plans.querySelectorAll('.plDot')) : [];
+    this.plIdxEl = document.getElementById('plIdx');
+    this.plProjEl = document.getElementById('plProject');
+    this.plTypeEl = document.getElementById('plType');
+    this.plGhostEl = document.getElementById('plGhost');
+    this.plShProjEl = document.getElementById('plShProj');
+    this.plShUnitEl = document.getElementById('plShUnit');
+    this.plMeta = [
+      { p: 'Rothrüthi', t: '4.5-room attic' },
+      { p: 'Bellevue Wynental', t: 'Upper floor' },
+      { p: 'Seeblick', t: 'Apartment 01' },
+      { p: 'Bellevue Wynental', t: 'Ground floor' },
+      { p: 'Niederrohrdorf', t: 'Apartment 5' },
+    ];
+
+    // normal-flow reveals for sections 3 onward (fade + rise on first view; no pin, no mask)
+    const flowRevs = [].slice.call(document.querySelectorAll('.flow [data-reveal]'));
+    if (flowRevs.length && 'IntersectionObserver' in window) {
+      flowRevs.forEach((el) => el.classList.add('will-reveal'));
+      const io = new IntersectionObserver((ents) => {
+        ents.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.06 });
+      flowRevs.forEach((el) => io.observe(el));
+      this._cleanups.push(() => io.disconnect());
+    }
+
+    // hero, bio and buy/sell are pinned in the stage (mask wipes); sections after scroll normally below
+    const defs = [
+      { key: 'hero', w: 1.15 },
+      { key: 'bio',  w: 1.85 },
+      { key: 'buysell', w: 1.35 },
+    ];
+    const total = defs.reduce((s, d) => s + d.w, 0);
+    let acc = 0;
+    defs.forEach((d) => { d.start = acc / total; acc += d.w; d.end = acc / total; });
+    this.defs = defs;
+    stage.style.height = (total * 100).toFixed(2) + 'vh';
+
+    this.render(0);
+    html.classList.remove('zf-arming');
+    html.classList.add('zf-ready');
+
+    const st = ST.create({
+      trigger: stage, start: 'top top', end: 'bottom bottom', scrub: 1,
+      onUpdate: (s) => this.render(s.progress),
+      onRefresh: (s) => this.render(s.progress),
+    });
+    this._cleanups.push(() => st.kill());
+    setTimeout(() => { try { ST.refresh(); } catch (e) {} }, 320);
+  }
+
+  clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+  up(r) { return 'inset(' + ((1 - r) * 100).toFixed(2) + '% 0 0 0)'; }        // wipe bottom→top
+  down(r) { return 'inset(0 0 ' + ((1 - r) * 100).toFixed(2) + '% 0)'; }      // wipe top→bottom
+  left(r) { return 'inset(0 ' + ((1 - r) * 100).toFixed(2) + '% 0 0)'; }      // wipe left→right
+  fromRight(r) { return 'inset(0 0 0 ' + ((1 - r) * 100).toFixed(2) + '%)'; }  // reveal from the right edge, leftward
+
+  render(p) {
+    const C = (v) => this.clamp(v);
+    const ENTER = 0.30;   // fraction of a scene's band spent on its entrance
+    this.defs.forEach((d, i) => {
+      const span = d.end - d.start || 1;
+      const tc = C((p - d.start) / span);
+      const r = C(tc / ENTER);                       // entrance, then a long hold
+      const next = this.defs[i + 1];
+      const nextSpan = next ? (next.end - next.start) : 0;
+      // how far the NEXT scene has entered: 0 until this band ends, then 0..1 as the next scene wipes over this one
+      const ext = next ? C((p - d.end) / (ENTER * nextSpan)) : 0;
+      this.applyScene(d.key, r, tc, ext);
+      // continuous rise: keep moving from the rise-start until the NEXT scene has fully covered this one (never stops while still visible)
+      const riseStartFrac = (d.key === 'plans') ? 0.80 : 0;   // drawings holds through its cross-fades, then rises out
+      const rs = d.start + riseStartFrac * span;
+      const riseEnd = next ? (d.end + ENTER * nextSpan) : 1;
+      const riseP = C((p - rs) / (riseEnd - rs));
+      this.rise(d.key, riseP, r);
+      if (d.key !== 'hero') this.scenes[d.key].style.pointerEvents = r > 0.02 ? 'auto' : 'none';
+    });
+  }
+
+  rise(key, riseP, enter) {
+    if (key === 'buysell' || key === 'bio') return;   // interactive + last-pinned sections hold still (no drift)
+    if (key === 'cta') {   // the CTA keeps its own entrance — no continuous rise
+      const inner = this.scenes[key] && this.scenes[key].querySelector('.cta .in');
+      if (inner) { inner.style.transform = 'none'; inner.style.clipPath = 'none'; }
+      return;
+    }
+    const sel = { hero: '.hero__text', bio: '.bioR .in', plans: '.plSide', philo: '.swrap', facts: '.swrap' }[key];
+    if (!sel || !this.scenes[key]) return;
+    const el = this.scenes[key].querySelector(sel);
+    if (!el) return;
+    const AMP = 230;   // px of continuous upward drift while the text is still on screen
+    el.style.transform = 'translateY(' + (-riseP * AMP).toFixed(1) + 'px)';   // keeps rising until the next scene has fully covered this one
+    if (key !== 'hero') el.style.clipPath = 'inset(' + ((1 - this.clamp(enter)) * 100).toFixed(1) + '% 0 0 0)';   // content arrives bottom-up
+  }
+
+  applyScene(key, r, tc, ext) {
+    const C = (v) => this.clamp(v);
+    switch (key) {
+      case 'hero': {
+        if (this.heroGhost) this.heroGhost.style.transform = 'translateY(' + (-tc * 60) + 'px)';
+        break;
+      }
+      case 'bio': {
+        if (this.bioL) this.bioL.style.clipPath = this.up(r);
+        if (this.bioR) this.bioR.style.clipPath = this.down(r);
+        break;
+      }
+      case 'buysell': {
+        if (this.bsWrap) this.bsWrap.style.clipPath = this.up(r);   // scene wipes in bottom->up, then holds (interactive)
+        break;
+      }
+      case 'plans': {
+        this.scenes.plans.style.clipPath = this.up(r);
+        const N = this.plItems.length || 1;
+        const sub = C((tc - 0.32) / 0.64);
+        const af = sub * (N - 1);
+        const active = Math.round(af);
+        // hold each plan solo, then a short clean crossfade near the boundary (no long continuous overlap)
+        this.plItems.forEach((it, i) => { it.style.opacity = C(1 - (Math.abs(af - i) - 0.40) / 0.20); });
+        if (this.plDots.length) this.plDots.forEach((d, i) => d.classList.toggle('on', i === active));
+        if (this.plIdxEl) this.plIdxEl.textContent = ('0' + (active + 1)).slice(-2);
+        if (this.plGhostEl) this.plGhostEl.textContent = ('0' + (active + 1)).slice(-2);
+        const m = this.plMeta[active];
+        if (m) { if (this.plProjEl) this.plProjEl.textContent = m.p; if (this.plTypeEl) this.plTypeEl.textContent = m.t; }
+        if (m) { if (this.plShProjEl) this.plShProjEl.textContent = m.p; if (this.plShUnitEl) this.plShUnitEl.textContent = m.t; }
+        break;
+      }
+      case 'philo': {
+        this.scenes.philo.style.clipPath = this.left(r);
+        const sp = C((tc - 0.42) / 0.42);
+        this.pillars.forEach((pl, k) => {
+          const pr = C(sp * 3 - k);
+          pl.style.opacity = pr;
+          pl.style.transform = 'translateY(' + ((1 - pr) * 30) + 'px)';
+        });
+        break;
+      }
+      case 'facts': {
+        const s = this.scenes.facts;
+        s.style.opacity = r;
+        s.style.transform = 'scale(' + (1.14 - 0.14 * r) + ')';
+        const sp = C((tc - 0.42) / 0.42);
+        this.facts.forEach((f, k) => {
+          const fr = C(sp * 4 - k);
+          f.style.opacity = fr;
+          f.style.transform = 'translateY(' + ((1 - fr) * 26) + 'px)';
+        });
+        break;
+      }
+      case 'cta': {
+        this.scenes.cta.style.clipPath = this.down(r);   // panel wipes DOWN over Selected Work, like the Home CTA
+        const q = C((tc - 0.30) / 0.52);
+        this.ctaItems.forEach((it, i) => {
+          const rr = C((q - 0.04 - i * 0.12) / 0.4);
+          it.style.opacity = rr;
+          it.style.transform = 'translateY(' + ((1 - rr) * 34).toFixed(1) + 'px)';
+          it.style.clipPath = 'inset(' + (100 - rr * 100).toFixed(1) + '% 0 0 0)';
+        });
+        break;
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._t) clearTimeout(this._t);
+    (this._cleanups || []).forEach((fn) => { try { fn(); } catch (e) {} });
+  }
+
+  applyPlan() {
+    const img = document.getElementById('heroImg');
+    if (!img) return;
+    let s = (this.props && this.props.planScale != null) ? this.props.planScale : 0.9;
+    s = Math.max(0.4, Math.min(1, s));          // cap at 1 so the plan always fits its container (never clipped)
+    img.style.width = (s * 100).toFixed(1) + '%';
+    img.style.height = (s * 100).toFixed(1) + '%';
+  }
+
+  componentDidUpdate() { this.applyPlan(); }
+
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+/* =====================================================================
+   ZweiFach — Webfonts · Graphik LCG (local brand typeface)
+   Weights actually used across the site: 100 → 700, plus a few italics.
+   Each weight ships woff2 (modern) + woff (fallback). font-display:swap.
+   ===================================================================== */
+
+/* 100 — Thin */
+@font-face{
+  font-family:"Graphik LCG"; font-weight:100; font-style:normal; font-display:swap;
+  src:url("../assets/fonts/GraphikLCG-Thin.woff2") format("woff2"),
+      url("../assets/fonts/GraphikLCG-Thin.woff") format("woff");
+}
+/* 200 — Extralight */
+@font-face{
+  font-family:"Graphik LCG"; font-weight:200; font-style:normal; font-display:swap;
+  src:url("../assets/fonts/GraphikLCG-Extralight.woff2") format("woff2"),
+      url("../assets/fonts/GraphikLCG-Extralight.woff") format("woff");
+}
+/* 300 — Light */
+@font-face{
+  font-family:"Graphik LCG"; font-weight:300; font-style:normal; font-display:swap;
+  src:url("../assets/fonts/GraphikLCG-Light.woff2") format("woff2"),
+      url("../assets/fonts/GraphikLCG-Light.woff") format("woff");
+}
+@font-face{
+  font-family:"Graphik LCG"; font-weight:300; font-style:italic; font-display:swap;
+  src:url("../assets/fonts/GraphikLCG-LightItalic.woff2") format("woff2"),
+      url("../assets/fonts/GraphikLCG-LightItalic.woff") format("woff");
+}
+/* 400 — Regular */
+@font-face{
+  font-family:"Graphik LCG"; font-weight:400; font-style:normal; font-display:swap;
+  src:url("../assets/fonts/GraphikLCG-Regular.woff2") format("woff2"),
+      url("../assets/fonts/GraphikLCG-Regular.woff") format("woff");
+}
+@font-face{
+  font-family:"Graphik LCG"; font-weight:400; font-style:italic; font-display:swap;
+  src:url("../assets/fonts/GraphikLCG-RegularItalic.woff2") format("woff2"),
+      url("../assets/fonts/GraphikLCG-RegularItalic.woff") format("woff");
+}
+/* 500 — Medium (the brand's heading weight) */
+@font-face{
+  font-family:"Graphik LCG"; font-weight:500; font-style:normal; font-display:swap;
+  src:url("../assets/fonts/GraphikLCG-Medium.woff2") format("woff2"),
+      url("../assets/fonts/GraphikLCG-Medium.woff") format("woff");
+}
+@font-face{
+  font-family:"Graphik LCG"; font-weight:500; font-style:italic; font-display:swap;
+  src:url("../assets/fonts/GraphikLCG-MediumItalic.woff2") format("woff2"),
+      url("../assets/fonts/GraphikLCG-MediumItalic.woff") format("woff");
+}
+/* 600 — Semibold */
+@font-face{
+  font-family:"Graphik LCG"; font-weight:600; font-style:normal; font-display:swap;
+  src:url("../assets/fonts/GraphikLCG-Semibold.woff2") format("woff2"),
+      url("../assets/fonts/GraphikLCG-Semibold.woff") format("woff");
+}
+/* 700 — Bold */
+@font-face{
+  font-family:"Graphik LCG"; font-weight:700; font-style:normal; font-display:swap;
+  src:url("../assets/fonts/GraphikLCG-Bold.woff2") format("woff2"),
+      url("../assets/fonts/GraphikLCG-Bold.woff") format("woff");
+}

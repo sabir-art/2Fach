@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-gsap">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="ZweiFach — Plans, visualisations 3D et visites immersives pour l'immobilier haut de gamme." />
+  <title>ZweiFach — Plans &amp; Visualisations Immobilières</title>
+
+  <link rel="preload" href="fonts/GraphikLCG-Light.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/GraphikLCG-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============ INTRO — tracé du logo puis révélation du site ============ -->
+  <div class="zf-intro" aria-hidden="true">
+    <svg class="zf-logo" viewBox="0 0 477.92 172.02" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ZweiFach">
+      <g class="zf-guides">
+        <rect class="guide" x="2" y="2" width="473.92" height="168" />
+        <line class="guide" x1="2" y1="98.16" x2="475.92" y2="98.16" />
+        <line class="guide" x1="2" y1="170.14" x2="475.92" y2="170.14" />
+        <line class="guide" x1="131.27" y1="2" x2="131.27" y2="170.14" />
+        <line class="guide" x1="170.14" y1="2" x2="170.14" y2="170.14" />
+        <line class="guide" x1="391.63" y1="2" x2="391.63" y2="170.20" />
+      </g>
+      <g>
+        <path class="cls-1 draw-shape" d="M3.58,66.15c1.55-1.19,3.4-2.12,5.52-2.82l8.48-4.33c4.5-2.31,8.32-4.98,11.46-7.99,3.14-3.01,5.52-6.54,7.15-10.59,1.63-4.05,2.45-8.75,2.45-14.12,0-4.95-.28-8.91-.84-11.86-.56-2.95-1.36-5.09-2.41-6.41-1.05-1.32-2.32-1.98-3.81-1.98-2.07,0-3.52.95-4.37,2.85-.85,1.9-1.27,4.52-1.27,7.87v8.61c0,3.8-1.17,6.84-3.5,9.11-2.33,2.27-5.59,3.41-9.76,3.41-3.92,0-7.05-1.22-9.38-3.65-1.79-1.87-2.88-4.34-3.3-7.38v43.19c.9-1.44,2.09-2.73,3.58-3.87Z" />
+        <path class="cls-1 draw-shape" d="M53.88,3.06c5.04,2.19,8.77,5.21,11.18,9.07,2.42,3.86,3.63,8.27,3.63,13.23,0,4.38-1.24,8.42-3.72,12.14-2.48,3.72-6.33,7.28-11.55,10.68-5.22,3.41-11.92,6.82-20.1,10.25l-8.35,3.5c1.51.1,2.97.24,4.39.43,2.89.39,5.72.83,8.49,1.33,2.76.5,5.59.94,8.49,1.33,2.89.39,5.95.59,9.17.59,2.77,0,5.01-.53,6.72-1.58,1.71-1.05,3.27-2.71,4.68-4.99.66-1.07,1.37-1.82,2.14-2.23.76-.41,1.6-.58,2.51-.5,1.07.08,1.89.59,2.44,1.52.56.93.75,2.41.59,4.43-.53,7.02-1.77,12.67-3.71,16.94-1.94,4.27-4.51,7.38-7.71,9.32-3.2,1.94-6.97,2.91-11.3,2.91-3.47,0-6.5-.49-9.08-1.46-2.58-.97-4.79-2.57-6.63-4.8-1.84-2.23-3.42-5.24-4.74-9.05-.66-2.02-1.27-3.34-1.83-3.96-.56-.62-1.29-.93-2.2-.93-.99,0-1.82.47-2.48,1.39-.66.93-1.1,2.45-1.3,4.55-.29,3.51-1.03,6.31-2.23,8.39-1.2,2.09-2.8,3.58-4.8,4.49-2,.91-4.39,1.36-7.15,1.36-3.35,0-6.1-1.23-8.27-3.69-.43-.49-.79-1.04-1.13-1.59v83.96h104.78v-92.59h65.31c0-26.82.02-52.64.07-77.55H40.27c5.32.42,9.86,1.44,13.6,3.06Z" />
+        <polygon class="cls-1 draw-shape" points="131.27 98.16 131.27 118.63 155.5 118.63 155.5 139.1 131.27 139.1 131.27 170.14 170.14 170.14 170.14 170.14 170.14 98.16 131.27 98.16" />
+        <path class="cls-2 draw-shape" d="M250.59,79.37h-25.3l-40.1,90.83h26.21l7.13-17.78h38.41l7.13,17.78h26.73l-40.22-90.83ZM226.09,133.61l11.66-29.04,11.66,29.04h-23.31Z" />
+        <polygon class="cls-2 draw-shape" points="452.23 79.37 452.23 95.33 417.33 114.9 417.33 79.37 391.63 79.37 391.63 170.2 417.33 170.2 417.33 139.51 452.23 119.94 452.23 170.2 477.92 170.2 477.92 79.37 452.23 79.37" />
+        <path class="cls-2 draw-shape" d="M361.29,143.58c-1.97,1.8-4.04,3.3-6.24,4.43-3.55,1.82-7.44,2.73-11.68,2.73-3.72,0-7.14-.61-10.25-1.82-3.11-1.21-5.77-2.96-7.98-5.25-2.2-2.29-3.94-5.04-5.19-8.24-1.26-3.2-1.88-6.75-1.88-10.64s.63-7.44,1.88-10.64c1.25-3.2,2.98-5.95,5.19-8.24,2.21-2.29,4.87-4.04,7.98-5.25,3.11-1.21,6.53-1.82,10.25-1.82,4.24,0,8.13.91,11.68,2.72,2.21,1.13,4.29,2.63,6.27,4.4l15.73-15.73c-3.6-3.46-7.74-6.26-12.47-8.33-6.62-2.9-14.12-4.35-22.51-4.35-7.18,0-13.8,1.15-19.85,3.44-6.06,2.29-11.33,5.54-15.83,9.73-4.5,4.2-8,9.19-10.51,14.99-2.51,5.8-3.76,12.15-3.76,19.07s1.25,13.28,3.76,19.07c2.51,5.79,6.01,10.79,10.51,14.99,4.5,4.2,9.78,7.44,15.83,9.73,6.05,2.29,12.67,3.44,19.85,3.44,8.39,0,15.89-1.47,22.51-4.41,4.7-2.09,8.81-4.89,12.4-8.33l-15.69-15.69Z" />
+      </g>
+    </svg>
+  </div>
+
+  <!-- Barre de progression de lecture (toute la page) -->
+  <div class="page-progress" aria-hidden="true"><i></i></div>
+
+  <!-- Scrollbar custom (visible quand le smooth scroll est actif) — glissable -->
+  <div class="scrollbar" aria-hidden="true"><div class="scrollbar__thumb"></div></div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="ZweiFach — accueil">
+      <svg class="brand-logo" viewBox="0 0 477.92 172.02" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ZweiFach">
+        <path class="cls-1" d="M3.58,66.15c1.55-1.19,3.4-2.12,5.52-2.82l8.48-4.33c4.5-2.31,8.32-4.98,11.46-7.99,3.14-3.01,5.52-6.54,7.15-10.59,1.63-4.05,2.45-8.75,2.45-14.12,0-4.95-.28-8.91-.84-11.86-.56-2.95-1.36-5.09-2.41-6.41-1.05-1.32-2.32-1.98-3.81-1.98-2.07,0-3.52.95-4.37,2.85-.85,1.9-1.27,4.52-1.27,7.87v8.61c0,3.8-1.17,6.84-3.5,9.11-2.33,2.27-5.59,3.41-9.76,3.41-3.92,0-7.05-1.22-9.38-3.65-1.79-1.87-2.88-4.34-3.3-7.38v43.19c.9-1.44,2.09-2.73,3.58-3.87Z"/>
+        <polygon class="cls-1" points="131.27 98.16 131.27 118.63 155.5 118.63 155.5 139.1 131.27 139.1 131.27 170.14 170.14 170.14 170.14 170.14 170.14 98.16 131.27 98.16"/>
+        <path class="cls-1" d="M53.88,3.06c5.04,2.19,8.77,5.21,11.18,9.07,2.42,3.86,3.63,8.27,3.63,13.23,0,4.38-1.24,8.42-3.72,12.14-2.48,3.72-6.33,7.28-11.55,10.68-5.22,3.41-11.92,6.82-20.1,10.25l-8.35,3.5c1.51.1,2.97.24,4.39.43,2.89.39,5.72.83,8.49,1.33,2.76.5,5.59.94,8.49,1.33,2.89.39,5.95.59,9.17.59,2.77,0,5.01-.53,6.72-1.58,1.71-1.05,3.27-2.71,4.68-4.99.66-1.07,1.37-1.82,2.14-2.23.76-.41,1.6-.58,2.51-.5,1.07.08,1.89.59,2.44,1.52.56.93.75,2.41.59,4.43-.53,7.02-1.77,12.67-3.71,16.94-1.94,4.27-4.51,7.38-7.71,9.32-3.2,1.94-6.97,2.91-11.3,2.91-3.47,0-6.5-.49-9.08-1.46-2.58-.97-4.79-2.57-6.63-4.8-1.84-2.23-3.42-5.24-4.74-9.05-.66-2.02-1.27-3.34-1.83-3.96-.56-.62-1.29-.93-2.2-.93-.99,0-1.82.47-2.48,1.39-.66.93-1.1,2.45-1.3,4.55-.29,3.51-1.03,6.31-2.23,8.39-1.2,2.09-2.8,3.58-4.8,4.49-2,.91-4.39,1.36-7.15,1.36-3.35,0-6.1-1.23-8.27-3.69-.43-.49-.79-1.04-1.13-1.59v83.96h104.78v-92.59h65.31c0-26.82.02-52.64.07-77.55H40.27c5.32.42,9.86,1.44,13.6,3.06Z"/>
+        <path class="cls-2" d="M250.59,79.37h-25.3l-40.1,90.83h26.21l7.13-17.78h38.41l7.13,17.78h26.73l-40.22-90.83ZM226.09,133.61l11.66-29.04,11.66,29.04h-23.31Z"/>
+        <polygon class="cls-2" points="452.23 79.37 452.23 95.33 417.33 114.9 417.33 79.37 391.63 79.37 391.63 170.2 417.33 170.2 417.33 139.51 452.23 119.94 452.23 170.2 477.92 170.2 477.92 79.37 452.23 79.37"/>
+        <path class="cls-2" d="M361.29,143.58c-1.97,1.8-4.04,3.3-6.24,4.43-3.55,1.82-7.44,2.73-11.68,2.73-3.72,0-7.14-.61-10.25-1.82-3.11-1.21-5.77-2.96-7.98-5.25-2.2-2.29-3.94-5.04-5.19-8.24-1.26-3.2-1.88-6.75-1.88-10.64s.63-7.44,1.88-10.64c1.25-3.2,2.98-5.95,5.19-8.24,2.21-2.29,4.87-4.04,7.98-5.25,3.11-1.21,6.53-1.82,10.25-1.82,4.24,0,8.13.91,11.68,2.72,2.21,1.13,4.29,2.63,6.27,4.4l15.73-15.73c-3.6-3.46-7.74-6.26-12.47-8.33-6.62-2.9-14.12-4.35-22.51-4.35-7.18,0-13.8,1.15-19.85,3.44-6.06,2.29-11.33,5.54-15.83,9.73-4.5,4.2-8,9.19-10.51,14.99-2.51,5.8-3.76,12.15-3.76,19.07s1.25,13.28,3.76,19.07c2.51,5.79,6.01,10.79,10.51,14.99,4.5,4.2,9.78,7.44,15.83,9.73,6.05,2.29,12.67,3.44,19.85,3.44,8.39,0,15.89-1.47,22.51-4.41,4.7-2.09,8.81-4.89,12.4-8.33l-15.69-15.69Z"/>
+      </svg>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="about.html">Studio</a>
+      <a href="works.html">Réalisations</a>
+      <a href="#services">Services</a>
+      <a href="#cta">Contact</a>
+    </nav>
+    <a class="btn btn--ghost" href="#cta">Demander un devis</a>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO SCROLL-SCRUB ============ -->
+    <section id="hero" class="hero" aria-label="Présentation animée">
+      <div class="hero__media">
+        <canvas class="hero__canvas" aria-hidden="true" hidden></canvas>
+        <video class="hero__video"
+               playsinline webkit-playsinline muted preload="none"
+               disablepictureinpicture tabindex="-1">
+          <source src="assets/hero.mp4" type="video/mp4" />
+        </video>
+        <div class="hero__scrim" aria-hidden="true"></div>
+      </div>
+
+      <!-- Voile noir de départ : masque la 1re frame ; s'efface au scroll → le site « apparaît » -->
+      <div class="hero__cover" aria-hidden="true"></div>
+
+      <div class="hero__ui">
+        <article class="caption" data-step="0">
+          <h1>Le plan,<br />puis le lieu.</h1>
+          <p>ZweiFach transforme vos floorplans en visualisations immobilières premium — du trait technique à l'émotion d'un espace.</p>
+        </article>
+
+        <article class="caption" data-step="1">
+          <h2>Lisible au premier regard.</h2>
+          <p>Chaque pièce, chaque mètre carré : clarifié, hiérarchisé, mis en valeur. Un plan que l'acquéreur comprend en une seconde.</p>
+        </article>
+
+        <article class="caption" data-step="2">
+          <h2>Du plan à l'espace.</h2>
+          <p>Le tracé devient volume. La 2D se relève en une expérience 3D habitée, texturée, baignée de lumière.</p>
+        </article>
+
+        <article class="caption" data-step="3">
+          <h2>Entrez avant la visite.</h2>
+          <p>Vos acquéreurs franchissent la porte d'un intérieur réaliste — dès le premier clic, bien avant le premier rendez-vous.</p>
+        </article>
+
+        <div class="hero__hint" aria-hidden="true"><span>Défiler</span><i></i></div>
+        <div class="hero__progress" aria-hidden="true"><i></i></div>
+      </div>
+
+      <div class="hero__loader" aria-hidden="true"><i></i></div>
+    </section>
+
+    <!-- ============ SERVICES ============ -->
+    <section id="services" class="section">
+      <div class="container">
+        <p class="eyebrow" data-reveal>Ce que nous faisons</p>
+        <div class="services">
+          <article class="service" data-reveal>
+            <span class="service__num" data-parallax="0.35">01</span>
+            <h3>Plans 2D premium</h3>
+            <p>Des floorplans clairs, élégants et cohérents avec votre identité. Cotes, surfaces et orientations, sans surcharge.</p>
+          </article>
+          <article class="service" data-reveal>
+            <span class="service__num" data-parallax="0.35">02</span>
+            <h3>Visualisation 3D</h3>
+            <p>Volumes, matériaux et lumière naturelle. Le plan devient un espace que l'on ressent avant de le visiter.</p>
+          </article>
+          <article class="service" data-reveal>
+            <span class="service__num" data-parallax="0.35">03</span>
+            <h3>Visites immersives</h3>
+            <p>Parcours animés et intérieurs réalistes pour transformer un bien sur plan en désir concret.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ (01) WHAT WE BELIEVE — manifeste + fond blueprint/halo (repris du GitHub) ============ -->
+    <section id="vision" class="vision">
+      <div class="vision__grid" aria-hidden="true"></div>
+      <div class="vision__dots" aria-hidden="true"></div>
+      <div class="vision__halo" aria-hidden="true"></div>
+      <div class="container vision__inner">
+        <div class="vision__top">
+          <p class="kicker" data-reveal>What we believe</p>
+          <span class="corner-label" data-reveal>(01)</span>
+        </div>
+        <h2 class="vision__title" data-reveal>A beautiful project isn’t enough. It has to be financeable — which means it has to be sold before it’s built.</h2>
+        <div class="vision__beliefs">
+          <div class="vision__belief" data-reveal>
+            <p class="vision__belief-k">Design is the first lever of value</p>
+            <p class="vision__belief-t">A plan is not decoration. It is the instrument that decides what a site is worth — and whether a bank will fund it.</p>
+          </div>
+          <div class="vision__belief" data-reveal>
+            <p class="vision__belief-k">Demand is proven, not assumed</p>
+            <p class="vision__belief-t">Credit follows pre-sales. So the selling starts on paper, long before the first wall — that is the gate, not the finish line.</p>
+          </div>
+          <div class="vision__belief" data-reveal>
+            <p class="vision__belief-k">One hand holds both ends</p>
+            <p class="vision__belief-t">The people who design the building are the people who get it financed and sold. No wall, no hand-off, no lost link.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ (02) WHAT WE DO — sélecteur de capacités (Feasibility…) ============ -->
+    <section id="capabilities" class="section caps">
+      <div class="container">
+        <div class="caps__top">
+          <p class="kicker" data-reveal>What we do</p>
+          <span class="corner-label" data-reveal>(02)</span>
+        </div>
+        <h2 class="caps__title" data-reveal>Two specialists. Four moves. One chain.</h2>
+        <p class="caps__intro" data-reveal>An architect and a commercialization lead, holding every link from a raw plot to the final signature.</p>
+
+        <div class="switcher" data-switcher>
+          <div class="switcher__tabs">
+            <ul class="switch-list" role="tablist" aria-label="Capabilities">
+              <li>
+                <button class="switch-tab is-active" type="button" role="tab" data-switch-tab id="cap-tab-0" aria-selected="true" aria-controls="cap-panel-0">
+                  <span class="switch-tab__n">01</span>
+                  <span class="switch-tab__dot switch-tab__dot--blueprint" aria-hidden="true"></span>
+                  <span class="switch-tab__label">Feasibility</span>
+                  <span class="switch-tab__arrow" aria-hidden="true">→</span>
+                </button>
+              </li>
+              <li>
+                <button class="switch-tab" type="button" role="tab" data-switch-tab id="cap-tab-1" aria-selected="false" aria-controls="cap-panel-1">
+                  <span class="switch-tab__n">02</span>
+                  <span class="switch-tab__dot switch-tab__dot--blueprint" aria-hidden="true"></span>
+                  <span class="switch-tab__label">Design &amp; Plans</span>
+                  <span class="switch-tab__arrow" aria-hidden="true">→</span>
+                </button>
+              </li>
+              <li>
+                <button class="switch-tab" type="button" role="tab" data-switch-tab id="cap-tab-2" aria-selected="false" aria-controls="cap-panel-2">
+                  <span class="switch-tab__n">03</span>
+                  <span class="switch-tab__dot switch-tab__dot--clay" aria-hidden="true"></span>
+                  <span class="switch-tab__label">Pricing &amp; Dossier</span>
+                  <span class="switch-tab__arrow" aria-hidden="true">→</span>
+                </button>
+              </li>
+              <li>
+                <button class="switch-tab" type="button" role="tab" data-switch-tab id="cap-tab-3" aria-selected="false" aria-controls="cap-panel-3">
+                  <span class="switch-tab__n">04</span>
+                  <span class="switch-tab__dot switch-tab__dot--clay" aria-hidden="true"></span>
+                  <span class="switch-tab__label">Off-plan Pre-sale</span>
+                  <span class="switch-tab__arrow" aria-hidden="true">→</span>
+                </button>
+              </li>
+            </ul>
+            <div class="switch-progress"><span class="switch-progress__bar" data-switch-bar></span></div>
+          </div>
+
+          <div class="switcher__main">
+            <div class="switcher__media">
+              <figure class="switch-media is-active" data-switch-media><img src="assets/img/shot-3.jpg" alt="Feasibility — site and massing" loading="lazy" /></figure>
+              <figure class="switch-media" data-switch-media><img src="assets/img/panel-1.jpg" alt="Design and plans" loading="lazy" /></figure>
+              <figure class="switch-media" data-switch-media><img src="assets/img/panel-2.jpg" alt="Pricing and dossier" loading="lazy" /></figure>
+              <figure class="switch-media" data-switch-media><img src="assets/img/panel-4.jpg" alt="Off-plan pre-sale" loading="lazy" /></figure>
+              <div class="switcher__scrim" aria-hidden="true"></div>
+            </div>
+            <div class="switcher__panels">
+              <div class="switch-panel is-active" data-switch-panel role="tabpanel" id="cap-panel-0" aria-labelledby="cap-tab-0">
+                <p class="switch-panel__owner switch-panel__owner--blueprint">Esad · Architecture</p>
+                <p class="switch-panel__desc">What can responsibly and profitably be built on a site — tested against zoning, density, cost and risk before anyone commits a franc.</p>
+                <ul class="switch-panel__points"><li>Machbarkeitsstudie</li><li>Density &amp; yield</li><li>Risk read</li></ul>
+              </div>
+              <div class="switch-panel" data-switch-panel role="tabpanel" id="cap-panel-1" aria-labelledby="cap-tab-1">
+                <p class="switch-panel__owner switch-panel__owner--blueprint">Esad · Architecture</p>
+                <p class="switch-panel__desc">The parti, the massing, the plans and sections — an architectural idea made concrete, permit-ready, and drawn from the start to be financeable.</p>
+                <ul class="switch-panel__points"><li>Massing &amp; daylight</li><li>Permit-ready drawings</li><li>Engineer coordination</li></ul>
+              </div>
+              <div class="switch-panel" data-switch-panel role="tabpanel" id="cap-panel-2" aria-labelledby="cap-tab-2">
+                <p class="switch-panel__owner switch-panel__owner--clay">Dionis · Commercialization</p>
+                <p class="switch-panel__desc">A price strategy the project can actually achieve, and the dossier — lot schedule, numbers, story — that makes a serious buyer and a bank say yes.</p>
+                <ul class="switch-panel__points"><li>Market positioning</li><li>Lot schedule</li><li>Sales dossier</li></ul>
+              </div>
+              <div class="switch-panel" data-switch-panel role="tabpanel" id="cap-panel-3" aria-labelledby="cap-tab-3">
+                <p class="switch-panel__owner switch-panel__owner--clay">Dionis · Commercialization</p>
+                <p class="switch-panel__desc">Reservations on plans, driven hard enough to clear the bank’s quota and unlock construction credit — then carried through to the final unit.</p>
+                <ul class="switch-panel__points"><li>Clear the quota</li><li>Pipeline management</li><li>Sell-through</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ (03) THE THROUGH-LINE — image sticky + étapes (repris du GitHub) ============ -->
+    <section id="throughline" class="tl" data-throughline>
+      <div class="container tl__intro">
+        <div class="tl__top">
+          <p class="kicker kicker--light" data-reveal>The through-line</p>
+          <span class="corner-label corner-label--light" data-reveal>(03)</span>
+        </div>
+        <h2 class="tl__title" data-reveal>One continuous chain — from a plot to the last apartment <span class="tl__em">sold.</span></h2>
+        <p class="tl__lead" data-reveal>Four stages, no broken links. Each one is drawn to feed the next — and the bank’s pre-sale quota is the gate the whole development turns on.</p>
+      </div>
+
+      <div class="container tl__body">
+        <div class="tl__grid">
+          <div class="tl__media-col">
+            <div class="tl__media">
+              <div class="tl__media-frame">
+                <figure class="tl__img is-active" data-tl-img="0"><img src="assets/img/shot-5.jpg" alt="Land and idea" loading="lazy" /></figure>
+                <figure class="tl__img" data-tl-img="1"><img src="assets/img/panel-1.jpg" alt="Feasibility and plans" loading="lazy" /></figure>
+                <figure class="tl__img" data-tl-img="2"><img src="assets/img/panel-3.jpg" alt="The bank pre-sale quota" loading="lazy" /></figure>
+                <figure class="tl__img" data-tl-img="3"><img src="assets/img/panel-5.jpg" alt="Pre-sale and sell-through" loading="lazy" /></figure>
+                <div class="tl__media-scrim" aria-hidden="true"></div>
+                <div class="tl__media-foot">
+                  <span class="corner-label corner-label--light" data-tl-index>01</span>
+                  <span class="tl__rail"><span class="tl__rail-bar" data-tl-bar></span></span>
+                  <span class="corner-label corner-label--dim">04</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tl__steps">
+            <article class="tl__step" data-tl-step="0">
+              <div class="tl__step-tags"><span class="corner-label corner-label--light">Stage 01</span></div>
+              <figure class="tl__step-img"><img src="assets/img/shot-5.jpg" alt="Land and idea" loading="lazy" /></figure>
+              <h3 class="tl__step-title">Land &amp; Idea</h3>
+              <p class="tl__step-lead">A plot, or the intention to build on one.</p>
+              <p class="tl__step-body">Everything starts with a site and a question: what can responsibly and profitably be built here? This is where most developments stall — between an idea and something a bank will fund.</p>
+              <ul class="tl__step-points"><li>Raw land or existing parcel</li><li>A development intention</li><li>An unanswered feasibility question</li></ul>
+            </article>
+
+            <article class="tl__step tl__step--blueprint" data-tl-step="1">
+              <div class="tl__step-tags"><span class="corner-label corner-label--light">Stage 02</span></div>
+              <figure class="tl__step-img"><img src="assets/img/panel-1.jpg" alt="Feasibility and plans" loading="lazy" /></figure>
+              <h3 class="tl__step-title">Feasibility &amp; Plans</h3>
+              <p class="tl__step-lead">Esad turns the site into a buildable, financeable design.</p>
+              <p class="tl__step-body">Feasibility study, massing and yield, risk analysis, then the preliminary design and the plans and sections that make the project real on paper — and credible to a lender.</p>
+              <ul class="tl__step-points"><li>Feasibility &amp; risk analysis</li><li>Massing, density &amp; yield</li><li>Permit-ready plans &amp; sections</li></ul>
+            </article>
+
+            <article class="tl__step tl__step--pivot" data-tl-step="2">
+              <div class="tl__step-tags"><span class="corner-label corner-label--light">Stage 03</span><span class="tl__pivot">The pivot</span></div>
+              <figure class="tl__step-img"><img src="assets/img/panel-3.jpg" alt="The bank pre-sale quota" loading="lazy" /></figure>
+              <h3 class="tl__step-title">The Bank Pre-Sale Quota</h3>
+              <p class="tl__step-lead">The hidden gate: credit is released only once enough apartments are pre-sold.</p>
+              <p class="tl__step-body">In Switzerland a bank typically wants 20–30% equity and a pre-sale rate often above 40% before it releases construction credit — frequently before ground is broken. Beautiful plans are not enough; the project has to clear this quota. This is the link that breaks on most developments.</p>
+              <ul class="tl__step-points"><li>≈ 20–30% equity expected</li><li>Pre-sale rate often &gt; 40% (indicative, varies by bank &amp; project)</li><li>No quota, no credit, no build</li></ul>
+            </article>
+
+            <article class="tl__step tl__step--clay" data-tl-step="3">
+              <div class="tl__step-tags"><span class="corner-label corner-label--light">Stage 04</span></div>
+              <figure class="tl__step-img"><img src="assets/img/panel-5.jpg" alt="Pre-sale and sell-through" loading="lazy" /></figure>
+              <h3 class="tl__step-title">Pre-Sale &amp; Sell-Through</h3>
+              <p class="tl__step-lead">Dionis pre-sells on plans and carries it to the last lot.</p>
+              <p class="tl__step-body">To pre-sell a building that does not yet exist, it has to be made visible and desirable. Dionis sets pricing, builds the dossier, and sells the units off-plan — clearing the quota that unlocks financing, then selling through to completion.</p>
+              <ul class="tl__step-points"><li>Pricing &amp; sales dossier</li><li>Off-plan pre-sale to clear the quota</li><li>Sell-through to the final unit</li></ul>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="container tl__foot">
+        <p class="tl__foot-text" data-reveal>One chain, held end to end — so nothing falls through the gap between design and sale.</p>
+      </div>
+    </section>
+
+    <!-- ============ SAGA : story split-screen + panneaux empilés (UN SEUL pin) ============ -->
+    <section id="saga" class="panels" aria-label="Notre démarche">
+      <div class="panels__pin">
+
+        <!-- STORY (calques z 1-4) -->
+        <div class="story__layer story__a"><img class="story__img" src="assets/img/shot-3.jpg" alt="Résidence Seeblick — extérieur" loading="lazy" /></div>
+        <div class="story__layer story__leftbg" aria-hidden="true"></div>
+        <div class="story__layer story__b"><img class="story__img" src="assets/img/panel-4.jpg" alt="Séjour avec vue sur le lac" loading="lazy" /></div>
+        <div class="story__layer story__content">
+          <div class="story__inner">
+            <p class="story__eyebrow">La démarche</p>
+            <h2 class="story__title">Plus qu'une image,<br />une intention.</h2>
+            <img class="story__square" src="assets/img/shot-2.jpg" alt="Appartements avec terrasses — Bellevue" loading="lazy" />
+            <p class="story__para">Nous composons la lumière, les matières et le cadrage pour que chaque visuel raconte déjà la vie qui s'y déroulera — bien avant la livraison.</p>
+          </div>
+        </div>
+
+        <!-- PANNEAUX (z 10+) -->
+
+        <article class="panel" data-pos="bl">
+          <div class="panel__media">
+            <img class="panel__img" src="assets/img/panel-1.jpg" alt="Résidence Bellevue — vue extérieure dans son jardin" loading="lazy" />
+            <div class="panel__scrim" aria-hidden="true"></div>
+          </div>
+          <div class="panel__content">
+            <p class="panel__eyebrow">Le studio</p>
+            <h2 class="panel__title">Nous montrons le lieu<br />avant qu'il existe.</h2>
+            <p class="panel__text">ZweiFach crée des images d'architecture qui donnent envie d'habiter — bien avant la première pierre.</p>
+          </div>
+        </article>
+
+        <article class="panel" data-pos="bc">
+          <div class="panel__media">
+            <img class="panel__img" src="assets/img/panel-2.jpg" alt="Séjour baigné par la lumière de fin de journée" loading="lazy" />
+            <div class="panel__scrim" aria-hidden="true"></div>
+          </div>
+          <div class="panel__content">
+            <p class="panel__eyebrow">Lumière</p>
+            <h2 class="panel__title">La lumière de 19 h,<br />maîtrisée au pixel.</h2>
+            <p class="panel__text">Chaque rayon, chaque ombre est calculé pour faire ressentir l'instant — pas seulement décrire l'espace.</p>
+          </div>
+        </article>
+
+        <article class="panel" data-pos="bl">
+          <div class="panel__media">
+            <img class="panel__img" src="assets/img/panel-3.jpg" alt="Villa contemporaine au coucher de soleil, vue depuis la rue" loading="lazy" />
+            <div class="panel__scrim" aria-hidden="true"></div>
+          </div>
+          <div class="panel__content">
+            <p class="panel__eyebrow">Contexte</p>
+            <h2 class="panel__title">Le bâtiment, posé<br />dans son vrai décor.</h2>
+            <p class="panel__text">Rue, ciel, végétation, voisinage : nous ancrons le projet dans son environnement réel, à l'échelle exacte.</p>
+          </div>
+        </article>
+
+        <article class="panel" data-pos="bc">
+          <div class="panel__media">
+            <img class="panel__img" src="assets/img/panel-4.jpg" alt="Séjour avec vue dégagée sur le lac" loading="lazy" />
+            <div class="panel__scrim" aria-hidden="true"></div>
+          </div>
+          <div class="panel__content">
+            <p class="panel__eyebrow">La vue</p>
+            <h2 class="panel__title">Ce que l'on voit<br />depuis le canapé.</h2>
+            <p class="panel__text">La vue sur le lac devient un argument tangible — exactement comme depuis le futur séjour.</p>
+          </div>
+        </article>
+
+        <article class="panel" data-pos="tl">
+          <div class="panel__media">
+            <img class="panel__img" src="assets/img/panel-5.jpg" alt="Intérieur chaleureux à la tombée du jour" loading="lazy" />
+            <div class="panel__scrim" aria-hidden="true"></div>
+          </div>
+          <div class="panel__content">
+            <p class="panel__eyebrow">L'émotion</p>
+            <h2 class="panel__title">On y est déjà.</h2>
+            <p class="panel__text">À la dernière image, le bien n'est plus un plan : c'est un chez-soi qui n'attend que sa signature.</p>
+          </div>
+        </article>
+
+        <!-- RÉSIDENCE : se révèle PAR-DESSUS « On y est déjà » (z 20), dans le MÊME pin de la Saga -->
+        <div class="residence__left">
+          <div class="rgallery">
+            <img class="rgallery__img" src="assets/img/panel-4.jpg" alt="Intérieur de résidence" />
+          </div>
+        </div>
+        <div class="residence__right">
+          <div class="residence__content">
+            <p class="residence__eyebrow">Les résidences</p>
+            <h2 class="residence__title">La beauté, dans<br />l'essence des choses.</h2>
+            <p class="residence__text">En collaboration avec les meilleurs architectes d'intérieur, ZweiFach met en image des finitions où la beauté naturelle traverse le temps. Chaque résidence est livrée clé en main — pour profiter de votre nouvelle vie dès le premier instant.</p>
+          </div>
+          <div class="residence__thumbs" aria-label="Choisir une image">
+            <button class="rthumb is-active" type="button" data-full="assets/img/panel-4.jpg" aria-label="Séjour vue lac"><img src="assets/img/panel-4.jpg" alt="" loading="lazy" /></button>
+            <button class="rthumb" type="button" data-full="assets/img/panel-2.jpg" aria-label="Séjour lumière du soir"><img src="assets/img/panel-2.jpg" alt="" loading="lazy" /></button>
+            <button class="rthumb" type="button" data-full="assets/img/panel-5.jpg" aria-label="Intérieur à la tombée du jour"><img src="assets/img/panel-5.jpg" alt="" loading="lazy" /></button>
+            <button class="rthumb" type="button" data-full="assets/img/shot-4.jpg" aria-label="Espace de travail"><img src="assets/img/shot-4.jpg" alt="" loading="lazy" /></button>
+            <button class="rthumb" type="button" data-full="assets/img/shot-3.jpg" aria-label="Résidence Seeblick"><img src="assets/img/shot-3.jpg" alt="" loading="lazy" /></button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ RÉSIDENCES — multi-catégories (image + grand titre → contenu qui entre par la droite) ============ -->
+    <section id="residences" class="res" aria-label="Les résidences">
+      <div class="res__pin">
+
+        <article class="res-cat">
+          <div class="res-cat__media"><img class="res-cat__img" src="assets/img/panel-4.jpg" alt="Appartement avec vue" loading="lazy" /></div>
+          <div class="res-cat__head">
+            <span class="res-cat__kicker">Vivre en lumière</span>
+            <h2 class="res-cat__title">Appartements</h2>
+          </div>
+          <aside class="res-cat__panel">
+            <p class="res-cat__desc">Des appartements pensés pour la lumière, où chaque ouverture cadre le paysage comme un tableau.</p>
+            <ul class="res-cat__facts">
+              <li>62 – 180 m²</li>
+              <li>Vitrage toute hauteur</li>
+              <li>Orientation optimisée</li>
+              <li>Finitions sur mesure</li>
+            </ul>
+          </aside>
+        </article>
+
+        <article class="res-cat" data-theme="dark">
+          <div class="res-cat__media"><img class="res-cat__img" src="assets/img/panel-5.jpg" alt="Penthouse à la tombée du jour" loading="lazy" /></div>
+          <div class="res-cat__head">
+            <span class="res-cat__kicker">Le ciel pour voisin</span>
+            <h2 class="res-cat__title">Penthouses</h2>
+          </div>
+          <aside class="res-cat__panel">
+            <p class="res-cat__desc">Les derniers étages, là où la ville devient horizon. L'espace, la hauteur et la vue — sans compromis.</p>
+            <ul class="res-cat__facts">
+              <li>Jusqu'à 4 m sous plafond</li>
+              <li>Terrasses privatives</li>
+              <li>Vue panoramique</li>
+              <li>Domotique intégrée</li>
+            </ul>
+          </aside>
+        </article>
+
+        <article class="res-cat">
+          <div class="res-cat__media"><img class="res-cat__img" src="assets/img/shot-4.jpg" alt="Espace de bureaux" loading="lazy" /></div>
+          <div class="res-cat__head">
+            <span class="res-cat__kicker">Travailler autrement</span>
+            <h2 class="res-cat__title">Bureaux</h2>
+          </div>
+          <aside class="res-cat__panel">
+            <p class="res-cat__desc">Des espaces de travail baignés de lumière, modulables et silencieux, pensés pour durer.</p>
+            <ul class="res-cat__facts">
+              <li>Plateaux modulables</li>
+              <li>Lumière naturelle</li>
+              <li>Acoustique maîtrisée</li>
+              <li>Espaces communs</li>
+            </ul>
+          </aside>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ SHOWCASE — galerie horizontale ============ -->
+    <section id="showcase" class="hscroll" aria-label="Réalisations sélectionnées">
+      <div class="hscroll__track">
+        <div class="hpanel hpanel--intro">
+          <p class="eyebrow">Réalisations sélectionnées</p>
+          <h2 class="hpanel__title">Quelques espaces<br />que nous avons révélés.</h2>
+          <span class="hpanel__hint">Faites défiler&nbsp;→</span>
+        </div>
+        <figure class="shot"><img class="shot__img" src="assets/img/shot-1.jpg" alt="Rothrüti — immeuble résidentiel" loading="lazy" /><figcaption>Rothrüti — Immeuble résidentiel</figcaption></figure>
+        <figure class="shot"><img class="shot__img" src="assets/img/shot-2.jpg" alt="Bellevue — appartements avec terrasses" loading="lazy" /><figcaption>Bellevue — Appartements terrasses</figcaption></figure>
+        <figure class="shot"><img class="shot__img" src="assets/img/shot-3.jpg" alt="Seeblick — résidence à Birrwil" loading="lazy" /><figcaption>Seeblick — Birrwil</figcaption></figure>
+        <figure class="shot"><img class="shot__img" src="assets/img/shot-4.jpg" alt="Aménagement d'espaces de bureaux" loading="lazy" /><figcaption>Office — Espaces de travail</figcaption></figure>
+        <figure class="shot"><img class="shot__img" src="assets/img/shot-5.jpg" alt="Bellevue — abords paysagers et accès" loading="lazy" /><figcaption>Bellevue — Abords paysagers</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- ============ (04) SELECTED WORK — galerie horizontale "Proof, not promises" ============ -->
+    <section id="selected-work" class="selwork">
+      <div class="selwork__pin">
+        <div class="container selwork__head">
+          <div class="selwork__headl">
+            <div class="selwork__kickrow">
+              <p class="kicker kicker--light" data-reveal>Selected work</p>
+              <span class="corner-label corner-label--light" data-reveal>(04)</span>
+            </div>
+            <h2 class="selwork__title" data-reveal>Proof, not promises.</h2>
+          </div>
+          <p class="selwork__hint corner-label corner-label--dim" data-reveal>Scroll to pan →</p>
+        </div>
+
+        <div class="selwork__viewport">
+          <div class="selwork__track" data-selwork-track>
+            <a class="selcard" href="project.html">
+              <div class="selcard__media"><img src="assets/img/shot-1.jpg" alt="Aarefeld" loading="lazy" /><div class="selcard__scrim" aria-hidden="true"></div></div>
+              <span class="selcard__status">Sold out</span>
+              <span class="selcard__index">01</span>
+              <div class="selcard__foot">
+                <p class="selcard__meta">Olten, Solothurn · Full chain</p>
+                <h3 class="selcard__title">Aarefeld</h3>
+              </div>
+            </a>
+            <a class="selcard" href="works.html">
+              <div class="selcard__media"><img src="assets/img/panel-4.jpg" alt="Uferpark" loading="lazy" /><div class="selcard__scrim" aria-hidden="true"></div></div>
+              <span class="selcard__status">In pre-sale</span>
+              <span class="selcard__index">02</span>
+              <div class="selcard__foot">
+                <p class="selcard__meta">Zug, Lake Zug · Commercialization</p>
+                <h3 class="selcard__title">Uferpark</h3>
+              </div>
+            </a>
+            <a class="selcard" href="works.html">
+              <div class="selcard__media"><img src="assets/img/shot-2.jpg" alt="Lindenpark" loading="lazy" /><div class="selcard__scrim" aria-hidden="true"></div></div>
+              <span class="selcard__status">In pre-sale</span>
+              <span class="selcard__index">03</span>
+              <div class="selcard__foot">
+                <p class="selcard__meta">Aarau, Aargau · Full chain</p>
+                <h3 class="selcard__title">Lindenpark</h3>
+              </div>
+            </a>
+            <a class="selcard" href="works.html">
+              <div class="selcard__media"><img src="assets/img/shot-3.jpg" alt="Höhenweg" loading="lazy" /><div class="selcard__scrim" aria-hidden="true"></div></div>
+              <span class="selcard__status">In planning</span>
+              <span class="selcard__index">04</span>
+              <div class="selcard__foot">
+                <p class="selcard__meta">Solothurn foothills · Architecture</p>
+                <h3 class="selcard__title">Höhenweg</h3>
+              </div>
+            </a>
+            <a class="selcard" href="works.html">
+              <div class="selcard__media"><img src="assets/img/shot-5.jpg" alt="Quartier Werkhof" loading="lazy" /><div class="selcard__scrim" aria-hidden="true"></div></div>
+              <span class="selcard__status">Completed</span>
+              <span class="selcard__index">05</span>
+              <div class="selcard__foot">
+                <p class="selcard__meta">Zofingen, Aargau · Full chain</p>
+                <h3 class="selcard__title">Quartier Werkhof</h3>
+              </div>
+            </a>
+            <div class="selcard selcard--end">
+              <p class="selcard__end-text">Every link, on the record.</p>
+              <a class="btn btn--line-light" href="works.html">All projects</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="container selwork__foot">
+          <span class="corner-label corner-label--dim">Placeholder case studies — to be replaced</span>
+          <div class="selwork__rail"><span class="selwork__rail-bar" data-selwork-bar></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section id="cta" class="section cta">
+      <div class="container">
+        <h2 data-reveal>Donnez vie à vos plans.</h2>
+        <p data-reveal>Parlons de votre prochain bien. Devis sous 48 h.</p>
+        <a class="btn btn--solid" href="mailto:contact@zweifach.example" data-reveal>Démarrer un projet</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <span class="footer-brand">ZweiFach</span>
+    <nav class="footer-nav" aria-label="Pied de page">
+      <a href="about.html">Le studio</a>
+      <a href="works.html">Réalisations</a>
+      <a href="#cta">Contact</a>
+    </nav>
+    <span>Plans · 3D · Immobilier</span>
+  </footer>
+
+  <!-- GSAP + ScrollTrigger + Lenis (smooth scroll) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

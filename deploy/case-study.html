@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>window.__resources={"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"vendor/react.production.min.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"vendor/react-dom.production.min.js","https://unpkg.com/@babel/standalone@7.29.0/babel.min.js":"vendor/babel.min.js","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js":"vendor/gsap.min.js","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js":"vendor/ScrollTrigger.min.js","https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js":"vendor/lenis.min.js","https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js":"vendor/three.min.js","https://unpkg.com/leaflet@1.9.4/dist/leaflet.js":"vendor/leaflet.js","https://unpkg.com/leaflet@1.9.4/dist/leaflet.css":"vendor/leaflet.css"};</script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>ZweiFach, Case study</title>
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/motion.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/base.css">
+  <script src="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/_ds_bundle.js"></script>
+  <script src="data/projects.js"></script>
+  <script src="plan-zoom.js"></script>
+  <style>
+    ::-webkit-scrollbar{width:9px;height:9px;background:transparent}
+    ::-webkit-scrollbar-track{background:transparent;border:0;box-shadow:none}
+    ::-webkit-scrollbar-track-piece{background:transparent}
+    ::-webkit-scrollbar-button{display:none;width:0;height:0}
+    ::-webkit-scrollbar-corner{background:transparent}
+    ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:100px;border:2px solid transparent;background-clip:content-box}
+    ::-webkit-scrollbar-thumb:hover{background:var(--accent-hover,#a8946a)}
+    html{scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
+    em,i,cite{font-style:normal !important}
+    body{margin:0;background:#f5f1e5;color:#16140f;font-family:var(--font);-webkit-font-smoothing:antialiased}
+    ::selection{background:#98855c;color:#f5f1e5}
+  </style>
+</helmet>
+
+<div style="background:#f5f1e5">
+
+  <!-- header: shared site header (same on every page) -->
+  <dc-import name="SiteHeader" current="Work" top-tint="light" hint-size="100%,72px" style="display:block"></dc-import>
+
+  <!-- pinned stage: every scene is 100vh; the next one enters over the pinned one -->
+  <div id="pinRoot" style="position:relative">
+    <div id="pinSticky" style="position:sticky;top:0;height:100vh;overflow:hidden;background:#14130f">
+
+      <!-- scene 0 · hero with a stats band along the bottom -->
+      <section data-zone="0" data-screen-label="Case hero" style="position:absolute;inset:0;z-index:1;overflow:hidden;background:#14130f">
+        <img id="caseHeroImg" src="{{ hero }}" alt="{{ name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(20,19,15,.9) 0%,rgba(20,19,15,.14) 46%,rgba(20,19,15,.34) 100%)"></div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end">
+          <div style="padding:0 clamp(20px,6vw,90px) clamp(24px,4vh,42px)">
+            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+              <span style="color:rgba(244,240,231,.82);font-size:11px;letter-spacing:.2em;text-transform:uppercase">Case study, {{ program }}</span>
+              <span style="border:1px solid rgba(244,240,231,.5);color:#f4f0e7;border-radius:100px;padding:6px 13px;font-size:10px;letter-spacing:.16em;text-transform:uppercase">{{ status }}</span>
+            </div>
+            <h1 data-hero-title style="margin:16px 0 0;font-weight:500;font-size:clamp(48px,7.4vw,128px);line-height:.98;letter-spacing:-.03em;color:#f4f0e7;text-shadow:0 2px 30px rgba(0,0,0,.35)">{{ name }}</h1>
+            <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-top:20px;flex-wrap:wrap">
+              <p style="margin:0;max-width:460px;color:rgba(244,240,231,.82);font-size:16px;line-height:1.55;text-shadow:0 1px 12px rgba(0,0,0,.4)">{{ tagline }}</p>
+              <p style="margin:0;color:rgba(244,240,231,.6);font-size:11px;letter-spacing:.2em;text-transform:uppercase">{{ place }}, {{ year }}</p>
+            </div>
+          </div>
+          <div style="border-top:1px solid rgba(244,240,231,.24);background:rgba(20,19,15,.28);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)">
+            <div style="max-width:1400px;margin:0 auto;padding:0 clamp(20px,6vw,90px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr))">
+              <sc-for list="{{ figures }}" as="f" hint-placeholder-count="3">
+                <div style="padding:clamp(16px,2.4vh,26px) 0;display:flex;flex-direction:column;gap:6px;{{ f.sep }}">
+                  <span data-odo style="font-weight:300;font-size:clamp(30px,3.4vw,52px);line-height:1;letter-spacing:-.02em;color:#f4f0e7">{{ f.value }}</span>
+                  <span style="font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,240,231,.6)">{{ f.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        <div style="position:absolute;left:50%;top:26px;width:1px;height:40px;background:rgba(244,240,231,.3);overflow:hidden"><span id="scrollHint" style="position:absolute;left:0;top:-100%;width:1px;height:100%;background:#f4f0e7"></span></div>
+      </section>
+
+      <!-- scene 1 · context (enter: mask wipe from the left + reveal & stagger) -->
+      <section data-zone="1" data-screen-label="Context" style="position:absolute;inset:0;z-index:2;background:#f5f1e5;display:flex;align-items:center">
+        <div style="width:100%;max-width:1200px;margin:0 auto;padding:0 clamp(20px,6vw,90px);box-sizing:border-box;display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,1fr);gap:clamp(28px,5vw,80px)">
+          <p data-st style="margin:0;color:#98855c;font-size:11px;letter-spacing:.2em;text-transform:uppercase">(01), The site &amp; the brief</p>
+          <p data-st style="margin:0;font-size:clamp(21px,2vw,30px);line-height:1.5;text-wrap:pretty">{{ context }}</p>
+        </div>
+      </section>
+
+      <!-- scene 2 · the chain (enter: reveal & stagger, row by row) -->
+      <section data-zone="2" data-screen-label="The chain" style="position:absolute;inset:0;z-index:3;background:#f5f1e5;display:flex;align-items:center">
+        <div style="width:100%;max-width:1200px;margin:0 auto;padding:0 clamp(20px,6vw,90px);box-sizing:border-box">
+          <p data-st style="margin:0 0 clamp(18px,3vh,34px);color:#98855c;font-size:11px;letter-spacing:.2em;text-transform:uppercase">(02), From the plot to the last unit</p>
+          <div style="display:flex;flex-direction:column">
+            <sc-for list="{{ chain }}" as="c" hint-placeholder-count="6">
+              <div data-st style="{{ c.wrapStyle }}">
+                <div style="display:flex;align-items:baseline;gap:10px"><span style="flex:none;width:7px;height:7px;border-radius:100px;background:{{ c.dotColor }}"></span><span style="font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:{{ c.ownerColor }}">{{ c.owner }}</span></div>
+                <div><h3 style="margin:0;font-weight:500;font-size:clamp(15px,1.35vw,19px);letter-spacing:-.01em;color:{{ c.titleColor }}">{{ c.title }}</h3><p style="margin:.4em 0 0;font-size:clamp(12.5px,1.05vw,14px);line-height:1.5;color:{{ c.textColor }};max-width:52ch">{{ c.text }}</p></div>
+                <p style="margin:0;text-align:right;font-size:11.5px;font-weight:500;color:#98855c;font-variant-numeric:tabular-nums">{{ c.proof }}</p>
+              </div>
+            </sc-for>
+          </div>
+          <p data-st style="margin:12px 0 0;font-size:11.5px;color:rgba(22,20,15,.45)">{{ chainNote }}</p>
+        </div>
+      </section>
+
+      <!-- scene 3 · the apartments (enter: zoom through; card slides in from the right; then scroll cycles the plans) -->
+      <section data-zone="3" data-screen-label="The apartments" style="position:absolute;inset:0;z-index:4;overflow:hidden;background:#14130f">
+        <sc-for list="{{ planBgs }}" as="b" hint-placeholder-count="3">
+          <div style="position:absolute;inset:0;background-image:url('{{ b.src }}');background-size:cover;background-position:center;opacity:{{ b.op }};transition:opacity .9s cubic-bezier(.16,1,.3,1)"></div>
+        </sc-for>
+        <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,14,12,.72) 0%,rgba(14,14,12,.28) 26%,rgba(14,14,12,0) 44%)"></div>
+        <div style="position:absolute;left:0;top:0;width:44%;height:100%;z-index:2;display:flex;flex-direction:column;padding:clamp(70px,11vh,110px) clamp(20px,6vw,90px) clamp(24px,4vh,44px);color:#f4f0e7;box-sizing:border-box;text-shadow:0 1px 16px rgba(10,10,8,.6)">
+          <p data-st style="margin:0;color:#8fa3b5;font-size:11px;letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:100px;background:#2e3d4d;display:inline-block"></span>(03), The apartments</p>
+          <p data-st style="margin:16px 0 0;font-size:clamp(14px,1.25vw,17px);line-height:1.55;color:rgba(244,240,231,.85);max-width:36ch">{{ design }}</p>
+          <div style="margin:auto 0 0;display:flex;flex-direction:column;align-items:flex-start">
+            <sc-for list="{{ planTabs }}" as="t" hint-placeholder-count="3">
+              <button onClick="{{ t.pick }}" style="cursor:pointer;font-family:inherit;background:none;border:0;padding:.26em 0;text-align:left;font-weight:500;font-size:clamp(21px,2.3vw,29px);letter-spacing:-.01em;color:{{ t.lcolor }};transition:color .35s ease" style-hover="color:rgba(244,240,231,.9)">{{ t.label }}<span style="font-size:.55em;vertical-align:middle;color:#c9906f"> {{ t.mark }}</span></button>
+            </sc-for>
+          </div>
+          <p data-st style="margin:18px 0 0;font-size:11px;line-height:1.55;color:rgba(244,240,231,.62);max-width:34ch">Scroll through the drawings, or pick one. Two sets from one design: sales floor plans, and the full technical set for the permit and the build.</p>
+        </div>
+        <div id="planCard" style="position:absolute;right:clamp(18px,2.4vw,28px);top:clamp(74px,12vh,110px);bottom:clamp(18px,3vh,28px);width:min(50%,620px);z-index:3;background:{{ planCardBg }};border-radius:6px;display:flex;flex-direction:column;padding:clamp(16px,2.2vw,26px);box-shadow:0 26px 54px rgba(0,0,0,.22);box-sizing:border-box">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px">
+            <div>
+              <span id="csPlanSet" style="display:inline-block;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:{{ planSetColor }};border:1px solid {{ planSetBorder }};padding:.35em .7em;margin-bottom:.7em">{{ planSet }}</span>
+              <p id="csPlanCap" style="margin:0;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#98855c">{{ planCap }}</p>
+            </div>
+            <p style="margin:0;font-weight:300;font-size:clamp(19px,1.9vw,26px);letter-spacing:-.02em;white-space:nowrap;color:{{ planFg }}">{{ planM2 }}</p>
+          </div>
+          <p style="margin:8px 0 0;font-size:12.5px;line-height:1.5;color:{{ planNoteColor }};text-wrap:pretty">{{ planNote }}</p>
+          <div data-plan-zoom style="position:relative;flex:1;display:flex;align-items:center;justify-content:center;margin-top:8px;min-height:0;overflow:hidden">
+            <img id="planImg" src="{{ planSrc }}" alt="Floor plan" style="max-width:100%;max-height:100%;object-fit:contain;filter:{{ planFilter }}">
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px">
+            <span style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:{{ planFootColor }}">The drawings, as sold</span>
+            <div style="display:flex;gap:7px">
+              <sc-for list="{{ planDots }}" as="dt" hint-placeholder-count="3">
+                <button onClick="{{ dt.pick }}" aria-label="{{ dt.label }}" style="cursor:pointer;border:0;padding:0;width:8px;height:8px;border-radius:50%;background:{{ dt.bg }};transform:{{ dt.tf }};transition:background .3s ease,transform .3s ease"></button>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- scene 4 · the result (enter: image + content, then the panel slides in on further scroll) -->
+      <section data-zone="4" data-screen-label="The result" style="position:absolute;inset:0;z-index:5;overflow:hidden;background:#14130f">
+        <div id="resMedia" style="position:absolute;inset:0;background-image:url('{{ resultBg }}');background-size:cover;background-position:center"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(20,19,15,.8) 0%,rgba(20,19,15,.3) 20%,rgba(20,19,15,0) 46%)"></div>
+        <div id="resHead" style="position:absolute;left:clamp(20px,6vw,90px);bottom:clamp(22px,4vh,38px);z-index:3;transform-origin:left bottom">
+          <span style="display:block;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,240,231,.7);margin:0 0 .6em">(04), {{ name }}</span>
+          <h2 style="margin:0;color:#f4f0e7;font-weight:500;font-size:clamp(44px,6.4vw,96px);line-height:.95;letter-spacing:-.02em;text-shadow:0 2px 26px rgba(0,0,0,.35)">The result</h2>
+        </div>
+        <aside id="resPanel" style="position:absolute;top:0;right:0;width:min(46%,560px);height:100%;z-index:4;background:#1d241c;color:#f4f0e7;display:flex;flex-direction:column;justify-content:center;padding:clamp(24px,3.4vw,46px);box-sizing:border-box">
+          <p style="margin:0 0 1.2rem;font-size:13.5px;line-height:1.55;opacity:.8;max-width:38ch">{{ commercial }}</p>
+          <ul style="list-style:none;margin:0;padding:0">
+            <sc-for list="{{ resultFacts }}" as="f" hint-placeholder-count="4">
+              <li style="font-weight:300;font-size:clamp(15px,1.4vw,19px);letter-spacing:-.01em;padding:.6rem 0;border-top:1px solid rgba(238,240,234,.16)">{{ f }}</li>
+            </sc-for>
+          </ul>
+        </aside>
+      </section>
+
+      <!-- scene 5 · the visuals (enter: mask wipe down, then scroll to pan) -->
+      <section data-zone="5" data-screen-label="Gallery" style="position:absolute;inset:0;z-index:6;overflow:hidden;background:#f5f1e5">
+        <div style="position:absolute;left:clamp(20px,6vw,90px);right:clamp(20px,6vw,90px);top:clamp(74px,12vh,110px);display:flex;justify-content:space-between;align-items:baseline;gap:20px">
+          <p style="margin:0;color:#98855c;font-size:11px;letter-spacing:.2em;text-transform:uppercase">(05), The visuals</p>
+          <p id="panHint" style="margin:0;color:rgba(22,20,15,.45);font-size:11px;letter-spacing:.2em;text-transform:uppercase">Scroll to pan <span aria-hidden="true">→</span></p>
+        </div>
+        <div style="position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center">
+          <div id="galTrack" style="display:flex;gap:clamp(16px,2.4vw,32px);padding:0 clamp(20px,6vw,90px);align-items:center;will-change:transform">
+            <sc-for list="{{ images }}" as="im" hint-placeholder-count="4">
+              <figure style="margin:0;flex:none;display:flex;flex-direction:column;gap:10px;width:clamp(420px,46vw,760px)">
+                <span style="display:block;overflow:hidden;border-radius:4px;aspect-ratio:4/3;background:#ece5d4">
+                  <img src="{{ im.src }}" alt="{{ im.cap }}" style="width:100%;height:100%;object-fit:cover;display:block">
+                </span>
+                <figcaption style="font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(22,20,15,.45)">{{ im.cap }}</figcaption>
+              </figure>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- scene 6 · next project (enter: colour crossfade) -->
+      <a data-zone="6" data-screen-label="Next project" href="{{ nextHref }}" style="position:absolute;inset:0;z-index:7;overflow:hidden;background:#14130f;color:#f4f0e7;text-decoration:none;display:flex;align-items:center">
+        <img src="{{ nextHero }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.34">
+        <div id="nextInner" style="position:relative;width:100%;max-width:1200px;margin:0 auto;padding:0 clamp(20px,6vw,90px);box-sizing:border-box">
+          <p style="margin:0 0 22px;color:rgba(244,240,231,.6);font-size:11px;letter-spacing:.2em;text-transform:uppercase">Next on the chain</p>
+          <p style="margin:0;font-weight:500;font-size:clamp(44px,6.4vw,104px);line-height:1;letter-spacing:-.03em">{{ nextName }} <svg width="0.68em" height="0.68em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.04em"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- footer -->
+  <dc-import name="SiteFooter" hint-size="100%,auto" style="display:block;width:100%"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;project&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;bellevue&quot;,&quot;rothruthi&quot;,&quot;seeblick&quot;,&quot;niederrohrdorf&quot;,&quot;buero&quot;],&quot;default&quot;:&quot;bellevue&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;blueprintMode&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Plans&quot;}}">
+class Component extends DCLogic {
+  state = { planIdx: 0 };
+
+  getProject() {
+    const db = window.ZF_PROJECTS || { order: [], items: {} };
+    const q = new URLSearchParams(location.search);
+    const slug = q.get('p') || (this.props.project ?? 'bellevue');
+    return db.items[slug] || db.items[db.order[0]] || null;
+  }
+
+  componentDidMount() {
+    const EASE = 'cubic-bezier(.16,1,.3,1)';
+    this.rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this._cleanups = [];
+    const on = (t, ev, fn, opts) => { t.addEventListener(ev, fn, opts); this._cleanups.push(() => t.removeEventListener(ev, fn, opts)); };
+
+    document.title = 'ZweiFach, ' + ((this.getProject() || {}).name || 'Case study');
+
+    const root = document.getElementById('pinRoot');
+    const sticky = document.getElementById('pinSticky');
+    const scenes = Array.from(document.querySelectorAll('[data-zone]')).sort((a, b) => (+a.dataset.zone) - (+b.dataset.zone));
+    /* shared <SiteHeader> — behave EXACTLY like Home: transparent with light text over the
+       very top of the hero, then the SINGLE light frosted-glass bar with dark text once you
+       scroll. One light glass only — no dark variant, whatever the scene behind it.
+       It mounts async via dc-import, so resolve .zhead lazily and keep retrying. */
+    /* The shared <SiteHeader topTint="light"> now owns ALL header behaviour:
+       transparent + light text over the dark hero, light frosted glass with dark
+       text once scrolled, logo lock, burger→X, and hide-on-down / show-on-up.
+       Nothing to drive per scene here, so setGround is a no-op. */
+    const setGround = () => {};
+
+    const planCard = document.getElementById('planCard');
+    const resMedia = document.getElementById('resMedia'), resPanel = document.getElementById('resPanel'), resHead = document.getElementById('resHead');
+    const galTrack = document.getElementById('galTrack');
+    const nextInner = document.getElementById('nextInner');
+    const nPlans = ((this.getProject() || {}).plans || []).length || 1;
+
+    /* reduced motion: unpin everything, static page */
+    if (this.rm) {
+      sticky.style.position = 'static'; sticky.style.height = 'auto'; sticky.style.overflow = 'visible'; sticky.style.background = 'transparent';
+      scenes.forEach((s) => { s.style.position = 'relative'; s.style.inset = 'auto'; s.style.height = 'auto'; s.style.minHeight = '100vh'; });
+      const onScroll = () => setGround(window.scrollY < window.innerHeight - 80 ? 'dark' : 'cream');
+      on(window, 'scroll', onScroll, { passive: true }); onScroll();
+      return;
+    }
+
+    /* ---- pinned scroll engine, one signature per segment ----
+       0 hero→context wipe-left (+ hero scrub) · 1 →chain stagger ·
+       2 →apartments zoom-through (card slides from right) · 3 apartments plan-scroll ·
+       4 →result image+head · 5 result panel slide-in · 6 →gallery wipe-down ·
+       7 gallery pan · 8 →next crossfade */
+    const SEGS = 9;
+    const SEG_LEN = 2.2; // vh of scroll per segment — larger = slower, gentler glide
+    root.style.height = (SEGS * SEG_LEN + 1) * 100 + 'vh';
+
+    /* hero settle */
+    const heroTitle = document.querySelector('[data-hero-title]');
+    const heroImg = document.getElementById('caseHeroImg');
+    if (heroTitle) { heroTitle.style.opacity = '0'; heroTitle.style.transform = 'translateY(50px)'; setTimeout(() => { heroTitle.style.transition = 'opacity 1s ' + EASE + ', transform 1.2s ' + EASE; heroTitle.style.opacity = '1'; heroTitle.style.transform = 'none'; }, 120); }
+    if (heroImg) { heroImg.style.transform = 'scale(1.08)'; setTimeout(() => { heroImg.style.transition = 'transform 2.2s ' + EASE; heroImg.style.transform = 'scale(1)'; }, 60); }
+    const hint = document.getElementById('scrollHint');
+    if (hint && hint.animate) hint.animate([{ top: '-100%' }, { top: '100%' }], { duration: 1800, iterations: Infinity, easing: 'cubic-bezier(.4,0,.2,1)' });
+
+    const c01 = (v) => Math.max(0, Math.min(1, v));
+    const st = (scene) => Array.from(scene.querySelectorAll('[data-st]'));
+    const wipe = (el, p, dir) => {
+      const v = ((1 - p) * 100).toFixed(2) + '%';
+      el.style.clipPath = dir === 'up' ? 'inset(' + v + ' 0 0 0)' : dir === 'down' ? 'inset(0 0 ' + v + ' 0)' : dir === 'left' ? 'inset(0 ' + v + ' 0 0)' : 'inset(0 0 0 ' + v + ')';
+    };
+    const stagger = (scene, p, step, rise) => {
+      st(scene).forEach((el, k) => { const q = c01(p * 1.5 - k * (step || .1)); el.style.opacity = q.toFixed(3); el.style.transform = 'translateY(' + ((1 - q) * (rise || 46)).toFixed(1) + 'px)'; });
+    };
+    const reset = (s) => { s.style.clipPath = 'none'; s.style.opacity = '1'; s.style.transform = 'none'; s.style.visibility = 'visible'; };
+
+    let vh = window.innerHeight, panDist = 0;
+    const measure = () => { vh = window.innerHeight; if (galTrack) panDist = Math.max(0, galTrack.scrollWidth - window.innerWidth); };
+    measure(); on(window, 'resize', measure);
+    scenes[5] && scenes[5].querySelectorAll('img').forEach((im) => on(im, 'load', measure));
+
+    /* odometers run once the hero is in view (immediately) */
+    let odoDone = false;
+    const runOdo = () => {
+      if (odoDone) return; odoDone = true;
+      document.querySelectorAll('[data-odo]').forEach((el) => {
+        const raw = el.textContent.trim(); const n = parseInt(raw, 10); if (isNaN(n)) return;
+        const from = n > 500 ? n - 160 : 0, t0 = performance.now(), dur = 1100;
+        const tick = (now) => { const q = c01((now - t0) / dur), e = 1 - Math.pow(1 - q, 3); el.textContent = raw.replace(String(n), String(Math.round(from + (n - from) * e))); if (q < 1) requestAnimationFrame(tick); };
+        requestAnimationFrame(tick);
+      });
+    };
+    setTimeout(runOdo, 420);
+
+    const apply = (tt) => {
+      const seg = Math.max(0, Math.min(SEGS - 1, Math.floor(tt)));
+      const rawP = c01(tt - seg);
+      // smoothstep: one continuous glide across the whole segment (eases in and out, never stops mid-section)
+      const p = rawP * rawP * (3 - 2 * rawP);
+      const pan = p;
+      scenes.forEach((s) => { s.style.visibility = 'hidden'; });
+      const show = (i) => { if (scenes[i]) scenes[i].style.visibility = 'visible'; };
+
+      /* hero exit scrub tracks the very start of the timeline */
+      const hp = c01(tt);
+      scenes[0].style.transform = 'scale(' + (1 - hp * .07).toFixed(4) + ')';
+      scenes[0].style.opacity = (1 - hp * .45).toFixed(3);
+
+      if (planCard) planCard.style.transform = 'none';
+
+      switch (seg) {
+        case 0: { /* hero -> context, wipe from left */
+          show(0); show(1); reset(scenes[1]); wipe(scenes[1], p, 'left'); stagger(scenes[1], c01(p * 1.25 - .1), .14, 50);
+          setGround(rawP > .5 ? 'cream' : 'dark'); break;
+        }
+        case 1: { /* context -> chain, stagger */
+          show(1); show(2); reset(scenes[1]); reset(scenes[2]);
+          scenes[1].style.opacity = (1 - p * .55).toFixed(3); scenes[1].style.transform = 'translateY(' + (-p * 40).toFixed(1) + 'px)';
+          scenes[2].style.opacity = c01(p * 2).toFixed(3); stagger(scenes[2], p, .08, 40);
+          setGround('cream'); break;
+        }
+        case 2: { /* chain -> apartments, zoom through; card slides from the right */
+          show(2); show(3); reset(scenes[3]);
+          scenes[2].style.transform = 'scale(' + (1 + p * .3).toFixed(4) + ')'; scenes[2].style.opacity = (1 - p).toFixed(3);
+          scenes[3].style.opacity = c01(p * 1.7).toFixed(3); scenes[3].style.transform = 'scale(' + (1.14 - .14 * c01(p * 1.15)).toFixed(4) + ')';
+          stagger(scenes[3], c01(p * 1.2 - .2), .09, 34);
+          if (planCard) planCard.style.transform = 'translateX(' + ((1 - c01(p * 1.15)) * 78).toFixed(1) + '%)';
+          setGround(rawP > .5 ? 'dark' : 'cream'); break;
+        }
+        case 3: { /* apartments: scroll cycles the plans, but a click wins until you scroll again */
+          show(3); reset(scenes[3]);
+          const sy = window.scrollY;
+          if (this._lastSY3 == null) this._lastSY3 = sy;
+          if (Math.abs(sy - this._lastSY3) > 1) {
+            const idx = Math.min(nPlans - 1, Math.floor(rawP * nPlans * 0.999));
+            if (idx !== this.state.planIdx) this.pickPlan(idx);
+          }
+          this._lastSY3 = sy;
+          setGround('dark'); break;
+        }
+        case 4: { /* apartments -> result: image + head enter, panel still off */
+          show(3); show(4); reset(scenes[3]); reset(scenes[4]);
+          wipe(scenes[4], c01(p * 1.4), 'right');
+          if (resMedia) resMedia.style.transform = 'scale(' + (1.12 - .12 * p).toFixed(4) + ')';
+          if (resPanel) resPanel.style.transform = 'translateX(103%)';
+          if (resHead) resHead.style.transform = 'none';
+          setGround('dark'); break;
+        }
+        case 5: { /* result: the panel slides in */
+          show(4); reset(scenes[4]);
+          if (resMedia) resMedia.style.transform = 'scale(1)';
+          if (resPanel) resPanel.style.transform = 'translateX(' + ((1 - c01(p * 1.15)) * 103).toFixed(2) + '%)';
+          if (resHead) resHead.style.transform = 'scale(' + (1 - .38 * c01((p - .2) / .8)).toFixed(4) + ')';
+          setGround('dark'); break;
+        }
+        case 6: { /* result -> gallery, wipe down */
+          show(4); show(5); reset(scenes[5]); wipe(scenes[5], p, 'down');
+          if (resPanel) resPanel.style.transform = 'none';
+          if (galTrack) galTrack.style.transform = 'translateX(0px)';
+          setGround(rawP > .5 ? 'cream' : 'dark'); break;
+        }
+        case 7: { /* gallery pan */
+          show(5); reset(scenes[5]);
+          if (galTrack) galTrack.style.transform = 'translateX(' + (-panDist * pan).toFixed(1) + 'px)';
+          const ph = document.getElementById('panHint'); if (ph) ph.style.opacity = (1 - pan * 1.6).toFixed(3);
+          setGround('cream'); break;
+        }
+        case 8: { /* gallery -> next, colour crossfade */
+          show(5); show(6); reset(scenes[6]);
+          if (galTrack) galTrack.style.transform = 'translateX(' + (-panDist).toFixed(1) + 'px)';
+          scenes[5].style.opacity = (1 - p * .55).toFixed(3);
+          scenes[6].style.opacity = c01(p * 1.4).toFixed(3);
+          if (nextInner) nextInner.style.transform = 'scale(' + (1.1 - .1 * p).toFixed(4) + ')';
+          setGround(rawP > .5 ? 'dark' : 'cream'); break;
+        }
+      }
+    };
+
+    let cur = 0, raf;
+    const loop = () => {
+      const top = root.getBoundingClientRect().top + window.scrollY;
+      const t = Math.max(0, Math.min(SEGS, (window.scrollY - top) / vh / SEG_LEN));
+      cur += (t - cur) * .055;
+      if (Math.abs(t - cur) < .0003) cur = t;
+      apply(cur);
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    this._cleanups.push(() => cancelAnimationFrame(raf));
+  }
+
+  componentWillUnmount() { (this._cleanups || []).forEach((fn) => fn()); }
+
+  pickPlan(i) {
+    this.setState({ planIdx: i }, () => {
+      const img = document.getElementById('planImg');
+      if (img && !this.rm && img.animate) img.animate([{ clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0 0 0)' }], { duration: 800, easing: 'cubic-bezier(.16,1,.3,1)' });
+    });
+  }
+
+  renderVals() {
+    const p = this.getProject();
+    if (!p) return { name: 'Loading…', figures: [], images: [], planTabs: [], planBgs: [], planDots: [], chain: [], resultFacts: [] };
+    const db = window.ZF_PROJECTS;
+    const next = db.items[p.next] || p;
+    const idx = Math.min(this.state.planIdx, p.plans.length - 1);
+    const blueprint = this.props.blueprintMode ?? false;
+    const OWNERS = {
+      esad: { dot: '#2e3d4d', col: '#2e3d4d', label: 'Esad · Architecture' },
+      dionis: { dot: '#a86547', col: '#a86547', label: 'Dionis · Commercialisation' },
+      both: { dot: '#98855c', col: '#98855c', label: 'Esad & Dionis' },
+      gate: { dot: '#a86547', col: '#c08461', label: 'The bank gate' }
+    };
+    const rowBase = 'display:grid;grid-template-columns:minmax(130px,190px) 1fr minmax(90px,150px);gap:clamp(14px,2.4vw,26px);align-items:baseline;';
+    const chainArr = p.chain || [];
+    return {
+      name: p.name, place: p.place, year: p.year, program: p.program,
+      status: p.status, tagline: p.tagline, hero: p.hero,
+      context: p.context, design: p.design, commercial: p.commercial,
+      images: p.images,
+      figures: (p.figures || []).map((f, i) => ({ value: f.value, label: f.label, sep: i === 0 ? '' : 'padding-left:clamp(18px,3vw,44px);border-left:1px solid rgba(244,240,231,.22)' })),
+      chain: chainArr.map((c, i) => {
+        const k = OWNERS[c.kind] || OWNERS.esad;
+        const gate = c.kind === 'gate';
+        return {
+          title: c.title, text: c.text, proof: c.proof,
+          owner: k.label, dotColor: k.dot, ownerColor: k.col,
+          titleColor: gate ? '#f4f0e7' : '#16140f',
+          textColor: gate ? 'rgba(244,240,231,.68)' : 'rgba(22,20,15,.62)',
+          wrapStyle: gate
+            ? rowBase + 'padding:clamp(14px,2.2vh,22px) clamp(16px,2.4vw,28px);margin:8px 0;background:#14130f'
+            : rowBase + 'padding:clamp(12px,1.9vh,20px) 0;border-top:1px solid rgba(22,20,15,.14)' + (i === chainArr.length - 1 ? ';border-bottom:1px solid rgba(22,20,15,.14)' : '')
+        };
+      }),
+      chainNote: p.chainNote || '',
+      resultBg: p.resultBg || p.hero,
+      resultFacts: p.result || [],
+      planSrc: p.plans[idx].src,
+      planCap: p.plans[idx].cap || p.plans[idx].label,
+      planM2: p.plans[idx].m2 || '',
+      planSet: p.plans[idx].set || 'Floor plan',
+      planNote: p.plans[idx].note || '',
+      planSetColor: blueprint ? '#bcd6f2' : ((p.plans[idx].set === 'Technical set') ? '#2e3d4d' : '#a86547'),
+      planSetBorder: blueprint ? 'rgba(188,214,242,.5)' : ((p.plans[idx].set === 'Technical set') ? 'rgba(46,61,77,.4)' : 'rgba(168,101,71,.4)'),
+      planFilter: blueprint ? 'invert(1) brightness(1.5) contrast(1.05)' : 'none',
+      planCardBg: blueprint ? '#0e2f57' : '#f5f1e5',
+      planFg: blueprint ? '#eaf2fb' : '#16140f',
+      planNoteColor: blueprint ? 'rgba(223,236,252,.68)' : 'rgba(22,20,15,.6)',
+      planFootColor: blueprint ? 'rgba(223,236,252,.5)' : 'rgba(22,20,15,.45)',
+      planBgs: p.plans.map((pl, i) => ({ src: pl.bg || '', op: i === idx ? 1 : 0 })),
+      planTabs: p.plans.map((pl, i) => ({ label: pl.label, pick: () => this.pickPlan(i), lcolor: i === idx ? '#f7f3ea' : 'rgba(244,240,231,.5)', mark: i === idx ? '⊕' : '' })),
+      planDots: p.plans.map((pl, i) => ({ label: pl.label, pick: () => this.pickPlan(i), bg: i === idx ? (blueprint ? '#bcd6f2' : '#98855c') : (blueprint ? 'rgba(223,236,252,.3)' : 'rgba(22,20,15,.18)'), tf: i === idx ? 'scale(1.3)' : 'none' })),
+      nextName: next.name, nextHero: next.hero, nextHref: 'case-study.html?p=' + next.slug
+    };
+  }
+}
+</script>
+</body>
+</html>

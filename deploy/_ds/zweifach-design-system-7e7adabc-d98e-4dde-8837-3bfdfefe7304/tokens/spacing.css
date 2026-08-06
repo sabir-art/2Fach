@@ -1,0 +1,71 @@
+/* =====================================================================
+   ZweiFach — Spacing, layout, radius, shadow & z-index tokens
+   Source: scroll-video-hero/styles.css. The site uses a fluid gutter
+   (--pad-x), a constrained --maxw, generous vertical section rhythm,
+   small radii (this brand is NOT rounded), hairline borders, and soft
+   editorial shadows under floating imagery.
+   ===================================================================== */
+
+:root{
+  /* ---------- Layout ---------- */
+  --pad-x:clamp(20px, 6vw, 90px);     /* page gutter — used everywhere          */
+  --pad-x-wide:clamp(20px, 4vw, 52px);/* Works page — wider, bigger blocks      */
+  --maxw:1200px;                      /* default content measure                */
+  --maxw-wide:1400px;                 /* Works grid                             */
+
+  /* ---------- Section rhythm ---------- */
+  --section-y:clamp(90px, 14vh, 170px);   /* @kind spacing */ /* vertical padding of a .section */
+  --section-y-lg:clamp(96px, 16vh, 200px);/* @kind spacing */ /* manifesto / vision */
+
+  /* ---------- Spacing scale (4px base) ---------- */
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:20px;
+  --space-6:24px;
+  --space-8:32px;
+  --space-10:40px;
+  --space-12:48px;
+  --space-16:64px;
+  --space-20:80px;
+  --space-24:96px;
+
+  /* a few fluid gaps the layouts actually use */
+  --gap-grid:clamp(28px, 4vw, 64px);  /* services / vision beliefs              */
+  --gap-cards:clamp(16px, 2vw, 28px); /* galleries                             */
+  --eyebrow-gap:clamp(28px, 5vh, 56px);/* space under an eyebrow                */
+
+  /* ---------- Radius (kept small — editorial, architectural) ---------- */
+  --radius-xs:4px;                    /* image tiles, thumbnails, shots         */
+  --radius-sm:6px;                    /* media frames, work blocks              */
+  --radius-md:8px;                    /* switcher media                         */
+  --radius-lg:14px;                   /* selected-work cards, through-line frame */
+  --radius-pill:100px;                /* status chips, dots (genuinely round)   */
+  --radius-button:0px;                /* buttons & filter pills — SQUARE (architectural, no rounding) */
+
+  /* ---------- Borders ---------- */
+  --hairline:1px solid var(--line);          /* @kind other */
+  --hairline-dark:1px solid rgba(244,240,231,.16); /* @kind other */
+  --border-w:1px;                            /* @kind spacing */
+
+  /* ---------- Shadows (soft, warm, editorial) ---------- */
+  --shadow-float:0 26px 54px rgba(0,0,0,.22);   /* floating .story__square image */
+  --shadow-card:0 26px 54px rgba(0,0,0,.18);    /* general lifted card           */
+  --shadow-text:0 2px 40px rgba(0,0,0,.35);     /* text-shadow over busy media   */
+
+  /* ---------- Breakpoints (reference — use in @media) ---------- */
+  --bp-mobile:768px;     /* @kind spacing */ /* nav collapses, grids stack */
+  --bp-narrow:560px;     /* @kind spacing */ /* shots go full width */
+  --bp-duo:860px;        /* @kind spacing */ /* About duo stacks */
+
+  /* ---------- Z-index layers ---------- */
+  --z-scrim:1;        /* @kind other */
+  --z-cover:2;        /* @kind other */
+  --z-content:3;      /* @kind other */
+  --z-header:50;      /* @kind other */
+  --z-scrollbar:55;   /* @kind other */
+  --z-progress:60;    /* @kind other */
+  --z-residence:20;   /* @kind other */ /* residence reveal inside the Saga pin */
+  --z-intro:9999;     /* @kind other */ /* logo intro overlay (top of everything) */
+}

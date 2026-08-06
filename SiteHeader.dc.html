@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/motion.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/base.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/styles.css">
+  <script src="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/_ds_bundle.js"></script>
+  <style>
+    body{margin:0;font-family:var(--font)}
+    .zhead{--hc:var(--fg);position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px var(--pad-x);min-height:72px;box-sizing:border-box;font-family:var(--font);transition:background .5s var(--ease-out-expo),border-color .5s,min-height .55s var(--ease-out-expo),transform .55s var(--ease-out-expo);background:transparent;border-bottom:1px solid transparent;will-change:transform}
+    html.theme-dark .zhead{--hc:var(--on-media)}
+    .zhead.is-locked{min-height:90px}
+    /* hide while scrolling down, reveal on scroll up */
+    .zhead.is-hidden{transform:translateY(-125%)}
+    /* light text at the very top, for pages sitting over a dark hero */
+    .zhead.top-light:not(.is-glossy){--hc:var(--on-media)}
+    .zhead a{color:var(--hc);text-decoration:none}
+    .zh-side{display:flex;align-items:center;gap:clamp(13px,1.9vw,26px);flex:1 1 0;min-width:0}
+    .zh-right{justify-content:flex-end}
+    .zh-link{font-size:11px;letter-spacing:.2em;text-transform:uppercase;transition:opacity .35s;white-space:nowrap;color:var(--hc)}
+    .zh-link:hover{opacity:.62}
+    .zh-contact{display:inline-flex;align-items:baseline;gap:9px}
+    .zh-mail{opacity:.58;text-transform:none;letter-spacing:.02em;font-size:11.5px}
+    @media (max-width:900px){.zh-mail{display:none}}
+    @media (max-width:600px){.zh-navlink{display:none}}
+    .zh-brand{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;text-decoration:none;transition:opacity .4s var(--ease-out-expo)}
+    .zbrand__crop{position:relative;display:block;height:42px;width:var(--zw-full,117px);min-width:0;overflow:hidden;transform-origin:50% 50%;transition:width .62s var(--ease-out-expo),transform .62s var(--ease-out-expo)}
+    .zbrand__crop.lock{width:var(--zw-mark,44px);transform:scale(1.9)}
+    .zhead .brand-logo{height:42px;width:auto;display:block}
+    .zhead .brand-logo .cls-1{fill:var(--logo)}
+    .zhead .brand-logo .cls-2{fill:var(--hc);transition:fill .5s var(--ease-out-expo),opacity .4s var(--ease-out-expo)}
+    .zbrand__crop.lock .cls-2{opacity:0}
+    .brand-sheen{position:absolute;top:0;left:0;height:42px;width:auto;display:block;pointer-events:none;opacity:0}
+    .brand-sheen .cls-1{fill:color-mix(in srgb,var(--logo) 32%,#fff)}
+    .zbrand__crop.lock .brand-sheen{opacity:1;-webkit-mask-image:linear-gradient(180deg,transparent 30%,#000 50%,transparent 70%);mask-image:linear-gradient(180deg,transparent 30%,#000 50%,transparent 70%);-webkit-mask-size:100% 240%;mask-size:100% 240%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;animation:zsheen 1.15s var(--ease-out-expo) .1s both}
+    @keyframes zsheen{0%{-webkit-mask-position:50% -130%;mask-position:50% -130%;opacity:0}20%{opacity:1}100%{-webkit-mask-position:50% 135%;mask-position:50% 135%;opacity:0}}
+    @media (prefers-reduced-motion:reduce){.zbrand__crop{transition:none}.zbrand__crop.lock .brand-sheen{animation:none;opacity:0}.zhead{transition:background .5s,border-color .5s}}
+    .zright{display:flex;align-items:center;gap:clamp(12px,1.6vw,20px)}
+    .ztheme{position:relative;width:58px;height:30px;flex:none;border:1px solid color-mix(in srgb,var(--hc) 36%,transparent);background:color-mix(in srgb,var(--hc) 9%,transparent);border-radius:100px;cursor:pointer;padding:0;transition:border-color .4s var(--ease-out-expo),background .5s var(--ease-out-expo);overflow:hidden}
+    .ztheme:hover{border-color:var(--hc)}
+    .ztheme__moon{position:absolute;top:50%;left:3px;width:22px;height:22px;box-sizing:border-box;border-radius:50%;background:var(--hc);transform:translateY(-50%);box-shadow:0 2px 9px color-mix(in srgb,var(--hc) 45%,transparent);transition:transform .55s var(--ease-out-expo),background .45s ease,box-shadow .45s ease}
+    html.theme-dark .ztheme{background:color-mix(in srgb,var(--hc) 5%,transparent)}
+    html.theme-dark .ztheme__moon{transform:translateY(-50%) translateX(28px);background:transparent;border:1px solid var(--hc);box-shadow:inset -6px -3px 0 0 var(--hc),0 2px 11px rgba(0,0,0,.4)}
+    /* menu toggle: label + morphing burger */
+    .zmenu{display:flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:40px;gap:11px;background:none;border:0;cursor:pointer;font-family:var(--font);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--hc);padding:0 2px}
+    .zmenu__lbl .l-close{display:none}
+    .zmenu.is-x .l-open{display:none}
+    .zmenu.is-x .l-close{display:inline}
+    .zmenu__ic{position:relative;display:block;width:22px;height:14px;flex:none}
+    .zmenu__ic i{position:absolute;left:0;right:0;height:1.6px;background:currentColor;border-radius:2px;transform-origin:50% 50%;transition:transform .45s var(--ease-out-expo),opacity .28s var(--ease-out-expo)}
+    .zmenu__ic i:nth-child(1){top:0}
+    .zmenu__ic i:nth-child(2){top:50%;transform:translateY(-50%)}
+    .zmenu__ic i:nth-child(3){bottom:0}
+    .zmenu:hover .zmenu__ic i:nth-child(2){opacity:.55}
+    .zmenu.is-x .zmenu__ic i:nth-child(1){transform:translateY(6.2px) rotate(45deg)}
+    .zmenu.is-x .zmenu__ic i:nth-child(2){opacity:0}
+    .zmenu.is-x .zmenu__ic i:nth-child(3){transform:translateY(-6.2px) rotate(-45deg)}
+    .zhead.is-glossy{background:linear-gradient(160deg,var(--glass-fill-strong),var(--glass-fill));backdrop-filter:blur(var(--glass-blur)) saturate(1.25);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(1.25);border-bottom:1px solid var(--glass-border);box-shadow:inset 0 1px 0 rgba(255,255,255,.42),0 18px 40px -24px rgba(0,0,0,.4)}
+    html.theme-dark .zhead.is-glossy{background:linear-gradient(160deg,rgba(20,19,15,.74),rgba(20,19,15,.52));border-bottom:1px solid rgba(244,240,231,.14);box-shadow:0 18px 40px -24px rgba(0,0,0,.6)}
+    /* menu open: header rides above the overlay, only the (now X) toggle shows, in light ink */
+    .zhead.menu-open{z-index:400;background:transparent;border-color:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;transform:none;pointer-events:none}
+    .zhead.menu-open .zh-brand,.zhead.menu-open .zh-right,.zhead.menu-open .zh-navlink{opacity:0;pointer-events:none}
+    .zhead.menu-open .zmenu{pointer-events:auto;color:var(--on-media)}
+    .menu-ov{position:fixed;inset:0;z-index:300;background:var(--ink);color:var(--on-media);display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad-x);clip-path:inset(0 0 100% 0);transition:clip-path .8s cubic-bezier(.16,1,.3,1);pointer-events:none}
+    .menu-ov.open{clip-path:inset(0 0 0 0);pointer-events:auto}
+    .menu-nav{display:flex;flex-direction:column;max-width:1200px;margin:0 auto;width:100%}
+    .menu-nav a{display:flex;align-items:baseline;gap:22px;text-decoration:none;color:var(--on-media);font-weight:500;font-size:clamp(2.2rem,7vw,5.4rem);line-height:1.06;letter-spacing:-.02em;opacity:.5;transition:opacity .4s,transform .5s var(--ease-out-expo)}
+    .menu-nav a:hover{opacity:1;transform:translateX(18px);color:var(--clay-soft)}
+    .menu-nav a[aria-current]{opacity:1}
+    .menu-nav a em{font-size:.8rem;letter-spacing:.14em;color:var(--accent);font-style:normal}
+    .menu-foot{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;max-width:1200px;margin:clamp(30px,6vh,60px) auto 0;width:100%;padding-top:22px;border-top:1px solid rgba(244,240,231,.16);font-size:12px;color:rgba(244,240,231,.6)}
+    .menu-foot a{color:rgba(244,240,231,.6);text-decoration:none}.menu-foot a:hover{color:var(--on-media)}
+  </style>
+</helmet>
+
+<header class="zhead" id="siteHead" data-screen-label="Header">
+  <div class="zh-side zh-left">
+    <button class="zmenu" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menuOverlay">
+      <span class="zmenu__lbl"><span class="l-open">Menu</span><span class="l-close">Close</span></span>
+      <span class="zmenu__ic" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+    <a class="zh-link zh-navlink" href="Our Work.dc.html">Work</a>
+  </div>
+  <a class="zh-brand" id="zbrand" href="Home.dc.html" aria-label="ZweiFach, home">
+    <span class="zbrand__crop" id="zbrandCrop">
+      <svg class="brand-logo" viewBox="0 0 477.92 172.02" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ZweiFach"><g class="zmark">
+        <path class="cls-1" d="M3.58,66.15c1.55-1.19,3.4-2.12,5.52-2.82l8.48-4.33c4.5-2.31,8.32-4.98,11.46-7.99,3.14-3.01,5.52-6.54,7.15-10.59,1.63-4.05,2.45-8.75,2.45-14.12,0-4.95-.28-8.91-.84-11.86-.56-2.95-1.36-5.09-2.41-6.41-1.05-1.32-2.32-1.98-3.81-1.98-2.07,0-3.52.95-4.37,2.85-.85,1.9-1.27,4.52-1.27,7.87v8.61c0,3.8-1.17,6.84-3.5,9.11-2.33,2.27-5.59,3.41-9.76,3.41-3.92,0-7.05-1.22-9.38-3.65-1.79-1.87-2.88-4.34-3.3-7.38v43.19c.9-1.44,2.09-2.73,3.58-3.87Z"></path>
+        <polygon class="cls-1" points="131.27 98.16 131.27 118.63 155.5 118.63 155.5 139.1 131.27 139.1 131.27 170.14 170.14 170.14 170.14 170.14 170.14 98.16 131.27 98.16"></polygon>
+        <path class="cls-1" d="M53.88,3.06c5.04,2.19,8.77,5.21,11.18,9.07,2.42,3.86,3.63,8.27,3.63,13.23,0,4.38-1.24,8.42-3.72,12.14-2.48,3.72-6.33,7.28-11.55,10.68-5.22,3.41-11.92,6.82-20.1,10.25l-8.35,3.5c1.51.1,2.97.24,4.39.43,2.89.39,5.72.83,8.49,1.33,2.76.5,5.59.94,8.49,1.33,2.89.39,5.95.59,9.17.59,2.77,0,5.01-.53,6.72-1.58,1.71-1.05,3.27-2.71,4.68-4.99.66-1.07,1.37-1.82,2.14-2.23.76-.41,1.6-.58,2.51-.5,1.07.08,1.89.59,2.44,1.52.56.93.75,2.41.59,4.43-.53,7.02-1.77,12.67-3.71,16.94-1.94,4.27-4.51,7.38-7.71,9.32-3.2,1.94-6.97,2.91-11.3,2.91-3.47,0-6.5-.49-9.08-1.46-2.58-.97-4.79-2.57-6.63-4.8-1.84-2.23-3.42-5.24-4.74-9.05-.66-2.02-1.27-3.34-1.83-3.96-.56-.62-1.29-.93-2.2-.93-.99,0-1.82.47-2.48,1.39-.66.93-1.1,2.45-1.3,4.55-.29,3.51-1.03,6.31-2.23,8.39-1.2,2.09-2.8,3.58-4.8,4.49-2,.91-4.39,1.36-7.15,1.36-3.35,0-6.1-1.23-8.27-3.69-.43-.49-.79-1.04-1.13-1.59v83.96h104.78v-92.59h65.31c0-26.82.02-52.64.07-77.55H40.27c5.32.42,9.86,1.44,13.6,3.06Z"></path>
+        <path class="cls-2" d="M250.59,79.37h-25.3l-40.1,90.83h26.21l7.13-17.78h38.41l7.13,17.78h26.73l-40.22-90.83ZM226.09,133.61l11.66-29.04,11.66,29.04h-23.31Z"></path>
+        <polygon class="cls-2" points="452.23 79.37 452.23 95.33 417.33 114.9 417.33 79.37 391.63 79.37 391.63 170.2 417.33 170.2 417.33 139.51 452.23 119.94 452.23 170.2 477.92 170.2 477.92 79.37 452.23 79.37"></polygon>
+        <path class="cls-2" d="M361.29,143.58c-1.97,1.8-4.04,3.3-6.24,4.43-3.55,1.82-7.44,2.73-11.68,2.73-3.72,0-7.14-.61-10.25-1.82-3.11-1.21-5.77-2.96-7.98-5.25-2.2-2.29-3.94-5.04-5.19-8.24-1.26-3.2-1.88-6.75-1.88-10.64s.63-7.44,1.88-10.64c1.25-3.2,2.98-5.95,5.19-8.24,2.21-2.29,4.87-4.04,7.98-5.25,3.11-1.21,6.53-1.82,10.25-1.82,4.24,0,8.13.91,11.68,2.72,2.21,1.13,4.29,2.63,6.27,4.4l15.73-15.73c-3.6-3.46-7.74-6.26-12.47-8.33-6.62-2.9-14.12-4.35-22.51-4.35-7.18,0-13.8,1.15-19.85,3.44-6.06,2.29-11.33,5.54-15.83,9.73-4.5,4.2-8,9.19-10.51,14.99-2.51,5.8-3.76,12.15-3.76,19.07s1.25,13.28,3.76,19.07c2.51,5.79,6.01,10.79,10.51,14.99,4.5,4.2,9.78,7.44,15.83,9.73,6.05,2.29,12.67,3.44,19.85,3.44,8.39,0,15.89-1.47,22.51-4.41,4.7-2.09,8.81-4.89,12.4-8.33l-15.69-15.69Z"></path>
+      </g></svg>
+      <svg class="brand-sheen" id="zbrandSheen" viewBox="0 0 477.92 172.02" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+    </span>
+  </a>
+  <div class="zh-side zh-right">
+    <a class="zh-link zh-contact" href="mailto:hello@zweifach.ch"><span class="zh-mail">hello@zweifach.ch</span> Contact</a>
+    <button class="ztheme" id="zthemeBtn" type="button" aria-label="Switch dark / light" title="Dark / light"><span class="ztheme__moon"></span></button>
+  </div>
+</header>
+
+<div class="menu-ov" id="menuOverlay" aria-hidden="true">
+  <nav class="menu-nav">
+    <a href="Home.dc.html" data-key="home"><em>01</em> Home</a>
+    <a href="Our Work.dc.html" data-key="work"><em>02</em> Work</a>
+    <a href="Architecture.dc.html" data-key="architecture"><em>03</em> Architecture</a>
+    <a href="Commercialization.dc.html" data-key="commercialisation"><em>04</em> Commercialisation</a>
+    <a href="About.dc.html" data-key="studio"><em>05</em> Studio</a>
+    <a href="Contact.dc.html" data-key="contact"><em>06</em> Contact</a>
+  </nav>
+  <div class="menu-foot"><span>hello@zweifach.ch · Aargau, Switzerland</span><span><a href="Privacy.dc.html">Privacy</a> · <a href="Terms.dc.html">Terms</a></span></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;current&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;None&quot;,&quot;Home&quot;,&quot;Work&quot;,&quot;Architecture&quot;,&quot;Commercialisation&quot;,&quot;Studio&quot;,&quot;Contact&quot;],&quot;default&quot;:&quot;None&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;topTint&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    const ov = document.getElementById('menuOverlay');
+    const btn = document.getElementById('menuBtn');
+    const hd = document.getElementById('siteHead');
+
+    const setMenu = (open) => {
+      if (!ov) return;
+      ov.classList.toggle('open', open);
+      ov.setAttribute('aria-hidden', open ? 'false' : 'true');
+      if (btn) { btn.classList.toggle('is-x', open); btn.setAttribute('aria-expanded', open ? 'true' : 'false'); btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); }
+      if (hd) { hd.classList.toggle('menu-open', open); if (open) hd.classList.remove('is-hidden'); }
+    };
+    if (btn) btn.addEventListener('click', () => setMenu(!ov.classList.contains('open')));
+    // clicking a nav link closes the overlay (same-page anchors won't reload)
+    ov && ov.querySelectorAll('.menu-nav a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+    this._esc = (e) => { if (e.key === 'Escape') setMenu(false); };
+    document.addEventListener('keydown', this._esc);
+
+    // active nav link
+    const cur = this.props.current ?? 'None';
+    if (cur && cur !== 'None') {
+      const a = document.querySelector('.menu-nav a[data-key="' + cur.toLowerCase() + '"]');
+      if (a) a.setAttribute('aria-current', 'page');
+    }
+
+    // light text at the top for pages over a dark hero
+    if (hd && (this.props.topTint ?? 'dark') === 'light') hd.classList.add('top-light');
+
+    // centred brand: measure full + mark widths, clone the "2F" mark into the sheen layer
+    const crop = document.getElementById('zbrandCrop');
+    const sheen = document.getElementById('zbrandSheen');
+    const mark = crop && crop.querySelector('.zmark');
+    if (crop && sheen && mark) {
+      if (!sheen.childElementCount) sheen.innerHTML = mark.innerHTML;
+      this._measure = () => {
+        const svg = crop.querySelector('.brand-logo');
+        const h = (svg && svg.getBoundingClientRect().height) || 42;
+        this._zwFull = +(h * (477.92 / 172.02) + 1).toFixed(2);
+        this._zwMark = +(h * (178 / 172.02)).toFixed(2);
+        crop.style.width = (crop.classList.contains('lock') ? this._zwMark : this._zwFull) + 'px';
+      };
+      this._measure();
+      requestAnimationFrame(this._measure);
+      window.addEventListener('resize', this._measure, { passive: true });
+    }
+
+    // scroll: collapse logo (lock) + glossy bar + hide-on-down / show-on-up
+    this._lastY = window.scrollY || 0;
+    this._scroll = () => {
+      const y = window.scrollY || 0;
+      if (crop && this._zwFull != null) {
+        const lk = y > 24;
+        crop.classList.toggle('lock', lk);
+        if (hd) hd.classList.toggle('is-locked', lk);
+        crop.style.width = (lk ? this._zwMark : this._zwFull) + 'px';
+      }
+      if (hd) hd.classList.toggle('is-glossy', y > 40);
+      // direction-based show / hide (never while the menu is open)
+      if (hd && !(ov && ov.classList.contains('open'))) {
+        const dy = y - this._lastY;
+        if (y < 70) hd.classList.remove('is-hidden');
+        else if (dy > 5) hd.classList.add('is-hidden');
+        else if (dy < -5) hd.classList.remove('is-hidden');
+      }
+      if (Math.abs(y - this._lastY) > 0.5) this._lastY = y;
+    };
+    this._scroll();
+    window.addEventListener('scroll', this._scroll, { passive: true });
+
+    // theme toggle (site-wide, persisted)
+    const root = document.documentElement;
+    let dark = false;
+    try { dark = localStorage.getItem('zf-theme') === 'dark'; } catch (e) {}
+    root.classList.toggle('theme-dark', dark);
+    const tbtn = document.getElementById('zthemeBtn');
+    if (tbtn) {
+      this._theme = () => {
+        const next = !root.classList.contains('theme-dark');
+        root.classList.toggle('theme-dark', next);
+        try { localStorage.setItem('zf-theme', next ? 'dark' : 'light'); } catch (e) {}
+      };
+      tbtn.addEventListener('click', this._theme);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._esc) document.removeEventListener('keydown', this._esc);
+    if (this._scroll) window.removeEventListener('scroll', this._scroll);
+    if (this._measure) window.removeEventListener('resize', this._measure);
+    const tbtn = document.getElementById('zthemeBtn');
+    if (tbtn && this._theme) tbtn.removeEventListener('click', this._theme);
+  }
+
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

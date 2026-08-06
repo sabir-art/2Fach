@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>window.__resources={"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"vendor/react.production.min.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"vendor/react-dom.production.min.js","https://unpkg.com/@babel/standalone@7.29.0/babel.min.js":"vendor/babel.min.js","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js":"vendor/gsap.min.js","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js":"vendor/ScrollTrigger.min.js","https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js":"vendor/lenis.min.js","https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js":"vendor/three.min.js","https://unpkg.com/leaflet@1.9.4/dist/leaflet.js":"vendor/leaflet.js","https://unpkg.com/leaflet@1.9.4/dist/leaflet.css":"vendor/leaflet.css"};</script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>ZweiFach, Privacy Policy</title>
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/motion.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/base.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/styles.css">
+  <script src="vendor/lenis.min.js"></script>
+  <script>
+  (function(){
+    try{ if(matchMedia('(prefers-reduced-motion: reduce)').matches) return; }catch(e){}
+    if(window.__lenisBooted) return; window.__lenisBooted = true;
+    var tries = 0;
+    (function boot(){
+      if(window.__lenis) return;
+      if(!window.Lenis){ if(tries++>150) return; return setTimeout(boot, 40); }
+      var l = new Lenis({ duration: 1.05, smoothWheel: true, touchMultiplier: 1.6 });
+      window.__lenis = l;
+      function raf(t){ l.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+      if(window.ScrollTrigger){ l.on('scroll', window.ScrollTrigger.update); }
+    })();
+  })();
+  </script>
+  <style>
+    ::-webkit-scrollbar{width:9px;height:9px;background:transparent}
+    ::-webkit-scrollbar-track{background:transparent;border:0;box-shadow:none}
+    ::-webkit-scrollbar-track-piece{background:transparent}
+    ::-webkit-scrollbar-button{display:none;width:0;height:0}
+    ::-webkit-scrollbar-corner{background:transparent}
+    ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:100px;border:2px solid transparent;background-clip:content-box}
+    ::-webkit-scrollbar-thumb:hover{background:var(--accent-hover,#a8946a)}
+    html{scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
+    em,i,cite{font-style:normal !important}
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--accent);color:var(--bg)}
+    .wrap{max-width:820px;margin:0 auto;padding-inline:var(--pad-x)}
+    /* header + full-screen menu now come from the shared <SiteHeader> component */
+    html{scroll-behavior:smooth}
+    .doc-layout{display:grid;grid-template-columns:210px minmax(0,1fr);gap:clamp(30px,6vw,90px);padding:clamp(130px,20vh,210px) 0 clamp(80px,14vh,140px);align-items:start}
+    .doc-toc{position:sticky;top:96px;font-size:13px}
+    .doc-toc__k{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe);margin:0 0 1em}
+    .doc-toc nav{display:flex;flex-direction:column;gap:.75em;border-left:1px solid var(--line);padding-left:16px}
+    .doc-toc a{color:var(--muted);text-decoration:none;transition:color .3s,border-color .3s;line-height:1.35;border-left:1px solid transparent;margin-left:-17px;padding-left:16px}
+    .doc-toc a:hover{color:var(--fg)}
+    .doc-toc a.on{color:var(--fg);border-left-color:var(--accent)}
+    .doc{padding:0}
+    .doc h2{scroll-margin-top:96px}
+    @media (max-width:820px){.doc-layout{grid-template-columns:1fr}.doc-toc{position:static;margin-bottom:8px}.doc-toc nav{flex-direction:row;flex-wrap:wrap;gap:.4em 1em;border-left:0;padding-left:0}.doc-toc a{margin-left:0;padding-left:0;border-left:0}}
+    .doc__eyebrow{font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 1.3em}
+    .doc__title{margin:0 0 .4em;font-weight:500;font-size:clamp(2.4rem,6vw,4.4rem);line-height:1.02;letter-spacing:-.03em}
+    .doc__meta{color:var(--muted);font-size:14px;margin:0 0 clamp(34px,6vh,60px);padding-bottom:26px;border-bottom:1px solid var(--line)}
+    .doc h2{font-weight:500;font-size:1.35rem;letter-spacing:-.01em;margin:clamp(34px,5vh,50px) 0 .7em}
+    .doc h2 span{color:var(--taupe);font-size:.9rem;margin-right:.6em}
+    .doc p,.doc li{color:var(--muted);font-size:16px;line-height:1.7}
+    .doc p{margin:0 0 1em;max-width:66ch}
+    .doc ul{margin:0 0 1em;padding-left:1.1em}.doc li{margin:0 0 .4em}
+    .doc a{color:var(--fg);border-bottom:1px solid var(--accent);text-decoration:none}
+  </style>
+</helmet>
+
+<div>
+  <dc-import name="SiteHeader" hint-size="100%,72px" style="display:block"></dc-import>
+
+  <div class="doc-layout wrap" data-screen-label="Privacy">
+    <aside class="doc-toc"><p class="doc-toc__k">Contents</p><nav id="tocNav"></nav></aside>
+    <article class="doc">
+    <p class="doc__eyebrow">Legal</p>
+    <h1 class="doc__title">Privacy Policy</h1>
+    <p class="doc__meta">Last updated 4 July 2026 · ZweiFach, Aargau, Switzerland · Swiss FADP / EU GDPR</p>
+
+    <h2><span>01</span>Who we are</h2>
+    <p>ZweiFach ("we", "us") is an architecture and real-estate commercialisation studio based in the Canton of Aargau, Switzerland. We are the controller responsible for the personal data processed through this website. Questions: <a href="mailto:hello@zweifach.ch">hello@zweifach.ch</a>.</p>
+
+    <h2><span>02</span>What we collect</h2>
+    <ul>
+      <li><strong style="color:var(--fg);font-weight:500">Contact data</strong>, name, email and the message you send via our contact form or by email.</li>
+      <li><strong style="color:var(--fg);font-weight:500">Project data</strong>, information you share about a plot or development so we can respond.</li>
+      <li><strong style="color:var(--fg);font-weight:500">Technical data</strong>, anonymised usage and device information strictly needed to operate and secure the site.</li>
+    </ul>
+
+    <h2><span>03</span>Why we process it</h2>
+    <p>To reply to your enquiry, to prepare and deliver our services, to meet legal and accounting obligations, and to keep the site secure. We rely on your consent, our legitimate interest, or the performance of a contract, as applicable.</p>
+
+    <h2><span>04</span>Sharing</h2>
+    <p>We do not sell personal data. We share it only with service providers who help us operate (e.g. hosting, email), bound by confidentiality, and where partners such as visualisation studios are strictly necessary to deliver a project.</p>
+
+    <h2><span>05</span>Retention</h2>
+    <p>We keep personal data only as long as needed for the purpose collected or as required by Swiss law, then delete or anonymise it.</p>
+
+    <h2><span>06</span>Your rights</h2>
+    <p>You may request access, rectification, deletion, restriction or portability of your data, and object to certain processing. Write to <a href="mailto:hello@zweifach.ch">hello@zweifach.ch</a>. You may also lodge a complaint with the Swiss Federal Data Protection and Information Commissioner (FDPIC).</p>
+
+    <h2><span>07</span>Cookies</h2>
+    <p>This site uses only the cookies necessary for it to function. No advertising or third-party tracking cookies are set without your consent.</p>
+
+    <p style="margin-top:2em">Placeholder legal text, to be reviewed by counsel before publication.</p>
+  </article>
+  </div>
+
+  <dc-import name="SiteFooter" hint-size="100%,auto" style="display:block;width:100%"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;blueprintMode&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Plans&quot;},&quot;heroVideo&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;line&quot;,&quot;rise&quot;,&quot;threshold&quot;,&quot;handshake&quot;],&quot;default&quot;:&quot;threshold&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    // menu / header interactions are owned by the shared <SiteHeader> component
+    const heads = Array.from(document.querySelectorAll('.doc h2'));
+    const nav = document.getElementById('tocNav');
+    if (nav && heads.length) {
+      const links = heads.map((h, i) => { const id = 's' + (i + 1); h.id = id; const a = document.createElement('a'); a.href = '#' + id; a.textContent = h.textContent.replace(/^\d+\s*/, '').trim(); nav.appendChild(a); return a; });
+      const spy = () => { let cur = 0; heads.forEach((h, i) => { if (h.getBoundingClientRect().top <= 130) cur = i; }); links.forEach((a, i) => a.classList.toggle('on', i === cur)); };
+      window.addEventListener('scroll', spy, { passive: true }); spy();
+    }
+  }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

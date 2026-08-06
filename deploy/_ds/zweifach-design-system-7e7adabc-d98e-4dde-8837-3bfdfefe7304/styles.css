@@ -1,0 +1,11 @@
+/* =====================================================================
+   ZweiFach Design System — global entry point
+   Consumers link THIS one file. It is an @import manifest only: every
+   token and @font-face the system ships is reached from here.
+   ===================================================================== */
+@import "tokens/fonts.css";        /* Graphik LCG @font-face rules            */
+@import "tokens/colors.css";       /* colour palette + semantic aliases       */
+@import "tokens/typography.css";   /* family, weights, fluid type scale       */
+@import "tokens/spacing.css";      /* layout, spacing, radius, shadow, z-index */
+@import "tokens/motion.css";       /* eases, durations, reduced-motion        */
+@import "tokens/base.css";         /* reset + base element styles             */

@@ -1,0 +1,33 @@
+{
+  "name": "2fach",
+  "version": "1.0.0",
+  "description": "",
+  "main": "motion.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sabir-art/2fach.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sabir-art/2fach/issues"
+  },
+  "homepage": "https://github.com/sabir-art/2fach#readme",
+  "dependencies": {
+    "@babel/standalone": "^7.29.0",
+    "gsap": "^3.12.5",
+    "leaflet": "^1.9.4",
+    "lenis": "^1.1.14",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.35.3",
+    "three": "^0.128.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>ZweiFach, Talk about your project</title>
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/motion.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/base.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+  (function(){
+    try{ if(matchMedia('(prefers-reduced-motion: reduce)').matches) return; }catch(e){}
+    if(window.__lenisBooted) return; window.__lenisBooted = true;
+    var tries = 0;
+    (function boot(){
+      if(window.__lenis) return;
+      if(!window.Lenis){ if(tries++>150) return; return setTimeout(boot, 40); }
+      var l = new Lenis({ duration: 1.05, smoothWheel: true, touchMultiplier: 1.6 });
+      window.__lenis = l;
+      function raf(t){ l.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+      if(window.ScrollTrigger){ l.on('scroll', window.ScrollTrigger.update); }
+    })();
+  })();
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    ::-webkit-scrollbar{width:9px;height:9px;background:transparent}
+    ::-webkit-scrollbar-track{background:transparent;border:0;box-shadow:none}
+    ::-webkit-scrollbar-track-piece{background:transparent}
+    ::-webkit-scrollbar-button{display:none;width:0;height:0}
+    ::-webkit-scrollbar-corner{background:transparent}
+    ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:100px;border:2px solid transparent;background-clip:content-box}
+    ::-webkit-scrollbar-thumb:hover{background:var(--accent-hover,#a8946a)}
+    html{scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
+    em,i,cite{font-style:normal !important}
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--accent);color:var(--bg)}
+    .wrap{max-width:1200px;margin:0 auto;padding-inline:var(--pad-x)}
+    /* header + full-screen menu now come from the shared <SiteHeader> component */
+    .c-hero{padding:clamp(130px,20vh,220px) 0 clamp(40px,8vh,80px)}
+    .c-eyebrow{font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 1.3em}
+    .c-title{margin:0;font-weight:500;font-size:clamp(2.6rem,7vw,6rem);line-height:1;letter-spacing:-.03em}
+    .c-title em{font-weight:300;font-style:normal}
+    .c-lead{margin:26px 0 0;max-width:48ch;font-size:clamp(1.05rem,1.4vw,1.35rem);line-height:1.6;color:var(--muted)}
+    .c-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,7vw,110px);padding:clamp(40px,7vh,80px) 0 clamp(80px,14vh,150px);align-items:start}
+    @media (max-width:860px){.c-grid{grid-template-columns:1fr}}
+    .c-paths{display:flex;flex-direction:column}
+    .c-path{display:flex;gap:18px;align-items:flex-start;padding:26px 0;border-top:1px solid var(--line)}
+    .c-path:last-child{border-bottom:1px solid var(--line)}
+    .c-dot{width:8px;height:8px;border-radius:100px;flex:none;margin-top:9px}
+    .c-path h3{margin:0 0 .5em;font-weight:500;font-size:1.35rem;letter-spacing:-.01em}
+    .c-path p{margin:0;color:var(--muted);font-size:15px;line-height:1.6}
+    .c-path a{color:var(--fg);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:1px}
+    .c-info{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+    .c-info__b{display:flex;flex-direction:column;gap:7px;padding:20px 26px 20px 0;border-bottom:1px solid var(--line)}
+    .c-info__b:nth-child(even){padding-left:28px;border-left:1px solid var(--line)}
+    .c-info__k{font-size:.62rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe)}
+    .c-info__v{font-size:15px;color:var(--fg)}
+    @media (max-width:430px){.c-info{grid-template-columns:1fr}.c-info__b:nth-child(even){padding-left:0;border-left:0}}
+    .c-form{display:flex;flex-direction:column;gap:clamp(26px,3.4vw,36px)}
+    .c-field{display:flex;flex-direction:column;gap:11px}
+    .c-field label{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--taupe);transition:color .35s var(--ease-out-expo)}
+    .c-field:focus-within label{color:var(--accent)}
+    .c-field input,.c-field textarea{font-family:var(--font);font-size:16px;line-height:1.5;color:var(--fg);background:rgba(255,255,255,.32);border:1px solid var(--line);border-radius:0;padding:14px 16px;outline:none;width:100%;box-sizing:border-box;transition:border-color .35s ease,background .35s ease}
+    .c-field input:hover,.c-field textarea:hover{border-color:rgba(22,20,15,.3)}
+    .c-field input:focus,.c-field textarea:focus{border-color:var(--fg);background:rgba(255,255,255,.5)}
+    .c-field input::placeholder,.c-field textarea::placeholder{color:rgba(22,20,15,.38)}
+    .c-ctrl{position:relative}
+    .c-ctrl::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease-out-expo)}
+    .c-ctrl:focus-within::after{transform:scaleX(1)}
+    .c-field textarea{min-height:96px;resize:none;overflow:hidden;display:block}
+    .c-ix{opacity:.55;margin-right:.7em}
+    .c-dd{position:relative}
+    .c-dd__btn{font-family:var(--font);font-size:16px;line-height:1.5;color:var(--fg);text-align:left;background:rgba(255,255,255,.32);border:1px solid var(--line);border-radius:0;padding:14px 16px;width:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;outline:none;transition:border-color .35s ease,background .35s ease}
+    .c-dd__btn:hover{border-color:rgba(22,20,15,.3)}
+    .c-dd__btn:focus-visible{border-color:var(--fg)}
+    .c-dd.open .c-dd__btn{border-color:var(--fg);background:rgba(255,255,255,.5)}
+    .c-dd__chev{flex:none;color:var(--taupe);transition:transform .5s var(--ease-out-expo)}
+    .c-dd.open .c-dd__chev{transform:rotate(180deg)}
+    .c-dd__list{position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:40;margin:0;padding:0;list-style:none;background:#faf7ee;border:1px solid var(--line);border-radius:0;box-shadow:0 22px 48px rgba(22,20,15,.16);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .45s var(--ease-out-expo),transform .45s var(--ease-out-expo),visibility 0s linear .45s}
+    .c-dd.open .c-dd__list{opacity:1;visibility:visible;transform:none;transition:opacity .45s var(--ease-out-expo),transform .45s var(--ease-out-expo)}
+    .c-dd__opt{padding:14px 16px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:background .25s ease;outline:none}
+    .c-dd__opt + .c-dd__opt{border-top:1px solid var(--line)}
+    .c-dd__opt:hover,.c-dd__opt:focus-visible{background:rgba(22,20,15,.05)}
+    .c-dd__opt.is-sel{font-weight:500}
+    .c-dd__opt.is-sel::after{content:"";width:5px;height:5px;border-radius:100px;background:var(--accent);flex:none}
+    .c-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,3.5vw,42px)}
+    @media (max-width:560px){.c-row{grid-template-columns:1fr}}
+    .c-submit{font-family:var(--font);cursor:pointer;background:var(--accent);color:var(--bg);border:0;border-radius:0;padding:16px 28px;font-size:.82rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;line-height:1;transition:filter .3s,transform .3s;align-self:flex-start}
+    .c-submit:hover{filter:brightness(1.06);transform:translateY(-2px)}
+    @media (max-width:560px){.c-submit{width:100%;justify-content:center;padding:14px 20px}}
+    .c-sent{color:var(--blueprint);font-size:14px;display:none}
+    .c-sent.on{display:block}
+    #bgCanvas{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none;opacity:0;transition:opacity .8s ease}
+    .c-scrim{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(72% 58% at 83% 27%, transparent 0%, transparent 26%, var(--bg) 72%)}
+    .page{position:relative;z-index:1}
+    .c-hero{position:relative}
+    [data-rise]{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease-out-expo),transform 1.1s var(--ease-out-expo)}
+    .page.in [data-rise]{opacity:1;transform:none}
+    .c-path{transition:transform .5s var(--ease-out-expo),border-color .4s}
+    .c-path:hover{transform:translateX(7px)}
+    .c-path:hover h3{color:var(--accent)}
+    .c-hero__scan{position:absolute;left:var(--pad-x);bottom:22px;display:flex;align-items:center;gap:12px;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe)}
+    .c-hero__scan i{display:block;width:46px;height:1px;background:var(--taupe);opacity:.5}
+  </style>
+</helmet>
+
+<canvas id="bgCanvas"></canvas>
+<div class="c-scrim"></div>
+<div class="page">
+  <dc-import name="SiteHeader" current="Contact" hint-size="100%,72px" style="display:block"></dc-import>
+
+  <section class="c-hero" data-screen-label="Contact hero">
+    <div class="wrap">
+      <p class="c-eyebrow" data-rise style="transition-delay:.05s">Contact · (03)</p>
+      <h1 class="c-title" data-rise style="transition-delay:.15s">A plot. An idea.<br><em>Let's talk.</em></h1>
+      <p class="c-lead" data-rise style="transition-delay:.28s">Tell us where you are on the chain, a parcel to assess, a design to make financeable, or units to pre-sell. We reply within 48 h.</p>
+    </div>
+    <div class="c-hero__scan" data-rise style="transition-delay:.5s"><i></i>Blueprint, execution plan</div>
+  </section>
+
+  <div class="wrap">
+    <div class="c-grid">
+      <div class="c-paths" data-rise style="transition-delay:.4s">
+        <div class="c-path"><span class="c-dot" style="background:var(--blueprint)"></span><div><h3>Start a development</h3><p>You own a plot or have one in mind. We test feasibility and draw it to be financeable. <a href="mailto:hello@zweifach.ch?subject=New%20development">hello@zweifach.ch</a></p></div></div>
+        <div class="c-path"><span class="c-dot" style="background:var(--clay)"></span><div><h3>Sell / pre-sell units</h3><p>Sales dossier and off-plan reservations to clear the bank's quota. <a href="mailto:hello@zweifach.ch?subject=Commercialisation">hello@zweifach.ch</a></p></div></div>
+        <div class="c-path"><span class="c-dot" style="background:var(--accent)"></span><div><h3>Financing help</h3><p>The bank-quota link of the chain, made concrete and actionable. <a href="mailto:hello@zweifach.ch?subject=Financing">hello@zweifach.ch</a></p></div></div>
+        <div class="c-info">
+          <div class="c-info__b"><span class="c-info__k">Email</span><span class="c-info__v">hello@zweifach.ch</span></div>
+          <div class="c-info__b"><span class="c-info__k">Studio</span><span class="c-info__v">Aargau, Switzerland</span></div>
+          <div class="c-info__b"><span class="c-info__k">Hours</span><span class="c-info__v">Mon to Fri, 09:00 to 18:00 (CET)</span></div>
+          <div class="c-info__b"><span class="c-info__k">Local</span><span class="c-info__v" id="cetTime">&nbsp;</span></div>
+        </div>
+      </div>
+
+      <form class="c-form" id="contactForm" data-rise style="transition-delay:.5s" onSubmit="{{ onSubmit }}">
+        <div class="c-row">
+          <div class="c-field"><label for="cn"><span class="c-ix">(01)</span>Name</label><div class="c-ctrl"><input id="cn" name="name" type="text" required></div></div>
+          <div class="c-field"><label for="ce"><span class="c-ix">(02)</span>Email</label><div class="c-ctrl"><input id="ce" name="email" type="email" required></div></div>
+        </div>
+        <div class="c-field"><label id="ciLab"><span class="c-ix">(03)</span>I'm here about</label>
+          <div class="c-dd" id="ciDD">
+            <button class="c-dd__btn" type="button" id="ciBtn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="ciLab ciVal"><span id="ciVal">Starting a development</span><svg class="c-dd__chev" width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <ul class="c-dd__list" role="listbox" aria-labelledby="ciLab" id="ciList">
+              <li class="c-dd__opt is-sel" role="option" aria-selected="true" tabindex="-1" data-v="Starting a development">Starting a development</li>
+              <li class="c-dd__opt" role="option" aria-selected="false" tabindex="-1" data-v="Selling / pre-selling units">Selling / pre-selling units</li>
+              <li class="c-dd__opt" role="option" aria-selected="false" tabindex="-1" data-v="Financing help">Financing help</li>
+              <li class="c-dd__opt" role="option" aria-selected="false" tabindex="-1" data-v="Something else">Something else</li>
+            </ul>
+          </div>
+          <input type="hidden" name="intent" id="ci" value="Starting a development">
+        </div>
+        <div class="c-field"><label for="cm"><span class="c-ix">(04)</span>Your project</label><div class="c-ctrl"><textarea id="cm" name="message" rows="3" placeholder="The plot, the idea, where you are on the chain…" required></textarea></div></div>
+        <button class="c-submit" type="submit" style="display:inline-flex;align-items:center;gap:11px">Send message <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+        <p class="c-sent" id="sent">Thank you, we'll be in touch within 48 h.</p>
+      </form>
+    </div>
+  </div>
+
+  <dc-import name="SiteFooter" hint-size="100%,auto" style="display:block;width:100%"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  componentDidMount() {
+    // menu / header interactions are owned by the shared <SiteHeader> component
+    this.rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const page = document.querySelector('.page');
+    requestAnimationFrame(() => requestAnimationFrame(() => { if (page) page.classList.add('in'); }));
+
+    const dd = document.getElementById('ciDD'), ddBtn = document.getElementById('ciBtn'), ddList = document.getElementById('ciList'), ddVal = document.getElementById('ciVal'), ciIn = document.getElementById('ci');
+    if (dd && ddBtn && ddList) {
+      const opts = [].slice.call(ddList.querySelectorAll('.c-dd__opt'));
+      const setOpen = (o) => { dd.classList.toggle('open', o); ddBtn.setAttribute('aria-expanded', o ? 'true' : 'false'); };
+      ddBtn.addEventListener('click', () => setOpen(!dd.classList.contains('open')));
+      ddBtn.addEventListener('keydown', (e) => { if (e.key === 'ArrowDown') { e.preventDefault(); setOpen(true); opts[0].focus(); } });
+      opts.forEach((o, i) => {
+        const pick = () => {
+          opts.forEach((x) => { x.classList.toggle('is-sel', x === o); x.setAttribute('aria-selected', x === o ? 'true' : 'false'); });
+          if (ddVal) ddVal.textContent = o.dataset.v; if (ciIn) ciIn.value = o.dataset.v;
+          setOpen(false); ddBtn.focus();
+        };
+        o.addEventListener('click', pick);
+        o.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); }
+          else if (e.key === 'ArrowDown') { e.preventDefault(); (opts[i + 1] || opts[0]).focus(); }
+          else if (e.key === 'ArrowUp') { e.preventDefault(); (opts[i - 1] || opts[opts.length - 1]).focus(); }
+        });
+      });
+      dd.addEventListener('keydown', (e) => { if (e.key === 'Escape') { setOpen(false); ddBtn.focus(); } });
+      this._ddOut = (e) => { if (!dd.contains(e.target)) setOpen(false); };
+      document.addEventListener('pointerdown', this._ddOut);
+    }
+    const ta = document.getElementById('cm');
+    if (ta) { this._grow = () => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }; ta.addEventListener('input', this._grow); }
+
+    const clock = () => { const el = document.getElementById('cetTime'); if (!el) return; try { el.textContent = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zurich' }); } catch (e) { el.textContent = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }); } };
+    clock(); this._clockI = setInterval(clock, 20000);
+
+    let tries = 0;
+    const boot = () => { if (window.THREE) { try { this.initScene(); } catch (e) {} return; } if (tries++ > 200) return; this._boot = setTimeout(boot, 40); };
+    boot();
+  }
+
+  initScene() {
+    const THREE = window.THREE, canvas = document.getElementById('bgCanvas'); if (!canvas) return;
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 140);
+    camera.position.set(0, 8, 17.5);
+    const target = new THREE.Vector3(2.6, 1.6, 0);
+    const group = new THREE.Group(); group.position.set(4.2, 0.2, -1.5); scene.add(group);
+    const BLUE = new THREE.Color('#2e3d4d'), TAUPE = new THREE.Color('#98855c'), CLAY = new THREE.Color('#a86547');
+
+    const grid = new THREE.GridHelper(34, 34, BLUE, BLUE);
+    grid.material.opacity = 0.07; grid.material.transparent = true; group.add(grid);
+
+    // Architectural floor plan drawn flat on the ground, like a sheet on a drafting table.
+    const parts = [];
+    const mkLines = (segs, col, op) => {
+      const pts = [];
+      segs.forEach((s) => { pts.push(new THREE.Vector3(s[0], 0.02, s[1]), new THREE.Vector3(s[2], 0.02, s[3])); });
+      const l = new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: col, transparent: true, opacity: op }));
+      group.add(l); parts.push(l); return l;
+    };
+    const mkPath = (pts2, col, op, dashed, y) => {
+      const pts = pts2.map((p) => new THREE.Vector3(p[0], y == null ? 0.02 : y, p[1]));
+      const mat = dashed ? new THREE.LineDashedMaterial({ color: col, transparent: true, opacity: op, dashSize: 0.32, gapSize: 0.2 }) : new THREE.LineBasicMaterial({ color: col, transparent: true, opacity: op });
+      const l = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), mat);
+      if (dashed) l.computeLineDistances();
+      group.add(l); parts.push(l); return l;
+    };
+    const mkArc = (cx, cz, r, a0, a1, col, op) => {
+      const c = new THREE.EllipseCurve(0, 0, r, r, a0, a1, false, 0);
+      return mkPath(c.getPoints(26).map((p) => [cx + p.x, cz + p.y]), col, op);
+    };
+
+    // Outer double walls (door gap on the south wall between x 0.6 and 2.0)
+    mkLines([
+      [-7, -5, 7, -5], [7, -5, 7, 5], [7, 5, 2.0, 5], [0.6, 5, -7, 5], [-7, 5, -7, -5],
+      [-6.75, -4.75, 6.75, -4.75], [6.75, -4.75, 6.75, 4.75], [6.75, 4.75, 2.0, 4.75], [0.6, 4.75, -6.75, 4.75], [-6.75, 4.75, -6.75, -4.75],
+      [0.6, 5, 0.6, 4.75], [2.0, 5, 2.0, 4.75]
+    ], BLUE, 0.42);
+    // Interior partitions (with door gaps)
+    mkLines([
+      [-1.5, -4.75, -1.5, -1.5], [-1.5, -0.3, -1.5, 0.8],
+      [-6.75, 0.8, -4.6, 0.8], [-3.5, 0.8, -1.5, 0.8],
+      [-1.5, 0.8, 0.5, 0.8], [1.7, 0.8, 3.2, 0.8],
+      [3.2, 0.8, 3.2, 2.6], [3.2, 3.7, 3.2, 4.75],
+      [2.4, -4.75, 2.4, -2.9], [2.4, -1.9, 2.4, -1.0], [2.4, -1.0, 6.75, -1.0]
+    ], BLUE, 0.28);
+    // Door swings (arc + leaf)
+    mkArc(0.6, 4.75, 1.4, -Math.PI / 2, 0, TAUPE, 0.32); mkLines([[0.6, 4.75, 0.6, 3.35]], TAUPE, 0.32);
+    mkArc(-1.5, -0.3, 1.2, Math.PI / 2, Math.PI, TAUPE, 0.3); mkLines([[-1.5, -0.3, -2.7, -0.3]], TAUPE, 0.3);
+    mkArc(1.7, 0.8, 1.2, Math.PI, Math.PI * 1.5, TAUPE, 0.3); mkLines([[1.7, 0.8, 1.7, -0.4]], TAUPE, 0.3);
+    // Stair run (top-left room) with the diagonal break line
+    const stairs = [[-6.3, -4.3, -6.3, -1.9], [-4.9, -4.3, -4.9, -1.9]];
+    for (let i = 0; i < 7; i++) stairs.push([-6.3, -4.3 + i * 0.4, -4.9, -4.3 + i * 0.4]);
+    mkLines(stairs, BLUE, 0.28);
+    mkLines([[-6.55, -2.15, -4.65, -3.55]], TAUPE, 0.3);
+    // Windows (jambs + sill line inside the wall band)
+    mkLines([
+      [-4.2, -5, -4.2, -4.75], [-2.6, -5, -2.6, -4.75], [-4.2, -4.87, -2.6, -4.87],
+      [3.4, -5, 3.4, -4.75], [4.8, -5, 4.8, -4.75], [3.4, -4.87, 4.8, -4.87],
+      [7, 1.4, 6.75, 1.4], [7, 3.0, 6.75, 3.0], [6.87, 1.4, 6.87, 3.0]
+    ], BLUE, 0.34);
+    // Columns
+    [[0.4, -2.6], [4.9, -2.9]].forEach((c) => {
+      const s = 0.14;
+      mkLines([[c[0] - s, c[1] - s, c[0] + s, c[1] - s], [c[0] + s, c[1] - s, c[0] + s, c[1] + s], [c[0] + s, c[1] + s, c[0] - s, c[1] + s], [c[0] - s, c[1] + s, c[0] - s, c[1] - s]], BLUE, 0.4);
+    });
+    // Dimension lines with extension lines and 45° ticks
+    const dimTick = (x, z) => [[x - 0.14, z - 0.14, x + 0.14, z + 0.14]];
+    mkLines([[-7, 6.1, 7, 6.1], [-7, 5.25, -7, 6.35], [7, 5.25, 7, 6.35], [2.0, 5.25, 2.0, 6.35]]
+      .concat(dimTick(-7, 6.1), dimTick(2.0, 6.1), dimTick(7, 6.1)), TAUPE, 0.3);
+    mkLines([[8.1, -5, 8.1, 5], [7.25, -5, 8.35, -5], [7.25, 5, 8.35, 5], [7.25, -1.0, 8.35, -1.0]]
+      .concat(dimTick(8.1, -5), dimTick(8.1, -1.0), dimTick(8.1, 5)), TAUPE, 0.3);
+    // North indicator
+    mkArc(-8.4, -4.1, 0.42, 0, Math.PI * 2, TAUPE, 0.3);
+    mkLines([[-8.4, -3.72, -8.4, -4.48], [-8.4, -4.48, -8.55, -4.22], [-8.4, -4.48, -8.25, -4.22]], TAUPE, 0.34);
+    // The commercialised unit: clay dashed outline, rising as a ghost volume (the plan becoming the building)
+    mkPath([[3.45, 1.05], [6.5, 1.05], [6.5, 4.5], [3.45, 4.5], [3.45, 1.05]], CLAY, 0.55, true);
+    const H = 3.1, cnr = [[3.45, 1.05], [6.5, 1.05], [6.5, 4.5], [3.45, 4.5]];
+    const vpts = [];
+    cnr.forEach((c) => { vpts.push(new THREE.Vector3(c[0], 0.02, c[1]), new THREE.Vector3(c[0], H, c[1])); });
+    const vl = new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(vpts), new THREE.LineBasicMaterial({ color: CLAY, transparent: true, opacity: 0.14 }));
+    group.add(vl); parts.push(vl);
+    mkPath([[3.45, 1.05], [6.5, 1.05], [6.5, 4.5], [3.45, 4.5], [3.45, 1.05]], CLAY, 0.16, false, H);
+
+    const resize = () => { const w = canvas.clientWidth || window.innerWidth, h = canvas.clientHeight || window.innerHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); };
+    resize(); this._resize = resize; window.addEventListener('resize', resize);
+
+    let tmx = 0, tmy = 0, mx = 0, my = 0, scrollY = 0;
+    this._pm = (e) => { tmx = (e.clientX / window.innerWidth - 0.5); tmy = (e.clientY / window.innerHeight - 0.5); }; window.addEventListener('pointermove', this._pm);
+    this._sc = () => { scrollY = window.scrollY || 0; canvas.style.opacity = Math.max(0.05, 1 - scrollY / (window.innerHeight * 0.55) * 0.98).toFixed(3); }; window.addEventListener('scroll', this._sc, { passive: true });
+
+    canvas.style.opacity = '1';
+    if (window.gsap && !this.rm) {
+      parts.forEach((p, i) => { window.gsap.from(p.material, { opacity: 0, duration: 1.1, delay: 0.12 + i * 0.05, ease: 'power2.out' }); });
+      window.gsap.from(grid.material, { opacity: 0, duration: 1.3 });
+    }
+
+    const t0 = performance.now();
+    const tick = () => {
+      const t = (performance.now() - t0) / 1000;
+      mx += (tmx - mx) * 0.045; my += (tmy - my) * 0.045;
+      group.rotation.y = (this.rm ? 0.4 : t * 0.028) + mx * 0.3;
+      group.rotation.x = -0.04 + my * 0.1;
+      camera.position.x = mx * 1.4; camera.position.y = 8 + my * 0.7 - scrollY * 0.002;
+      camera.lookAt(target);
+      renderer.render(scene, camera);
+      this._raf = requestAnimationFrame(tick);
+    };
+    tick();
+  }
+
+  componentWillUnmount() {
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._boot) clearTimeout(this._boot);
+    if (this._clockI) clearInterval(this._clockI);
+    if (this._resize) window.removeEventListener('resize', this._resize);
+    if (this._pm) window.removeEventListener('pointermove', this._pm);
+    if (this._sc) window.removeEventListener('scroll', this._sc);
+    if (this._esc) document.removeEventListener('keydown', this._esc);
+    if (this._ddOut) document.removeEventListener('pointerdown', this._ddOut);
+  }
+
+  renderVals() {
+    return {
+      onSubmit: (e) => {
+        e.preventDefault();
+        const s = document.getElementById('sent'); if (s) s.classList.add('on');
+        const f = document.getElementById('contactForm'); if (f) f.reset();
+        const ddList = document.getElementById('ciList'), ddVal = document.getElementById('ciVal');
+        if (ddList) ddList.querySelectorAll('.c-dd__opt').forEach((x, i) => { x.classList.toggle('is-sel', i === 0); x.setAttribute('aria-selected', i === 0 ? 'true' : 'false'); });
+        if (ddVal) ddVal.textContent = 'Starting a development';
+        const ciIn = document.getElementById('ci'); if (ciIn) ciIn.value = 'Starting a development';
+        const ta = document.getElementById('cm'); if (ta) ta.style.height = '';
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/spacing.css">
+  <style>
+    /* footer: infinite outlined "ZweiFach" marquee — verbatim from Home */
+    .zfoot__marquee{width:100%;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+    .zfoot__marquee-track{display:flex;width:max-content;will-change:transform;animation:zfMarquee 32s linear infinite}
+    .zfoot__marquee span{display:block;padding-right:clamp(30px,5vw,84px);font-weight:500;font-size:clamp(3.4rem,11vw,9.5rem);line-height:1;letter-spacing:-.03em;white-space:nowrap;color:transparent;-webkit-text-stroke:1px rgba(244,240,231,.32)}
+    .zfoot__marquee:hover .zfoot__marquee-track{animation-play-state:paused}
+    @keyframes zfMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media (prefers-reduced-motion:reduce){.zfoot__marquee-track{animation:none}}
+  </style>
+</helmet>
+<footer data-screen-label="Footer" style="position:relative;z-index:25;background:var(--ink,#16181a);color:var(--on-media,#f4f0e7);overflow:hidden;padding:clamp(50px,9vh,100px) 0 30px;border-top:1px solid rgba(244,240,231,.12);font-family:var(--font)">
+  <div style="max-width:var(--maxw,1200px);margin:0 auto;padding-inline:var(--pad-x,clamp(20px,6vw,90px))">
+    <div style="display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap">
+      <p style="max-width:34ch;font-weight:500;font-size:clamp(1.5rem,2.6vw,2.4rem);line-height:1.12;letter-spacing:-.02em;margin:0">Building the site that proves the chain, from the idea to the last unit sold.</p>
+      <div style="display:flex;gap:clamp(40px,6vw,96px);flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,240,231,.6)">Studio</span>
+          <a href="About.dc.html" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">About</a>
+          <a href="Architecture.dc.html" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">Architecture</a>
+          <a href="Commercialization.dc.html" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">Commercialisation</a>
+          <a href="Contact.dc.html" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">Contact</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,240,231,.6)">Work</span>
+          <a href="Case Study.dc.html?p=bellevue" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">Bellevue Wynental</a>
+          <a href="Case Study.dc.html?p=rothruthi" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">Rothrüthi</a>
+          <a href="Case Study.dc.html?p=seeblick" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">Seeblick Birrwil</a>
+          <a href="Our Work.dc.html" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s;display:inline-flex;align-items:center;gap:7px" style-hover="color:var(--on-media,#f4f0e7)">All work <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,240,231,.6)">Contact</span>
+          <a href="mailto:hello@zweifach.ch" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">hello@zweifach.ch</a>
+          <span style="font-size:14px;color:rgba(244,240,231,.5)">Aargau, Switzerland</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="width:100%;border-top:1px solid rgba(244,240,231,.16);border-bottom:1px solid rgba(244,240,231,.16);padding-block:clamp(26px,3.6vw,50px);margin-top:clamp(40px,8vh,90px)">
+    <div style="max-width:var(--maxw,1200px);margin:0 auto;padding-inline:var(--pad-x,clamp(20px,6vw,90px))">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;margin:0 0 clamp(20px,2.8vw,36px)">
+        <span style="font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,240,231,.5)">Architecture, Commercialisation</span>
+        <span style="font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,240,231,.4)">Aargau, Switzerland</span>
+      </div>
+    </div>
+    <div class="zfoot__marquee" aria-hidden="true">
+      <div class="zfoot__marquee-track">
+        <span>ZweiFach</span><span>ZweiFach</span><span>ZweiFach</span><span>ZweiFach</span><span>ZweiFach</span><span>ZweiFach</span><span>ZweiFach</span><span>ZweiFach</span>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:var(--maxw,1200px);margin:0 auto;padding-inline:var(--pad-x,clamp(20px,6vw,90px))">
+    <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:30px;font-size:12px;color:rgba(244,240,231,.5)">
+      <span>© 2026 ZweiFach, Architecture &amp; Commercialisation</span>
+      <span>The plan, then the place.</span>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:600}}"></script>
+</body>
+</html>
