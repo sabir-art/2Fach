@@ -128,9 +128,24 @@ const rewrite = (html) => {
   );
 };
 
+/**
+ * Attach the large-screen layout to a page.
+ *
+ * wide.css is applied here rather than edited into the design files, so a
+ * fresh export from the canvas keeps it without anyone remembering to.
+ * data-page lets that stylesheet reach one page without touching the rest:
+ * Our Work and Privacy both style .wrap, and only one of them should widen.
+ */
+const withWideCss = (html, dest) => {
+  const slug = dest.replace(/\.html$/, '');
+  return html
+    .replace('</head>', '  <link rel="stylesheet" href="wide.css">\n</head>')
+    .replace('<body>', `<body data-page="${slug}">`);
+};
+
 for (const [src, dest] of Object.entries(PAGES)) {
   const html = await readFile(join(SRC, src), 'utf8');
-  await writeFile(join(OUT, dest), rewrite(html));
+  await writeFile(join(OUT, dest), withWideCss(rewrite(html), dest));
   console.log(`page  ${src}  ->  ${dest}`);
 }
 

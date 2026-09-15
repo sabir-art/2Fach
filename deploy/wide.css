@@ -1,0 +1,66 @@
+/* =====================================================================
+   Large-screen layout
+
+   The design caps its content at 1400px, and the default measure at 1200px.
+   On a 27" or 34" monitor that leaves most of the glass empty, but the real
+   problem is alignment: .wrap is border-box, so its inner column comes out
+   180px narrower than the .wrapw and hero blocks stacked above it. The page
+   steps in and out as you scroll, and the fixed header, which spans the
+   whole viewport, sits a further 700px wider than either.
+
+   One value fixes all three. --col is the content column every wrapper
+   resolves to. Below roughly 1750px it evaluates to the design's own 1400px,
+   so laptops render exactly as they did; above that it grows with the
+   viewport and stops at 2000px, past which body copy lines get too long to
+   read comfortably.
+
+   Specificity: the design's own rules arrive through <helmet>, which the page
+   runtime moves into the head after this file. The doubled :root and the
+   body-prefixed selectors below outrank them whatever the final order.
+   ===================================================================== */
+
+:root:root {
+  --col: clamp(1400px, 80vw, 2000px);
+
+  /* .wrap and the footer wrapper are border-box and carry the page gutter,
+     so the gutter is added back here for their column to equal --col. */
+  --maxw: calc(var(--col) + 2 * var(--pad-x));
+  --maxw-wide: var(--col);
+}
+
+/* .wrapw carries the page gutter, but its box-sizing is content-box on the
+   home page and border-box on Architecture, Commercialization and Team, which
+   made the same max-width land 180px apart. Pinning the box model makes one
+   declaration hold everywhere. */
+body .wrapw {
+  box-sizing: border-box;
+  max-width: calc(var(--col) + 2 * var(--pad-x));
+}
+
+/* Our Work pins .wrap to 1400px of its own accord. Privacy and Terms pin it
+   to 820px on purpose — a reading measure — so they are left alone. */
+body[data-page="work"] .wrap { max-width: calc(var(--col) + 2 * var(--pad-x)); }
+
+/* Home's full-bleed blocks carry no gutter of their own. */
+body[data-page="index"] :is(.hero__top, .facts3__row, .mw__card) {
+  max-width: var(--col);
+}
+
+/* The header is fixed and full-bleed, which is what gives it its background.
+   Only its padding moves, so its contents line up with the column instead of
+   drifting out to the screen edges. */
+body .zhead {
+  padding-inline: max(var(--pad-x), calc((100vw - var(--col)) / 2));
+}
+
+/* The hero is a composition: the building rises from behind a word sized to
+   fill its box exactly (the text measures 1399px in a 1400px box). Both the
+   word and the shot pin themselves to 1400px, so widening the section alone
+   left them stranded in the middle of it, narrower than the cards below.
+
+   Both now follow the column. Only their width is set here: the word's font
+   size is fitted to its box at runtime by the page's own script, which picks
+   up the new width on its own. */
+body[data-page="index"] :is(.hero__word, .hero__shot) {
+  width: min(100%, var(--col));
+}
