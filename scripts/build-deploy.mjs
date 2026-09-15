@@ -139,8 +139,32 @@ for (const [from, name] of VENDOR_DIRS) {
 console.log(`vendor: ${VENDOR.length} libraries`);
 
 // ---- runtime + data + design system ----
-for (const f of RUNTIME) {
+// Every root-level script and stylesheet ships, not just the four we knew
+// about: the pages reference these by name, so a new one arriving from the
+// design (image-slot.js, no-scroll-fx.js …) must not be silently dropped
+// because this list went stale. Shipping a spare file costs a few KB; missing
+// one breaks the page that needs it.
+const rootEntries = await readdir(SRC, { withFileTypes: true });
+const runtimeFiles = new Set([
+  ...RUNTIME,
+  ...rootEntries.filter((e) => e.isFile() && /\.(js|css)$/i.test(e.name)).map((e) => e.name),
+]);
+for (const f of runtimeFiles) {
   if (existsSync(join(SRC, f))) await cp(join(SRC, f), join(OUT, f));
+}
+console.log(`runtime: ${runtimeFiles.size} scripts and stylesheets`);
+
+// A .dc.html at the root that is neither a known page nor a component is new
+// design work this script does not know how to deploy. Never pass over it in
+// silence — say so, so it gets added to PAGES deliberately.
+const known = new Set([...Object.keys(PAGES), ...COMPONENTS]);
+const unknownPages = rootEntries
+  .filter((e) => e.isFile() && e.name.endsWith('.dc.html') && !known.has(e.name))
+  .map((e) => e.name);
+if (unknownPages.length) {
+  console.log(`\n!! ${unknownPages.length} page(s) not deployed, absent from PAGES:`);
+  for (const f of unknownPages) console.log(`     ${f}`);
+  console.log('   Add them to PAGES above to ship them.\n');
 }
 await cp(join(SRC, 'data'), join(OUT, 'data'), { recursive: true });
 await cp(join(SRC, '_ds'), join(OUT, '_ds'), { recursive: true });
