@@ -11,8 +11,11 @@
 import { cp, mkdir, readFile, writeFile, rm, readdir, stat } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const SRC = '/workspace/2fach';
+// Repository root, derived from this file's own location, so the build runs
+// wherever the project is checked out.
+const SRC = fileURLToPath(new URL('..', import.meta.url)).replace(/\/+$/, '');
 const OUT = join(SRC, 'deploy');
 
 // page source -> deployed filename

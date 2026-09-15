@@ -5,8 +5,10 @@
  * carousel pans on the scene's through-progress exactly as it does on home.
  */
 import { readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const FILE = '/workspace/2fach/Architecture.dc.html';
+const FILE = join(fileURLToPath(new URL('..', import.meta.url)), 'Architecture.dc.html');
 let s = readFileSync(FILE, 'utf8');
 const before = s.length;
 
