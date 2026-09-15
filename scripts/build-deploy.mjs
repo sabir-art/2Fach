@@ -36,7 +36,7 @@ const COMPONENTS = ['SiteHeader.dc.html', 'SiteFooter.dc.html'];
 const RUNTIME = ['support.js', 'motion.js', 'plan-zoom.js', 'sections.css'];
 
 // asset trees that are actually referenced
-const ASSET_DIRS = ['brand', 'cursor', 'plans', 'projects', 'hero-mp4', '_lite'];
+const ASSET_DIRS = ['brand', 'cursor', 'plans', 'projects', 'hero-mp4', 'hero', 'team', '_lite'];
 
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
