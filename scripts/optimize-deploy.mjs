@@ -9,9 +9,10 @@
  */
 import { readdir, stat, readFile, writeFile } from 'node:fs/promises';
 import { join, extname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 
-const OUT = '/workspace/2fach/deploy';
+const OUT = join(fileURLToPath(new URL('..', import.meta.url)), 'deploy');
 
 const widthFor = (p) => {
   if (p.includes('/assets/plans/')) return 2400;   // zoomable

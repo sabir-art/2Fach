@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>ZweiFach, Project</title>
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/motion.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/base.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/styles.css">
+  <script src="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/_ds_bundle.js"></script>
+  <script src="data/projects.js"></script>
+  <style>
+    :root{--bg:#FCFBF7;--panel:#F5F1E8;--fg:#16181A;--muted:rgba(22,24,26,.66);--line:rgba(22,24,26,.16);--taupe:#A59C8C;--accent:#A59C8C;--accent-hover:#B8B0A2}
+    ::-webkit-scrollbar{width:9px;height:9px;background:transparent}
+    ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:100px;border:2px solid transparent;background-clip:content-box}
+    html{scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
+    em,i,cite{font-style:normal !important}
+    body{margin:0;background:#FCFBF7;color:#16181A;font-family:var(--font);-webkit-font-smoothing:antialiased}
+    a{color:#16181A}a:hover{color:#A59C8C}
+    ::selection{background:#A59C8C;color:#FCFBF7}
+    @media (max-width:900px){.zc-split{grid-template-columns:minmax(0,1fr) !important}.zc-aside{position:static !important}}
+  </style>
+</helmet>
+
+<div style="background:#FCFBF7">
+  <dc-import name="SiteHeader" current="Work" hint-size="100%,72px" style="display:block"></dc-import>
+
+  <section data-screen-label="Title" style="padding:clamp(120px,19vh,200px) clamp(20px,6vw,90px) clamp(28px,5vh,54px)">
+    <div style="max-width:1240px;margin:0 auto">
+      <p style="margin:0 0 1.3em;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#A59C8C">{{ meta }}</p>
+      <h1 style="margin:0;font-weight:500;font-size:clamp(40px,6.4vw,96px);line-height:1;letter-spacing:-.03em">{{ name }}</h1>
+      <p style="margin:26px 0 0;max-width:40ch;font-size:clamp(17px,1.6vw,23px);line-height:1.55;color:rgba(22,24,26,.66);text-wrap:pretty">{{ tagline }}</p>
+    </div>
+  </section>
+
+  <section data-screen-label="Cover" style="padding:0 clamp(20px,6vw,90px)">
+    <div style="max-width:1240px;margin:0 auto">
+      <span style="display:block;overflow:hidden;border-radius:6px;background:#F5F1E8;aspect-ratio:21/9">
+        <img src="{{ hero }}" alt="{{ name }}" style="width:100%;height:100%;object-fit:cover;display:block">
+      </span>
+    </div>
+  </section>
+
+  <section data-screen-label="Sheet" style="padding:clamp(50px,9vh,110px) clamp(20px,6vw,90px)">
+    <div class="zc-split" style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:minmax(0,.42fr) minmax(0,1fr);gap:clamp(30px,6vw,90px);align-items:start">
+
+      <aside class="zc-aside" style="position:sticky;top:110px;display:flex;flex-direction:column;gap:0">
+        <p style="margin:0 0 18px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#A59C8C">Fact sheet</p>
+        <sc-for list="{{ facts }}" as="ft" hint-placeholder-count="5">
+          <div style="display:flex;justify-content:space-between;gap:18px;padding:13px 0;border-top:1px solid rgba(22,24,26,.16);{{ ft.lastStyle }}">
+            <span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(22,24,26,.6)">{{ ft.k }}</span>
+            <span style="font-size:14px;text-align:right;font-variant-numeric:tabular-nums">{{ ft.v }}</span>
+          </div>
+        </sc-for>
+        <a href="Contact.dc.html" style="margin-top:26px;display:inline-flex;align-items:center;gap:12px;align-self:flex-start;text-decoration:none;background:#A59C8C;color:#fff;border-radius:100px;padding:9px 9px 9px 22px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;transition:background .35s ease" style-hover="background:#B8B0A2">Ask about this project
+          <span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:100px;background:#fff;color:#A59C8C">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </span>
+        </a>
+      </aside>
+
+      <div style="display:flex;flex-direction:column;gap:clamp(44px,8vh,96px)">
+        <p style="margin:0;max-width:50ch;font-size:clamp(19px,1.8vw,26px);line-height:1.55;text-wrap:pretty">{{ context }}</p>
+
+        <div style="display:flex;flex-direction:column;gap:clamp(16px,2.6vh,26px)">
+          <p style="margin:0;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#A59C8C">How it ran</p>
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+            <div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(14px,2.4vw,26px);align-items:baseline;padding:15px 0;border-top:1px solid rgba(22,24,26,.16);{{ s.lastStyle }}">
+              <span style="flex:none;width:7px;height:7px;border-radius:100px;background:#A59C8C"></span>
+              <span style="font-size:clamp(15px,1.4vw,18px);line-height:1.45">{{ s.title }}</span>
+              <span style="font-size:12px;color:rgba(22,24,26,.6);white-space:nowrap;font-variant-numeric:tabular-nums">{{ s.proof }}</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:clamp(20px,3.4vh,34px)">
+          <p style="margin:0;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#A59C8C">Images and drawings</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(14px,2.4vw,26px)">
+            <sc-for list="{{ tiles }}" as="t" hint-placeholder-count="6">
+              <figure style="margin:0;display:flex;flex-direction:column;gap:10px">
+                <span style="display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:6px;background:{{ t.bg }};aspect-ratio:4/3;padding:{{ t.pad }};box-sizing:border-box;border:{{ t.border }}">
+                  <img src="{{ t.src }}" alt="{{ t.cap }}" loading="lazy" style="max-width:100%;max-height:100%;width:{{ t.w }};height:{{ t.h }};object-fit:{{ t.fit }};display:block">
+                </span>
+                <figcaption style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(22,24,26,.6)">{{ t.cap }}</figcaption>
+              </figure>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <a data-screen-label="Next" href="{{ nextHref }}" style="position:relative;display:flex;align-items:center;min-height:40vh;overflow:hidden;background:#16181A;color:#fff;text-decoration:none">
+    <img src="{{ nextHero }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3">
+    <div style="position:relative;width:100%;max-width:1240px;margin:0 auto;padding:clamp(36px,6vh,72px) clamp(20px,6vw,90px);box-sizing:border-box">
+      <p style="margin:0 0 16px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.62)">Next project</p>
+      <p style="margin:0;display:flex;align-items:center;gap:.4em;font-weight:500;font-size:clamp(30px,4.6vw,72px);line-height:1;letter-spacing:-.03em">{{ nextName }}
+        <svg width="0.6em" height="0.6em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </p>
+    </div>
+  </a>
+
+  <dc-import name="SiteFooter" hint-size="100%,auto" style="display:block;width:100%"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;project&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;bellevue&quot;,&quot;rothruthi&quot;,&quot;seeblick&quot;,&quot;niederrohrdorf&quot;,&quot;buero&quot;],&quot;default&quot;:&quot;bellevue&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+class Component extends DCLogic {
+  getProject() {
+    const db = window.ZF_PROJECTS || { order: [], items: {} };
+    const q = new URLSearchParams(location.search);
+    const slug = q.get('p') || (this.props.project ?? 'bellevue');
+    return db.items[slug] || db.items[db.order[0]] || null;
+  }
+
+  componentDidMount() {
+    const p = this.getProject();
+    if (p) document.title = 'ZweiFach, ' + p.name;
+  }
+
+  renderVals() {
+    const p = this.getProject();
+    if (!p) return { name: 'Loading…', facts: [], steps: [], tiles: [] };
+    const db = window.ZF_PROJECTS;
+    const next = db.items[p.next] || p;
+    const facts = [
+      { k: 'Location', v: p.place },
+      { k: 'Programme', v: p.program },
+      { k: 'Status', v: p.status },
+      { k: 'Year', v: p.year }
+    ].concat((p.figures || []).map((f) => ({ k: f.label, v: f.value })));
+    const seen = {};
+    const uniq = facts.filter((f) => { const k = String(f.k).toLowerCase(); if (seen[k] || !f.v) return false; seen[k] = 1; return true; });
+    const steps = (p.chain || []).map((c) => ({ title: c.title, proof: c.proof }));
+    const imgs = (p.images || []).slice(0, 3).map((im) => ({ src: im.src, cap: im.cap, fit: 'cover', bg: '#F5F1E8', pad: '0px', border: '0', w: '100%', h: '100%' }));
+    const plans = (p.plans || []).slice(0, 3).map((pl) => ({ src: pl.src, cap: pl.label, fit: 'contain', bg: '#fff', pad: '16px', border: '1px solid rgba(22,24,26,.16)', w: 'auto', h: 'auto' }));
+    return {
+      name: p.name,
+      meta: 'Project · ' + p.place,
+      hero: p.hero,
+      tagline: p.tagline,
+      context: p.context,
+      facts: uniq.map((f, i) => ({ k: f.k, v: f.v, lastStyle: i === uniq.length - 1 ? 'border-bottom:1px solid rgba(22,24,26,.16)' : '' })),
+      steps: steps.map((s, i) => ({ title: s.title, proof: s.proof, lastStyle: i === steps.length - 1 ? 'border-bottom:1px solid rgba(22,24,26,.16)' : '' })),
+      tiles: imgs.concat(plans),
+      nextName: next.name, nextHero: next.hero, nextHref: 'Project C Sheet.dc.html?p=' + next.slug
+    };
+  }
+}
+</script>
+</body>
+</html>

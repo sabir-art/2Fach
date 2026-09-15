@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>window.__resources={"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"vendor/react.production.min.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"vendor/react-dom.production.min.js","https://unpkg.com/@babel/standalone@7.29.0/babel.min.js":"vendor/babel.min.js","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js":"vendor/gsap.min.js","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js":"vendor/ScrollTrigger.min.js","https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js":"vendor/lenis.min.js","https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js":"vendor/three.min.js","https://unpkg.com/leaflet@1.9.4/dist/leaflet.js":"vendor/leaflet.js","https://unpkg.com/leaflet@1.9.4/dist/leaflet.css":"vendor/leaflet.css"};</script>
+<script>window.__resources={"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"vendor/react.production.min.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"vendor/react-dom.production.min.js","https://unpkg.com/@babel/standalone@7.29.0/babel.min.js":"vendor/babel.min.js","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js":"vendor/gsap.min.js","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js":"vendor/ScrollTrigger.min.js","https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js":"vendor/lenis.min.js","https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js":"vendor/three.min.js","https://unpkg.com/lucide@0.363.0/dist/umd/lucide.min.js":"vendor/lucide.min.js","https://unpkg.com/leaflet@1.9.4/dist/leaflet.js":"vendor/leaflet.js","https://unpkg.com/leaflet@1.9.4/dist/leaflet.css":"vendor/leaflet.css"};</script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -13,64 +13,75 @@
   <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/colors.css">
   <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/typography.css">
   <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/motion.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/base.css">
   <style>
-    /* footer: infinite outlined "ZweiFach" marquee — verbatim from Home */
-    .zfoot__marquee{width:100%;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
-    .zfoot__marquee-track{display:flex;width:max-content;will-change:transform;animation:zfMarquee 32s linear infinite}
-    .zfoot__marquee span{display:block;padding-right:clamp(30px,5vw,84px);font-weight:500;font-size:clamp(3.4rem,11vw,9.5rem);line-height:1;letter-spacing:-.03em;white-space:nowrap;color:transparent;-webkit-text-stroke:1px rgba(244,240,231,.32)}
-    .zfoot__marquee:hover .zfoot__marquee-track{animation-play-state:paused}
-    @keyframes zfMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    @media (prefers-reduced-motion:reduce){.zfoot__marquee-track{animation:none}}
+    /* white canvas, slate-blue ink */
+    :root{
+      --bg:#FCFBF7;--panel:#F5F1E8;
+      --fg:#16181A;--muted:rgba(22,24,26,.66);--line:rgba(22,24,26,.16);
+      --on-media:#ffffff;--on-media-muted:rgba(255,255,255,.82);
+      --media-dark:#16181A;--ink:#16181A;--graphite:#211F1B;--bg-dark:#16181A;--bg-forest:#16181A;
+      --taupe:#A59C8C;--accent:#A59C8C;--accent-hover:#B8B0A2;--logo:#A59C8C;--accent-ink:#A59C8C;--brand-ink:#A59C8C;
+      --fill-hover:rgba(22,24,26,.11);--fill-rest:rgba(22,24,26,.05);--disabled-fg:rgba(22,24,26,.32);
+      --glass-fill:rgba(255,255,255,.14);--glass-fill-strong:rgba(255,255,255,.22);
+    }
+    .zfootwrap{max-width:var(--maxw,1200px);margin:0 auto;padding-inline:var(--pad-x)}
+    .zfoot{position:relative;background:var(--bg);color:var(--fg);overflow:hidden;padding:clamp(50px,9vh,100px) 0 30px;border-top:1px solid rgba(22,24,26,.12)}
+    .zfoot__top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+    .zfoot__brand{display:inline-flex;align-items:center;margin:0 0 clamp(22px,3.4vh,34px)}
+    .zfoot__brand img{height:clamp(26px,3vw,34px);width:auto;display:block}
+    .zfoot__lead{max-width:34ch;font-weight:500;font-size:clamp(1.5rem,2.6vw,2.4rem);line-height:1.12;letter-spacing:-.02em;margin:0}
+    .zfoot__cols{display:flex;gap:clamp(40px,6vw,96px);flex-wrap:wrap}
+    .zfoot__col{display:flex;flex-direction:column;gap:12px}
+    .zfoot__col a{color:var(--muted);text-decoration:none;font-size:14px;transition:color .35s}
+    .zfoot__col a:hover{color:var(--fg)}
+    .zfoot__base{margin-top:clamp(40px,7vh,80px) !important;padding-top:22px;border-top:1px solid rgba(22,24,26,.12);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+    .zfoot__h{font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+    .zfoot__base a{color:var(--muted);text-decoration:none}
+    .zfoot__base a:hover{color:var(--fg)}
   </style>
 </helmet>
-<footer data-screen-label="Footer" style="position:relative;z-index:25;background:var(--ink,#16181a);color:var(--on-media,#f4f0e7);overflow:hidden;padding:clamp(50px,9vh,100px) 0 30px;border-top:1px solid rgba(244,240,231,.12);font-family:var(--font)">
-  <div style="max-width:var(--maxw,1200px);margin:0 auto;padding-inline:var(--pad-x,clamp(20px,6vw,90px))">
-    <div style="display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap">
-      <p style="max-width:34ch;font-weight:500;font-size:clamp(1.5rem,2.6vw,2.4rem);line-height:1.12;letter-spacing:-.02em;margin:0">Building the site that proves the chain, from the idea to the last unit sold.</p>
-      <div style="display:flex;gap:clamp(40px,6vw,96px);flex-wrap:wrap">
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <span style="font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,240,231,.6)">Studio</span>
-          <a href="about.html" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">About</a>
-          <a href="architecture.html" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">Architecture</a>
-          <a href="commercialization.html" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">Commercialisation</a>
-          <a href="contact.html" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">Contact</a>
+
+<footer class="zfoot" id="zfoot" data-screen-label="Footer">
+  <div class="zfootwrap">
+    <div class="zfoot__top">
+      <div>
+        <a class="zfoot__brand" href="index.html" aria-label="2Fach, home"><img src="assets/brand/logo-2fach.png" alt="2Fach"></a>
+        <p class="zfoot__lead">Architecture and commercialisation in one hand, from the idea to the last unit sold.</p>
+      </div>
+      <div class="zfoot__cols">
+        <div class="zfoot__col">
+          <span class="zfoot__h">ZweiFach</span>
+          <a href="architecture.html">Architecture</a>
+          <a href="commercialization.html">Commercialisation</a>
+          <a href="team.html">Team</a>
+          <a href="contact.html">Contact</a>
         </div>
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <span style="font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,240,231,.6)">Work</span>
-          <a href="case-study.html?p=bellevue" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">Bellevue Wynental</a>
-          <a href="case-study.html?p=rothruthi" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">Rothrüthi</a>
-          <a href="case-study.html?p=seeblick" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">Seeblick Birrwil</a>
-          <a href="work.html" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s;display:inline-flex;align-items:center;gap:7px" style-hover="color:var(--on-media,#f4f0e7)">All work <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <div class="zfoot__col">
+          <span class="zfoot__h">Projects</span>
+          <a data-unpublished="Case Study.dc.html">Bellevue Wynental</a>
+          <a href="work.html">Seeblick &amp; Rothr&#252;thi</a>
+          <a href="work.html">All projects</a>
         </div>
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <span style="font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,240,231,.6)">Contact</span>
-          <a href="mailto:hello@zweifach.ch" style="color:rgba(244,240,231,.72);text-decoration:none;font-size:14px;transition:color .35s" style-hover="color:var(--on-media,#f4f0e7)">hello@zweifach.ch</a>
-          <span style="font-size:14px;color:rgba(244,240,231,.5)">Aargau, Switzerland</span>
+        <div class="zfoot__col">
+          <span class="zfoot__h">Contact</span>
+          <a href="mailto:hello@zweifach.ch">hello@zweifach.ch</a>
+          <a href="contact.html">Aargau, Switzerland</a>
         </div>
       </div>
     </div>
-  </div>
-  <div style="width:100%;border-top:1px solid rgba(244,240,231,.16);border-bottom:1px solid rgba(244,240,231,.16);padding-block:clamp(26px,3.6vw,50px);margin-top:clamp(40px,8vh,90px)">
-    <div style="max-width:var(--maxw,1200px);margin:0 auto;padding-inline:var(--pad-x,clamp(20px,6vw,90px))">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;margin:0 0 clamp(20px,2.8vw,36px)">
-        <span style="font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,240,231,.5)">Architecture, Commercialisation</span>
-        <span style="font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,240,231,.4)">Aargau, Switzerland</span>
-      </div>
-    </div>
-    <div class="zfoot__marquee" aria-hidden="true">
-      <div class="zfoot__marquee-track">
-        <span>ZweiFach</span><span>ZweiFach</span><span>ZweiFach</span><span>ZweiFach</span><span>ZweiFach</span><span>ZweiFach</span><span>ZweiFach</span><span>ZweiFach</span>
-      </div>
-    </div>
-  </div>
-  <div style="max-width:var(--maxw,1200px);margin:0 auto;padding-inline:var(--pad-x,clamp(20px,6vw,90px))">
-    <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:30px;font-size:12px;color:rgba(244,240,231,.5)">
-      <span>© 2026 ZweiFach, Architecture &amp; Commercialisation</span>
-      <span>The plan, then the place.</span>
+    <div class="zfoot__base">
+      <span>&#169; 2026 ZweiFach, Architecture &amp; Commercialisation</span>
+      <span><a href="privacy.html">Privacy</a> &#183; <a href="terms.html">Terms</a></span>
     </div>
   </div>
 </footer>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:600}}"></script>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:600}}">
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
 </body>
 </html>

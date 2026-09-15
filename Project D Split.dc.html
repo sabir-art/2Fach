@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>ZweiFach, Project</title>
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/motion.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/base.css">
+  <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/styles.css">
+  <script src="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/_ds_bundle.js"></script>
+  <script src="data/projects.js"></script>
+  <style>
+    :root{--bg:#FCFBF7;--panel:#F5F1E8;--fg:#16181A;--muted:rgba(22,24,26,.66);--line:rgba(22,24,26,.16);--taupe:#A59C8C;--accent:#A59C8C;--accent-hover:#B8B0A2}
+    ::-webkit-scrollbar{width:9px;height:9px;background:transparent}
+    ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:100px;border:2px solid transparent;background-clip:content-box}
+    html{scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
+    em,i,cite{font-style:normal !important}
+    body{margin:0;background:#FCFBF7;color:#16181A;font-family:var(--font);-webkit-font-smoothing:antialiased}
+    a{color:#16181A}a:hover{color:#A59C8C}
+    ::selection{background:#A59C8C;color:#FCFBF7}
+    @media (max-width:900px){.zd-hero{grid-template-columns:minmax(0,1fr) !important;min-height:0 !important}.zd-hero > div:first-child{padding-top:clamp(120px,18vh,180px) !important}.zd-heroimg{height:60vh !important}}
+  </style>
+</helmet>
+
+<div style="background:#FCFBF7">
+  <dc-import name="SiteHeader" current="Work" hint-size="100%,72px" style="display:block"></dc-import>
+
+  <section class="zd-hero" data-screen-label="Split hero" style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);min-height:100vh;align-items:stretch">
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:26px;padding:clamp(120px,16vh,170px) clamp(20px,4.5vw,64px) clamp(40px,7vh,80px) clamp(20px,6vw,90px);box-sizing:border-box">
+      <p style="margin:0;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#A59C8C">{{ meta }}</p>
+      <h1 style="margin:0;font-weight:500;font-size:clamp(38px,5vw,84px);line-height:1.02;letter-spacing:-.03em;text-wrap:balance">{{ name }}</h1>
+      <p style="margin:0;max-width:34ch;font-size:clamp(16px,1.4vw,20px);line-height:1.55;color:rgba(22,24,26,.66);text-wrap:pretty">{{ tagline }}</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:20px;margin-top:12px;padding-top:24px;border-top:1px solid rgba(22,24,26,.16)">
+        <sc-for list="{{ figures }}" as="f" hint-placeholder-count="3">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-weight:300;font-size:clamp(24px,2.2vw,36px);line-height:1;letter-spacing:-.02em">{{ f.value }}</span>
+            <span style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(22,24,26,.62)">{{ f.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div class="zd-heroimg" style="position:relative;overflow:hidden;background:#F5F1E8;min-height:52vh">
+      <img src="{{ hero }}" alt="{{ name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+    </div>
+  </section>
+
+  <section data-screen-label="Story" style="padding:clamp(60px,10vh,120px) clamp(20px,6vw,90px)">
+    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(0,.32fr) minmax(0,1fr);gap:clamp(24px,5vw,70px);align-items:start">
+      <p style="margin:0;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#A59C8C">The brief</p>
+      <p style="margin:0;max-width:48ch;font-size:clamp(19px,1.8vw,27px);line-height:1.52;text-wrap:pretty">{{ context }}</p>
+    </div>
+  </section>
+
+  <section data-screen-label="Two images" style="padding:0 clamp(20px,6vw,90px) clamp(60px,10vh,120px)">
+    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(16px,2.6vw,30px)">
+      <sc-for list="{{ shots }}" as="im" hint-placeholder-count="2">
+        <figure style="margin:0;display:flex;flex-direction:column;gap:12px">
+          <span style="display:block;overflow:hidden;border-radius:6px;background:#F5F1E8;aspect-ratio:4/3">
+            <img src="{{ im.src }}" alt="{{ im.cap }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          </span>
+          <figcaption style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(22,24,26,.6)">{{ im.cap }}</figcaption>
+        </figure>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-screen-label="Plans" style="padding:clamp(50px,9vh,110px) clamp(20px,6vw,90px);background:#F5F1E8">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:18px;padding-bottom:22px;border-bottom:1px solid rgba(22,24,26,.16)">
+        <p style="margin:0;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#A59C8C">Selected drawings</p>
+        <p style="margin:0;max-width:44ch;font-size:13.5px;line-height:1.5;color:rgba(22,24,26,.66)">{{ planNote }}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(16px,2.6vw,30px);margin-top:clamp(24px,4.5vh,50px)">
+        <sc-for list="{{ planShots }}" as="pl" hint-placeholder-count="3">
+          <figure style="margin:0;display:flex;flex-direction:column;gap:11px">
+            <span style="display:flex;align-items:center;justify-content:center;padding:16px;border-radius:6px;background:#fff;aspect-ratio:4/3;box-sizing:border-box">
+              <img src="{{ pl.src }}" alt="{{ pl.label }}" loading="lazy" style="max-width:100%;max-height:100%;object-fit:contain">
+            </span>
+            <figcaption style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(22,24,26,.6)">{{ pl.label }}</figcaption>
+          </figure>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <a data-screen-label="Next" href="{{ nextHref }}" style="position:relative;display:flex;align-items:center;min-height:44vh;overflow:hidden;background:#16181A;color:#fff;text-decoration:none">
+    <img src="{{ nextHero }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.32">
+    <div style="position:relative;width:100%;max-width:1200px;margin:0 auto;padding:clamp(38px,7vh,76px) clamp(20px,6vw,90px);box-sizing:border-box">
+      <p style="margin:0 0 16px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.62)">Next project</p>
+      <p style="margin:0;display:flex;align-items:center;gap:.4em;font-weight:500;font-size:clamp(32px,4.8vw,76px);line-height:1;letter-spacing:-.03em">{{ nextName }}
+        <svg width="0.6em" height="0.6em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </p>
+    </div>
+  </a>
+
+  <dc-import name="SiteFooter" hint-size="100%,auto" style="display:block;width:100%"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;project&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;bellevue&quot;,&quot;rothruthi&quot;,&quot;seeblick&quot;,&quot;niederrohrdorf&quot;,&quot;buero&quot;],&quot;default&quot;:&quot;bellevue&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+class Component extends DCLogic {
+  getProject() {
+    const db = window.ZF_PROJECTS || { order: [], items: {} };
+    const q = new URLSearchParams(location.search);
+    const slug = q.get('p') || (this.props.project ?? 'bellevue');
+    return db.items[slug] || db.items[db.order[0]] || null;
+  }
+
+  componentDidMount() {
+    const p = this.getProject();
+    if (p) document.title = 'ZweiFach, ' + p.name;
+  }
+
+  renderVals() {
+    const p = this.getProject();
+    if (!p) return { name: 'Loading…', figures: [], shots: [], planShots: [] };
+    const db = window.ZF_PROJECTS;
+    const next = db.items[p.next] || p;
+    return {
+      name: p.name,
+      meta: [p.program, p.place].filter(Boolean).join(' · '),
+      hero: p.hero,
+      tagline: p.tagline,
+      context: p.context,
+      figures: p.figures || [],
+      shots: (p.images || []).slice(1, 3),
+      planNote: 'One design, two sets: the sales plans buyers read, and the technical sheets for the permit and the build.',
+      planShots: (p.plans || []).slice(0, 3).map((pl) => ({ src: pl.src, label: pl.label })),
+      nextName: next.name, nextHero: next.hero, nextHref: 'Project D Split.dc.html?p=' + next.slug
+    };
+  }
+}
+</script>
+</body>
+</html>

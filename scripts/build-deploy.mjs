@@ -11,8 +11,11 @@
 import { cp, mkdir, readFile, writeFile, rm, readdir, stat } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const SRC = '/workspace/2fach';
+// Repository root, derived from this file's own location, so the build runs
+// wherever the project is checked out.
+const SRC = fileURLToPath(new URL('..', import.meta.url)).replace(/\/+$/, '');
 const OUT = join(SRC, 'deploy');
 
 // page source -> deployed filename
@@ -21,9 +24,7 @@ const PAGES = {
   'Our Work.dc.html': 'work.html',
   'Architecture.dc.html': 'architecture.html',
   'Commercialization.dc.html': 'commercialization.html',
-  'Case Study.dc.html': 'case-study.html',
-  'About.dc.html': 'about.html',
-  'About Editorial.dc.html': 'about-editorial.html',
+  'Team.dc.html': 'team.html',
   'Contact.dc.html': 'contact.html',
   'Privacy.dc.html': 'privacy.html',
   'Terms.dc.html': 'terms.html',
@@ -39,6 +40,15 @@ const ASSET_DIRS = ['brand', 'cursor', 'plans', 'projects', 'hero-mp4', '_lite']
 
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
+
+// Root .dc.html files that are neither a deployed page nor a component: design
+// work this build does not publish. Links to them are defused in rewrite() and
+// the list is printed at the end of the run, so nothing is dropped in silence.
+const rootEntries = await readdir(SRC, { withFileTypes: true });
+const deployable = new Set([...Object.keys(PAGES), ...COMPONENTS]);
+const unpublished = rootEntries
+  .filter((e) => e.isFile() && e.name.endsWith('.dc.html') && !deployable.has(e.name))
+  .map((e) => e.name);
 
 /**
  * Third-party runtime, vendored locally.
@@ -60,6 +70,7 @@ const VENDOR = [
   ['node_modules/lenis/dist/lenis.min.js', 'lenis.min.js'],
   ['node_modules/@babel/standalone/babel.min.js', 'babel.min.js'],
   ['node_modules/three/build/three.min.js', 'three.min.js'],
+  ['node_modules/lucide/dist/umd/lucide.min.js', 'lucide.min.js'],
   ['node_modules/leaflet/dist/leaflet.js', 'leaflet.js'],
   ['node_modules/leaflet/dist/leaflet.css', 'leaflet.css'],
 ];
@@ -78,6 +89,7 @@ const CDN_MAP = {
     'vendor/ScrollTrigger.min.js',
   'https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js': 'vendor/lenis.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js': 'vendor/three.min.js',
+  'https://unpkg.com/lucide@0.363.0/dist/umd/lucide.min.js': 'vendor/lucide.min.js',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js': 'vendor/leaflet.js',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css': 'vendor/leaflet.css',
 };
@@ -93,6 +105,16 @@ const rewrite = (html) => {
     out = out.split(`"${from}`).join(`"${to}`);
     out = out.split(`'${from}`).join(`'${to}`);
     out = out.split(`./${to}`).join(to); // tidy any ./ prefix left behind
+  }
+
+  // Links to a page we do not deploy would 404. Defuse them by name — in the
+  // markup, and in the scripts that assemble hrefs at runtime, which the Work
+  // page does ('Case Study.dc.html?p=' + slug). The card still renders, it
+  // just leads nowhere. Put the page back in PAGES and its links work again.
+  for (const name of unpublished) {
+    const esc = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    out = out.replace(new RegExp(`href="${esc}[^"]*"`, 'g'), (m) => `data-unpublished=${m.slice(5)}`);
+    out = out.replace(new RegExp(`'${esc}[^']*'`, 'g'), "'#'");
   }
 
   // point the plain CDN script tags at the local copies
@@ -136,8 +158,24 @@ for (const [from, name] of VENDOR_DIRS) {
 console.log(`vendor: ${VENDOR.length} libraries`);
 
 // ---- runtime + data + design system ----
-for (const f of RUNTIME) {
+// Every root-level script and stylesheet ships, not just the four we knew
+// about: the pages reference these by name, so a new one arriving from the
+// design (image-slot.js, no-scroll-fx.js …) must not be silently dropped
+// because this list went stale. Shipping a spare file costs a few KB; missing
+// one breaks the page that needs it.
+const runtimeFiles = new Set([
+  ...RUNTIME,
+  ...rootEntries.filter((e) => e.isFile() && /\.(js|css)$/i.test(e.name)).map((e) => e.name),
+]);
+for (const f of runtimeFiles) {
   if (existsSync(join(SRC, f))) await cp(join(SRC, f), join(OUT, f));
+}
+console.log(`runtime: ${runtimeFiles.size} scripts and stylesheets`);
+
+if (unpublished.length) {
+  console.log(`\n!! ${unpublished.length} page(s) not deployed, links to them defused:`);
+  for (const f of unpublished) console.log(`     ${f}`);
+  console.log('   Add them to PAGES above to ship them.\n');
 }
 await cp(join(SRC, 'data'), join(OUT, 'data'), { recursive: true });
 await cp(join(SRC, '_ds'), join(OUT, '_ds'), { recursive: true });
