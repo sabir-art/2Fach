@@ -25,8 +25,7 @@ const PAGES = {
   'Architecture.dc.html': 'architecture.html',
   'Commercialization.dc.html': 'commercialization.html',
   'Case Study.dc.html': 'case-study.html',
-  'About.dc.html': 'about.html',
-  'About Editorial.dc.html': 'about-editorial.html',
+  'Team.dc.html': 'team.html',
   'Contact.dc.html': 'contact.html',
   'Privacy.dc.html': 'privacy.html',
   'Terms.dc.html': 'terms.html',
@@ -63,6 +62,7 @@ const VENDOR = [
   ['node_modules/lenis/dist/lenis.min.js', 'lenis.min.js'],
   ['node_modules/@babel/standalone/babel.min.js', 'babel.min.js'],
   ['node_modules/three/build/three.min.js', 'three.min.js'],
+  ['node_modules/lucide/dist/umd/lucide.min.js', 'lucide.min.js'],
   ['node_modules/leaflet/dist/leaflet.js', 'leaflet.js'],
   ['node_modules/leaflet/dist/leaflet.css', 'leaflet.css'],
 ];
@@ -81,6 +81,7 @@ const CDN_MAP = {
     'vendor/ScrollTrigger.min.js',
   'https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js': 'vendor/lenis.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js': 'vendor/three.min.js',
+  'https://unpkg.com/lucide@0.363.0/dist/umd/lucide.min.js': 'vendor/lucide.min.js',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js': 'vendor/leaflet.js',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css': 'vendor/leaflet.css',
 };

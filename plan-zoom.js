@@ -37,10 +37,10 @@
     ".pz-bar.pz-tr{top:clamp(12px,1.4vw,20px);bottom:auto}",
     ".pz-bar.pz-cr{top:50%;bottom:auto;transform:translateY(-50%)}",
     ".pz-btn{width:28px;height:28px;flex:none;display:flex;align-items:center;justify-content:center;background:none;border:1px solid rgba(244,240,231,.28);color:inherit;cursor:pointer;font-size:16px;line-height:1;padding:0;border-radius:0;transition:background .3s,border-color .3s}",
-    ".pz-btn:hover{background:rgba(244,240,231,.16);border-color:var(--accent,#98855c)}",
+    ".pz-btn:hover{background:rgba(244,240,231,.16);border-color:var(--accent,#A59C8C)}",
     ".pz-range{-webkit-appearance:none;appearance:none;width:clamp(70px,9vw,120px);height:2px;background:rgba(244,240,231,.3);outline:none;cursor:pointer;margin:0}",
-    ".pz-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:12px;height:12px;border-radius:50%;background:var(--accent,#98855c);cursor:grab}",
-    ".pz-range::-moz-range-thumb{width:12px;height:12px;border:0;border-radius:50%;background:var(--accent,#98855c);cursor:grab}",
+    ".pz-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:12px;height:12px;border-radius:50%;background:var(--accent,#A59C8C);cursor:grab}",
+    ".pz-range::-moz-range-thumb{width:12px;height:12px;border:0;border-radius:50%;background:var(--accent,#A59C8C);cursor:grab}",
     ".pz-reset{background:none;border:0;color:rgba(244,240,231,.62);cursor:pointer;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;font-family:inherit;padding:0 2px;transition:color .3s}",
     ".pz-reset:hover{color:#f4f0e7}",
     ".pz-lbl{font-size:.58rem;letter-spacing:.1em;font-variant-numeric:tabular-nums;min-width:34px;text-align:center;color:rgba(244,240,231,.85)}",
@@ -76,6 +76,9 @@
     var pos = vp.getAttribute("data-plan-bar") || "";
     if (pos === "tr") bar.classList.add("pz-tr");
     else if (pos === "cr") bar.classList.add("pz-cr");
+    // data-plan-nobar: wheel / drag only, no visible control bar
+    var noBar = vp.hasAttribute("data-plan-nobar");
+    if (noBar) bar.style.display = "none";
     vp.appendChild(bar);
     var slider = bar.querySelector(".pz-range");
     var lbl = bar.querySelector(".pz-lbl");
@@ -125,7 +128,14 @@
     bar.addEventListener("wheel", function (e) { e.stopPropagation(); }, { passive: true });
 
     // double-click: zoom in toward the point, or reset if already zoomed
+    // a hidden panel (a collapsed process card) must not swallow the page scroll
+    function live() {
+      if (!vp.clientWidth || !vp.clientHeight) return false;
+      return parseFloat(global.getComputedStyle(vp).opacity || "1") > 0.5;
+    }
+
     vp.addEventListener("dblclick", function (e) {
+      if (!live()) return;
       e.preventDefault();
       var o = offset(e);
       if (st.s > MIN + 0.2) zoomTo(MIN, 0, 0); else zoomTo(2.4, o.x, o.y);
@@ -135,8 +145,12 @@
     // the page can still scroll (scroll up on the plan zooms in; once fully zoomed
     // out, further scroll-down releases back to the page).
     vp.addEventListener("wheel", function (e) {
+      if (!live()) return;
       var target = clamp(st.s * Math.exp(-e.deltaY * 0.0016), MIN, MAX);
-      if (Math.abs(target - st.s) < 0.0005) return;   // at a bound → let Lenis/page scroll
+      var locked = vp.hasAttribute("data-plan-lock");
+      // locked viewports keep the wheel to themselves, so the page never scrolls
+      // out from under the plan while the cursor is on it
+      if (!locked && Math.abs(target - st.s) < 0.0005) return;   // at a bound → let Lenis/page scroll
       e.preventDefault();
       e.stopPropagation();                              // keep Lenis (window listener) from scrolling the page
       var o = offset(e);
@@ -150,6 +164,7 @@
     var drag = null;
     vp.addEventListener("pointerdown", function (e) {
       if (e.target.closest(".pz-bar")) return;
+      if (!live()) return;
       if (st.s <= MIN + 0.001) return;         // nothing to pan at fit
       drag = { x: e.clientX, y: e.clientY, ox: st.x, oy: st.y };
       vp.classList.add("pz-grabbing");

@@ -3,8 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>window.__resources={"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"vendor/react.production.min.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"vendor/react-dom.production.min.js","https://unpkg.com/@babel/standalone@7.29.0/babel.min.js":"vendor/babel.min.js","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js":"vendor/gsap.min.js","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js":"vendor/ScrollTrigger.min.js","https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js":"vendor/lenis.min.js","https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js":"vendor/three.min.js","https://unpkg.com/lucide@0.363.0/dist/umd/lucide.min.js":"vendor/lucide.min.js","https://unpkg.com/leaflet@1.9.4/dist/leaflet.js":"vendor/leaflet.js","https://unpkg.com/leaflet@1.9.4/dist/leaflet.css":"vendor/leaflet.css"};</script>
+<meta name="ext-resource-dependency" content="assets/brand/logo-2fach.png" data-resource-id="brandLogo" />
 <script src="./support.js"></script>
+<template id="__bundler_thumbnail" data-bg-color="#FCFBF7">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#FCFBF7"/>
+    <rect x="150" y="470" width="900" height="250" rx="40" fill="#A59C8C"/>
+    <rect x="330" y="300" width="180" height="180" fill="#16181A"/>
+    <rect x="560" y="230" width="230" height="250" fill="#16181A"/>
+    <rect x="150" y="150" width="430" height="34" rx="17" fill="#16181A"/>
+    <rect x="150" y="212" width="300" height="34" rx="17" fill="#A59C8C"/>
+  </svg>
+</template>
+
 </head>
 <body>
 <x-dc>
@@ -21,6 +32,18 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@400..800&amp;display=swap">
   <script src="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/_ds_bundle.js"></script>
   <script src="./image-slot.js"></script>
+  <script>
+  (function(){
+    function fix(){
+      var u = (window.__resources||{}).brandLogo; if(!u) return;
+      document.querySelectorAll('img[src$="logo-2fach.png"]').forEach(function(i){ i.src = u; });
+    }
+    fix();
+    new MutationObserver(fix).observe(document.documentElement,{childList:true,subtree:true});
+    document.addEventListener('DOMContentLoaded', fix);
+    setTimeout(fix, 800); setTimeout(fix, 2500);
+  })();
+  </script>
   <style>
     /* white canvas, slate-blue ink */
     :root{
@@ -227,7 +250,7 @@
   <section class="hero" data-screen-label="Hero">
     <div class="hero__top">
       <p data-r="">Planning, building permit, execution drawings and the sale itself, handled by one team, from the first study to the last apartment sold.</p>
-      <a class="hero__cta" href="contact.html" data-r="">Talk about your project</a>
+      <a class="hero__cta" href="Contact.dc.html" data-r="">Talk about your project</a>
     </div>
     <h1 class="hero__word" id="heroWord">Architecture</h1>
     <figure class="hero__shot" id="heroShot" role="img" aria-label="A ZweiFach development on the slope, Seeblick" style="margin-top:-17vw"><span class="sh-top" aria-hidden="true"></span><span class="sh-bot" aria-hidden="true"></span></figure>
@@ -277,7 +300,7 @@
             <li>Risk &amp; yield analysis</li>
             <li>Permit-ready plans &amp; sections</li>
           </ul>
-          <a class="svc__btn svc__btn--arch" href="architecture.html">Open architecture <em><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"></path></svg></em></a>
+          <a class="svc__btn svc__btn--arch" href="Architecture.dc.html">Open architecture <em><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"></path></svg></em></a>
         </div>
         <div class="svc" data-r="">
           <p class="svc__lbl" style="color:var(--clay)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path><circle cx="16.5" cy="7.5" r=".6" fill="currentColor"></circle></svg>Commercialisation &amp; financing</p>
@@ -288,7 +311,7 @@
             <li>Off-plan pre-sale</li>
             <li>Financing &amp; sell-through</li>
           </ul>
-          <a class="svc__btn svc__btn--comm" href="commercialization.html">Open commercialisation <em><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"></path></svg></em></a>
+          <a class="svc__btn svc__btn--comm" href="Commercialization.dc.html">Open commercialisation <em><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"></path></svg></em></a>
         </div>
         </div>
       </div>
@@ -326,8 +349,8 @@
       <h2 data-r="">A plot. An idea.<br><em>Let's build it, and sell it.</em></h2>
       <p data-r="">From feasibility to the final unit. Bring the parcel, we bring both ends of the chain.</p>
       <div class="cta__actions" data-r="">
-        <a class="cta__btn" href="contact.html">Talk about your project <em><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"></path></svg></em></a>
-        <a class="cta__ghost" href="architecture.html">See the work</a>
+        <a class="cta__btn" href="Contact.dc.html">Talk about your project <em><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"></path></svg></em></a>
+        <a class="cta__ghost" href="Architecture.dc.html">See the work</a>
       </div>
     </div>
   </section>

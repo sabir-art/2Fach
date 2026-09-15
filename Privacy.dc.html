@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet>
+  <script src="./no-scroll-fx.js"></script>
   <title>ZweiFach, Privacy Policy</title>
   <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/fonts.css">
   <link rel="stylesheet" href="_ds/zweifach-design-system-7e7adabc-d98e-4dde-8837-3bfdfefe7304/tokens/colors.css">
@@ -34,20 +35,30 @@
   })();
   </script>
   <style>
+    /* white canvas, slate-blue ink */
+    :root{
+      --bg:#FCFBF7;--panel:#F5F1E8;
+      --fg:#16181A;--muted:rgba(22,24,26,.66);--line:rgba(22,24,26,.16);
+      --on-media:#ffffff;--on-media-muted:rgba(255,255,255,.82);
+      --media-dark:#16181A;--ink:#16181A;--graphite:#211F1B;--bg-dark:#16181A;--bg-forest:#16181A;
+      --taupe:#A59C8C;--accent:#A59C8C;--accent-hover:#B8B0A2;--logo:#A59C8C;--accent-ink:#A59C8C;--brand-ink:#A59C8C;
+      --fill-hover:rgba(22,24,26,.11);--fill-rest:rgba(22,24,26,.05);--disabled-fg:rgba(22,24,26,.32);
+      --glass-fill:rgba(255,255,255,.14);--glass-fill-strong:rgba(255,255,255,.22);
+    }
     ::-webkit-scrollbar{width:9px;height:9px;background:transparent}
     ::-webkit-scrollbar-track{background:transparent;border:0;box-shadow:none}
     ::-webkit-scrollbar-track-piece{background:transparent}
     ::-webkit-scrollbar-button{display:none;width:0;height:0}
     ::-webkit-scrollbar-corner{background:transparent}
     ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:100px;border:2px solid transparent;background-clip:content-box}
-    ::-webkit-scrollbar-thumb:hover{background:var(--accent-hover,#a8946a)}
+    ::-webkit-scrollbar-thumb:hover{background:var(--accent-hover,#B8B0A2)}
     html{scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
     em,i,cite{font-style:normal !important}
     body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);-webkit-font-smoothing:antialiased}
     ::selection{background:var(--accent);color:var(--bg)}
     .wrap{max-width:820px;margin:0 auto;padding-inline:var(--pad-x)}
     /* header + full-screen menu now come from the shared <SiteHeader> component */
-    /* Lenis drives the smoothing; native smooth scrolling would fight it */
+    html{scroll-behavior:smooth}
     .doc-layout{display:grid;grid-template-columns:210px minmax(0,1fr);gap:clamp(30px,6vw,90px);padding:clamp(130px,20vh,210px) 0 clamp(80px,14vh,140px);align-items:start}
     .doc-toc{position:sticky;top:96px;font-size:13px}
     .doc-toc__k{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe);margin:0 0 1em}
@@ -58,7 +69,7 @@
     .doc{padding:0}
     .doc h2{scroll-margin-top:96px}
     @media (max-width:820px){.doc-layout{grid-template-columns:1fr}.doc-toc{position:static;margin-bottom:8px}.doc-toc nav{flex-direction:row;flex-wrap:wrap;gap:.4em 1em;border-left:0;padding-left:0}.doc-toc a{margin-left:0;padding-left:0;border-left:0}}
-    .doc__eyebrow{font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 1.3em}
+    .doc__eyebrow{font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-ink);margin:0 0 1.3em}
     .doc__title{margin:0 0 .4em;font-weight:500;font-size:clamp(2.4rem,6vw,4.4rem);line-height:1.02;letter-spacing:-.03em}
     .doc__meta{color:var(--muted);font-size:14px;margin:0 0 clamp(34px,6vh,60px);padding-bottom:26px;border-bottom:1px solid var(--line)}
     .doc h2{font-weight:500;font-size:1.35rem;letter-spacing:-.01em;margin:clamp(34px,5vh,50px) 0 .7em}
